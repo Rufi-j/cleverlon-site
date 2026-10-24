@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom software | Cleverlon</title>
+<meta name="description" content="Custom internal software for growing businesses. Dashboards, customer portals, internal tools and full systems, designed data model first by engineers who have run production databases.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+<style>
+  .head h1{margin-top:40px;max-width:15ch}
+  .head h1 em{font-style:normal;color:var(--accent)}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+
+  .band{padding:76px 0 0}
+  .band h2{max-width:19ch}
+  .band .lede{margin-top:14px}
+
+  .builds{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
+  @media(max-width:760px){.builds{grid-template-columns:1fr}}
+  .builds div{background:var(--surface-2);border-radius:var(--radius);padding:26px 24px}
+  .builds h3{margin-bottom:8px}
+  .builds p{font-size:14.5px;color:var(--ink-mid)}
+
+  .steps{counter-reset:s;margin-top:34px;border-top:1px solid var(--border)}
+  .step{counter-increment:s;position:relative;padding:24px 0 24px 56px;
+    border-bottom:1px solid var(--border)}
+  .step::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:27px;
+    font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.06em}
+  .step h3{margin-bottom:6px}
+  .step p{font-size:15px;color:var(--ink-mid)}
+
+  .stack{background:var(--surface-2);border-radius:var(--radius);padding:30px 32px;margin-top:40px}
+  .stack h3{margin-bottom:12px}
+  .stack p{font-size:14.5px;color:var(--ink-mid)}
+  .stack .t{font-size:13.5px;color:var(--ink-soft);margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+
+  .case{background:var(--ink);color:#fff;border-radius:var(--radius);padding:44px 40px;margin-top:76px}
+  @media(max-width:640px){.case{padding:32px 24px}}
+  .case .eyebrow{color:var(--accent-mid)}
+  .case h2{margin-bottom:14px;max-width:22ch}
+  .case p{color:rgba(255,255,255,.62);font-size:16px;max-width:64ch}
+  .case ul{list-style:none;margin:26px 0 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px}
+  @media(max-width:640px){.case ul{grid-template-columns:1fr}}
+  .case li{font-size:14.5px;color:rgba(255,255,255,.72);padding-left:18px;position:relative}
+  .case li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--accent-mid)}
+  .case .row{display:flex;gap:12px;flex-wrap:wrap}
+  .case a.btn{background:#fff;color:var(--ink)}
+  .case a.btn:hover{background:#E9ECF5}
+  .case a.btn.line{background:none;color:#fff;border:1px solid rgba(255,255,255,.25)}
+  .case a.btn.line:hover{background:rgba(255,255,255,.07)}
+
+  .closer{margin-top:76px;text-align:center}
+  .closer h2{max-width:20ch;margin:0 auto 16px}
+  .closer p{color:var(--ink-mid);max-width:56ch;margin:0 auto 26px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <a class="mark" href="/">CLEVERLON</a>
+    <nav class="topnav">
+      <a href="/automation">Automation</a>
+      <a href="/software">Software</a>
+      <a href="/campaigns">Campaigns</a>
+      <a href="/crm">Estate CRM</a>
+      <a href="/audit">Free audit</a>
+    </nav>
+  </div>
+
+  <header class="head">
+    <div class="eyebrow">Custom software</div>
+    <h1>When there is no tool for it, <em>we build the tool.</em></h1>
+    <p class="lede">Automation moves data between systems that already exist. Sometimes the system you need does not exist yet. That is a build, and it is work we take on directly.</p>
+    <div class="cta-row">
+      <a class="btn" href="#how">How we work</a>
+      <a class="btn ghost" href="/audit">Take the free audit</a>
+    </div>
+  </header>
+
+  <section class="band">
+    <h2>What we build</h2>
+    <p class="lede">Four shapes cover most of what businesses ask us for.</p>
+    <div class="builds">
+      <div>
+        <h3>Operational dashboards</h3>
+        <p>The numbers your team checks every morning, on one screen, pulled from the systems they already work in. No more exporting three spreadsheets to answer one question.</p>
+      </div>
+      <div>
+        <h3>Customer portals</h3>
+        <p>Somewhere your clients can see their own records, balances, schedules and documents without emailing your staff to ask for them.</p>
+      </div>
+      <div>
+        <h3>Internal tools</h3>
+        <p>The approval flow, the intake form, the allocation screen. Small software shaped around how your business actually runs, rather than how a product decided it should.</p>
+      </div>
+      <div>
+        <h3>Full systems</h3>
+        <p>Schema, roles, permissions, workflows and interface. Our Estate CRM began exactly here, as one firm's real problem with money they could not track.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <h2>How we work</h2>
+    <p class="lede">Four steps, and you see something you can click before the invoice gets large.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Scoping call</h3>
+        <p>We walk through the process as it runs today, including the spreadsheet workarounds and the parts nobody likes admitting to. Most of the real requirements are hiding in those.</p>
+      </div>
+      <div class="step">
+        <h3>Data model and a fixed quote</h3>
+        <p>We design the schema first, write down what the system will and will not do, and quote a fixed price against that. The data model is what decides whether the thing still works in month four.</p>
+      </div>
+      <div class="step">
+        <h3>Something you can click, early</h3>
+        <p>You get a working version with your own data in it well before the end, so corrections happen while they are still cheap. Feedback on a screen beats feedback on a document.</p>
+      </div>
+      <div class="step">
+        <h3>Live, then maintained</h3>
+        <p>We deploy it, train whoever uses it daily, and stay on for changes. Software that nobody maintains quietly stops being used.</p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <h3>What we build it with</h3>
+      <p>Next.js and React on the front, PostgreSQL and Supabase behind it. Boring, well documented tools that another engineer can pick up if you ever need them to. We come from database and cloud engineering, so the parts you cannot see get the same attention as the parts you can.</p>
+      <p class="t">Projects are quoted after a scoping call, since a dashboard and a full system are not the same job. The call costs nothing.</p>
+    </div>
+  </section>
+
+  <section class="case">
+    <div class="eyebrow">A system we built</div>
+    <h2>Estate CRM, built for a firm selling land on installments</h2>
+    <p>A land company was tracking hundreds of installment plans across spreadsheets and WhatsApp messages. Nobody could answer who owed money this month without an afternoon of adding up. We built the system that answers it in one screen, and it is now running with a live pilot client.</p>
+    <ul>
+      <li>Estates, plots and allocations in one place</li>
+      <li>Customers with their own payment schedules</li>
+      <li>Receipts issued against each payment</li>
+      <li>Overdue installments flagged automatically</li>
+      <li>Full audit trail of who changed what</li>
+      <li>Works on the phone the sales team already carries</li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="/crm">See the Estate CRM &rarr;</a>
+      <a class="btn line" id="demoLink" href="/crm">Watch the walkthrough</a>
+    </div>
+  </section>
+
+  <section class="closer">
+    <h2>Not sure whether you need software or a workflow?</h2>
+    <p>That is usually the first real question, and it is worth getting right before anyone quotes you. The free audit takes about four minutes and tells you which of the two your bottleneck actually is.</p>
+    <a class="btn wide" href="/audit">Take the free audit &rarr;</a>
+  </section>
+
+  <footer class="foot">
+    <b>CLEVERLON</b><br>
+    Automation systems and software for growing businesses. Lagos, Nigeria. Working with clients worldwide.<br>
+    <a href="/automation">Automation</a> &nbsp;·&nbsp;
+    <a href="/software">Software</a> &nbsp;·&nbsp;
+    <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
+    <a href="/crm">Estate CRM</a> &nbsp;·&nbsp;
+    <a href="/tracker">Free tracker</a> &nbsp;·&nbsp;
+    <a href="/audit">Free audit</a> &nbsp;·&nbsp;
+    cleverlon.com
+  </footer>
+</div>
+
+<script>
+/* Set this to the CRM demo video once it is recorded.
+   Until then the button just goes to the CRM page. */
+const DEMO_URL = "";
+if (DEMO_URL) {
+  const d = document.getElementById("demoLink");
+  d.href = DEMO_URL; d.target = "_blank"; d.rel = "noopener";
+}
+</script>
+
+</body>
+</html>

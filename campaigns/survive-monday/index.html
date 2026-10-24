@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Survive Monday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: one game board. Header with clock and tallies, a wall of task cards, overlays for start, round switch and results. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --alarm:#1246E6; --danger:#A32020; --bot:#0F6E56; --botsoft:#E6F5EF; --warn:#8A5A00;
+  --display:"DM Serif Display",Georgia,serif;
+  --body:"Sora",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:16px}
+.brand{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0;text-wrap:balance}
+.hud{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.clock{font-family:var(--mono);font-weight:700;font-size:28px;padding:8px 16px;border-radius:10px;background:var(--fg);color:var(--bg);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px}
+.clock small{font-size:11px;font-weight:500;letter-spacing:.1em;opacity:.7}
+.tally{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.pill{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;display:flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.pill b{font-family:var(--mono)}
+.pill.bad b{color:var(--danger)} .pill.good b{color:var(--bot)}
+.mode{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px dashed var(--line);color:var(--muted);align-self:center}
+.mode.on{border-style:solid;border-color:var(--bot);color:var(--bot)}
+.board{position:relative;min-height:440px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;align-content:start}
+.card{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 12px 16px;background:var(--bg);display:flex;flex-direction:column;gap:6px;overflow:hidden;animation:pop .25s ease-out;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.card:focus-visible{outline:3px solid var(--alarm);outline-offset:2px}
+.card .kind{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.card .what{font-weight:600;font-size:15px;line-height:1.3}
+.card .who{font-size:13px;color:var(--muted)}
+.card .act{margin-top:4px;font-size:13px;font-weight:600;color:var(--alarm)}
+.dots{display:flex;gap:4px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--alarm)}
+.dots i.done{background:var(--line)}
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--alarm);transform-origin:left}
+.card.urgent{border-color:var(--danger)} .card.urgent .bar{background:var(--danger)}
+.card.botted{background:var(--botsoft);border-color:var(--bot);cursor:default}
+.card.botted .act{color:var(--bot)} .card.botted .bar{background:var(--bot)}
+.card.gone{animation:out .35s ease-in forwards}
+.card.failed{animation:fail .45s ease-in forwards}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+@keyframes out{to{transform:scale(.9);opacity:0}}
+@keyframes fail{30%{transform:translateX(-6px)}60%{transform:translateX(6px)}to{transform:translateY(12px);opacity:0}}
+.overlay{position:absolute;inset:0;border-radius:16px;background:color-mix(in srgb,var(--surface) 94%,transparent);display:flex;align-items:center;justify-content:center;padding:20px;z-index:5}
+.panel{max-width:560px;display:flex;flex-direction:column;gap:14px}
+.panel h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,4vw,36px);line-height:1.1;margin:0;text-wrap:balance}
+.panel p{margin:0;color:var(--muted)}
+.btn{font:600 16px var(--body);border:0;border-radius:10px;padding:13px 20px;background:var(--alarm);color:#fff;cursor:pointer;align-self:flex-start}
+.btn.bot{background:var(--bot)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.rules{display:grid;gap:6px;margin:0;padding-left:20px;color:var(--fg)}
+.compare{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:14px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.you{color:var(--danger);font-family:var(--mono);font-weight:700}
+td.cl{color:var(--bot);font-family:var(--mono);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.foot{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card,.card.gone,.card.failed{animation:none}}
+</style>
+
+<div class="wrap">
+  <div class="brand"><a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · a 45-second game</div>
+  <h1>Survive Monday</h1>
+  <div class="hud">
+    <div class="clock"><small>TIME</small><span id="clock">9:00</span></div>
+    <div class="tally" id="tally"></div>
+    <div class="mode" id="mode">Automation off</div>
+  </div>
+  <div class="board" id="board">
+    <div class="overlay" id="ov">
+      <div class="panel">
+        <h2>It's 9:00 on Monday. Your phone is about to explode.</h2>
+        <p>You run a growing business. For the next 45 seconds, enquiries, invoices, applicants and complaints will pour in. Tap each card to deal with it before its timer runs out.</p>
+        <ul class="rules">
+          <li>Some jobs need more than one tap. The dots show how many.</li>
+          <li>Red cards are about to expire.</li>
+          <li>Anything you miss is a lost lead, an unpaid invoice or an unhappy client.</li>
+        </ul>
+        <button class="btn" id="start">Start my Monday</button>
+      </div>
+    </div>
+  </div>
+  <div class="foot">A demo by Cleverlon. Round two shows the same morning with AI automations switched on.</div>
+</div>
+
+<script>
+const TYPES={
+  lead:{kind:"WhatsApp enquiry",what:["Is the 3-bedroom still available?","How much for the starter package?","Can I book a viewing this week?","Do you deliver to my area?"],act:"Reply",taps:2,ttl:6.5,bot:"Lead Bot replied and qualified",loss:"Leads lost"},
+  invoice:{kind:"Invoice overdue",what:["Invoice #1042 is 14 days late","Client asked for a payment link","Invoice #1051 not sent yet"],act:"Chase payment",taps:1,ttl:8,bot:"Billing Bot sent reminder and link",loss:"Invoices unpaid"},
+  applicant:{kind:"Job applicant",what:["New CV for Sales Executive","Applicant waiting 3 days","Shortlist due today"],act:"Screen CV",taps:3,ttl:10,bot:"HR Bot screened and scored",loss:"Candidates lost"},
+  support:{kind:"Unhappy customer",what:["Where is my order?","Nobody answered my call","I want a refund"],act:"Calm them down",taps:2,ttl:6,bot:"Support Agent resolved it",loss:"Clients upset"},
+  post:{kind:"Content due",what:["Weekly LinkedIn post","Promo post for Friday","Client success story"],act:"Write post",taps:3,ttl:11,bot:"Content Bot drafted and scheduled",loss:"Posts missed"}
+};
+const NAMES=["Adaeze","Tunde","Grace","Musa","Chioma","Kemi","Daniel","Fatima","Emeka","Sarah","Ibrahim","Ngozi","James","Aisha"];
+const ROUND=45;
+const board=document.getElementById("board"),ov=document.getElementById("ov"),clockEl=document.getElementById("clock"),tallyEl=document.getElementById("tally"),modeEl=document.getElementById("mode");
+let script=[],tasks=[],stats,results=[],auto=false,t0=0,raf=0,nextIdx=0,uid=0;
+
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
+function buildScript(){
+  const r=rng(20261012),keys=Object.keys(TYPES);let t=0.8,out=[];
+  while(t<ROUND-3){
+    const k=keys[Math.floor(r()*keys.length)];const T=TYPES[k];
+    out.push({at:t,type:k,what:T.what[Math.floor(r()*T.what.length)],who:NAMES[Math.floor(r()*NAMES.length)]});
+    const gap=1.7-(t/ROUND)*1.15; t+=gap*(0.7+r()*0.6);
+  }
+  return out;
+}
+function freshStats(){const s={handled:0};Object.keys(TYPES).forEach(k=>s[k]=0);return s}
+function renderTally(){
+  const lost=Object.keys(TYPES).reduce((a,k)=>a+stats[k],0);
+  tallyEl.innerHTML=`<span class="pill good">Handled <b>${stats.handled}</b></span><span class="pill bad">Dropped <b>${lost}</b></span>`;
+}
+function fmtClock(el){const mins=Math.floor(el/ROUND*180);const h=9+Math.floor(mins/60),m=mins%60;return `${h}:${String(m).padStart(2,"0")}`}
+
+function spawn(s){
+  const T=TYPES[s.type],id=++uid;
+  const el=document.createElement(auto?"div":"button");
+  el.className="card";el.type="button";
+  el.innerHTML=`<div class="kind"><span>${T.kind}</span><span class="dots">${"<i></i>".repeat(T.taps)}</span></div><div class="what">${s.what}</div><div class="who">From ${s.who}</div><div class="act">${auto?"Bot on it…":T.act}</div><div class="bar"></div>`;
+  board.appendChild(el);
+  const task={id,el,type:s.type,born:performance.now(),ttl:T.ttl*1000,left:T.taps,done:false};
+  tasks.push(task);
+  if(auto){
+    const delay=500+Math.random()*700;
+    task.ttl=delay+200;
+    setTimeout(()=>{if(task.done)return;el.classList.add("botted");el.querySelector(".act").textContent=TYPES[s.type].bot+" ✓";el.querySelectorAll(".dots i").forEach(i=>i.classList.add("done"));finish(task,true,900)},delay);
+  }else{
+    el.addEventListener("click",()=>{
+      if(task.done)return;task.left--;
+      const dots=el.querySelectorAll(".dots i");dots[T.taps-task.left-1].classList.add("done");
+      if(task.left<=0){el.querySelector(".act").textContent="Done ✓";finish(task,true,0)}
+    });
+  }
+}
+function finish(task,ok,wait){
+  task.done=true;
+  if(ok)stats.handled++;else stats[task.type]++;
+  renderTally();
+  setTimeout(()=>{task.el.classList.add(ok?"gone":"failed");setTimeout(()=>task.el.remove(),460)},wait);
+}
+function tick(now){
+  const el=(now-t0)/1000;
+  clockEl.textContent=fmtClock(Math.min(el,ROUND));
+  while(nextIdx<script.length&&script[nextIdx].at<=el){spawn(script[nextIdx]);nextIdx++}
+  for(const t of tasks){
+    if(t.done)continue;
+    const frac=1-(now-t.born)/t.ttl;
+    const bar=t.el.querySelector(".bar");
+    if(!auto){bar.style.width=Math.max(0,frac*100)+"%";t.el.classList.toggle("urgent",frac<0.35)}
+    else bar.style.width=Math.max(0,(1-frac)*100)+"%";
+    if(frac<=0&&!auto)finish(t,false,0);
+  }
+  if(el>=ROUND){end();return}
+  raf=requestAnimationFrame(tick);
+}
+function begin(isAuto){
+  auto=isAuto;stats=freshStats();tasks=[];nextIdx=0;
+  board.querySelectorAll(".card").forEach(c=>c.remove());
+  ov.hidden=true;modeEl.textContent=auto?"Automation on":"Automation off";modeEl.classList.toggle("on",auto);
+  renderTally();t0=performance.now();raf=requestAnimationFrame(tick);
+}
+function end(){
+  cancelAnimationFrame(raf);
+  tasks.filter(t=>!t.done).forEach(t=>finish(t,!auto?false:true,0));
+  results.push(stats);
+  setTimeout(()=>auto?showFinal():showSwitch(),700);
+}
+function lostCount(s){return Object.keys(TYPES).reduce((a,k)=>a+s[k],0)}
+function showSwitch(){
+  const s=results[0],lost=lostCount(s);
+  const worst=Object.keys(TYPES).filter(k=>s[k]>0).sort((a,b)=>s[b]-s[a]).slice(0,3).map(k=>`${s[k]} ${TYPES[k].loss.toLowerCase()}`).join(", ");
+  ov.innerHTML=`<div class="panel"><h2>${lost===0?"You survived. Barely.":`You dropped ${lost} of ${s.handled+lost} jobs.`}</h2>
+  <p>${lost===0?"Now imagine doing that every morning, on top of the work you actually want to do.":`That's ${worst}. And this was only until noon.`}</p>
+  <p>Now replay the exact same morning with Cleverlon's automations switched on. Just sit back and watch.</p>
+  <button class="btn bot" id="go2">Replay with automation on</button></div>`;
+  ov.hidden=false;document.getElementById("go2").onclick=()=>begin(true);document.getElementById("go2").focus();
+}
+function showFinal(){
+  const a=results[0],b=results[1];
+  const rows=Object.keys(TYPES).map(k=>`<tr><td>${TYPES[k].loss}</td><td class="you">${a[k]}</td><td class="cl">${b[k]}</td></tr>`).join("");
+  ov.innerHTML=`<div class="panel"><h2>Same Monday. Very different outcome.</h2>
+  <div class="compare"><table><thead><tr><th>Morning result</th><th>You</th><th>With Cleverlon</th></tr></thead><tbody>
+  <tr><td>Jobs handled</td><td class="you">${a.handled}</td><td class="cl">${b.handled}</td></tr>${rows}</tbody></table></div>
+  <p>Every bot you just watched is a real system Cleverlon builds: WhatsApp agents, lead qualification, payment reminders, CV screening and content publishing.</p>
+  <div class="row"><a class="btn bot" href="/automation" style="text-decoration:none">Take the 3-minute automation audit</a><button class="btn ghost" id="again">Play again</button></div></div>`;
+  ov.hidden=false;
+  document.getElementById("again").onclick=()=>{results=[];begin(false)};
+}
+script=buildScript();
+document.getElementById("start").onclick=()=>begin(false);
+stats=freshStats();renderTally();
+</script>
+
+</body>
+</html>

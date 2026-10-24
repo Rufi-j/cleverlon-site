@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Beat the Bot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: a split arena. Left lane is the player's chat reply, right lane is the bot's. A stopwatch sits above both. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --you:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --bubble:#ECEEF5;
+  --display:"DM Serif Display",Georgia,serif;
+  --body:"Sora",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:16px}
+.brand{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0}
+.sub{margin:0;color:var(--muted);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.round{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.watch{font-family:var(--mono);font-weight:700;font-size:28px;padding:6px 16px;border-radius:10px;background:var(--fg);color:var(--bg);font-variant-numeric:tabular-nums}
+.incoming{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.msg{background:var(--bubble);border-radius:4px 14px 14px 14px;padding:12px 14px;max-width:560px;font-size:16px}
+.from{font-size:13px;color:var(--muted)}
+.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.lane{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lane.you{border-top:4px solid var(--you)} .lane.bot{border-top:4px solid var(--bot)}
+.lane h3{margin:0;font-family:var(--display);font-weight:400;font-size:20px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lane h3 span{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.lane.you h3 span{color:var(--you)} .lane.bot h3 span{color:var(--bot)}
+textarea{width:100%;min-height:130px;resize:vertical;font:15px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px}
+textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
+.botreply{min-height:130px;background:var(--botsoft);border-radius:10px;padding:10px 12px;white-space:pre-wrap}
+.typing{color:var(--muted);font-style:italic}
+.btn{font:600 16px var(--body);border:0;border-radius:10px;padding:12px 18px;background:var(--you);color:#fff;cursor:pointer;align-self:flex-start}
+.btn.bot{background:var(--bot)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.verdict h2{font-family:var(--display);font-weight:400;font-size:clamp(22px,3.5vw,30px);margin:0;line-height:1.15;text-wrap:balance}
+.verdict p{margin:0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.stat b{font-family:var(--mono);font-size:24px;font-variant-numeric:tabular-nums}
+.stat.y b{color:var(--you)} .stat.b b{color:var(--bot)}
+.stat small{color:var(--muted);font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.foot{font-size:13px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <div class="brand"><a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · reply race</div>
+  <h1>Beat the Bot</h1>
+  <p class="sub">A customer just messaged your business. Type the best reply you can, as fast as you can. Our AI agent answers the same message. Three rounds. Good luck.</p>
+
+  <div class="meta">
+    <span class="round" id="round">Round 1 of 3</span>
+    <span class="watch" id="watch">0.0s</span>
+  </div>
+
+  <div class="incoming">
+    <div class="label">New message on WhatsApp</div>
+    <div class="msg" id="msg"></div>
+    <div class="from" id="from"></div>
+  </div>
+
+  <div class="lanes">
+    <div class="lane you">
+      <h3>You <span id="youTime">–</span></h3>
+      <label class="label" for="reply">Your reply</label>
+      <textarea id="reply" placeholder="Click Start, then type your reply here…" disabled></textarea>
+      <div class="row">
+        <button class="btn" id="startBtn">Start round</button>
+        <button class="btn" id="sendBtn" hidden>Send reply</button>
+      </div>
+    </div>
+    <div class="lane bot">
+      <h3>Cleverlon agent <span id="botTime">–</span></h3>
+      <div class="label">Agent reply</div>
+      <div class="botreply" id="botReply"><span class="typing">Waiting for the customer's message…</span></div>
+    </div>
+  </div>
+
+  <div class="verdict" id="verdict" hidden></div>
+  <div class="foot">Demo with scripted agent replies. Real Cleverlon agents answer from your own prices, stock, calendar and FAQs.</div>
+</div>
+
+<script>
+const ROUNDS=[
+  {from:"Chioma, 8:47 AM",msg:"Hi, is the 2-bedroom flat in Lekki still available? What's the price and can I see it this weekend?",bot:"Hi Chioma! Yes, the 2-bedroom flat in Lekki Phase 1 is still available at ₦4.5m per year (plus ₦450k service charge).\n\nViewings this weekend:\n• Saturday 11:00 AM\n• Saturday 2:00 PM\n• Sunday 1:00 PM\n\nReply 1, 2 or 3 to book and I'll send directions and your agent's contact.",botTime:2.1},
+  {from:"Mark, 1:12 PM",msg:"I ordered on Tuesday and still haven't received anything. Order 4471. This is really frustrating.",bot:"I'm sorry about the wait, Mark. I've checked order #4471: it left our warehouse yesterday and is with the courier now, arriving tomorrow before 6 PM.\n\nTracking: TRK-88213\n\nAs an apology, I've added free delivery to your next order. Want me to ask the courier to call you before arrival?",botTime:2.4},
+  {from:"Aisha, 10:58 PM",msg:"Do you do weekend appointments? I need a consultation for my small business, budget around $500.",bot:"Hi Aisha! Yes, we see clients on Saturdays from 10 AM to 3 PM.\n\nYour budget fits our Starter Consultation ($350): a 60-minute session plus a written action plan.\n\nNext available slots:\n• Sat 18 Oct, 11:00 AM\n• Sat 18 Oct, 1:30 PM\n\nShall I hold one for you? It's late, so I can also send a reminder tomorrow.",botTime:1.9}
+];
+const $=id=>document.getElementById(id);
+let idx=0,start=0,timer=0,times=[],words=[];
+
+function load(){
+  const r=ROUNDS[idx];
+  $("round").textContent=`Round ${idx+1} of ${ROUNDS.length}`;
+  $("msg").textContent="Message hidden until you start";$("msg").style.opacity=.5;
+  $("from").textContent="";
+  $("reply").value="";$("reply").disabled=true;
+  $("youTime").textContent="–";$("botTime").textContent="–";$("watch").textContent="0.0s";
+  $("botReply").innerHTML='<span class="typing">Waiting for the customer\'s message…</span>';
+  $("startBtn").hidden=false;$("sendBtn").hidden=true;$("startBtn").textContent=idx===0?"Start round":"Start next round";
+}
+function go(){
+  const r=ROUNDS[idx];
+  $("msg").textContent=r.msg;$("msg").style.opacity=1;$("from").textContent=`From ${r.from}`;
+  $("reply").disabled=false;$("reply").focus();
+  $("startBtn").hidden=true;$("sendBtn").hidden=false;
+  start=performance.now();
+  timer=setInterval(()=>{$("watch").textContent=((performance.now()-start)/1000).toFixed(1)+"s"},100);
+  $("botReply").innerHTML='<span class="typing">Agent is typing…</span>';
+  setTimeout(()=>{
+    $("botTime").textContent=r.botTime.toFixed(1)+"s";
+    typeOut($("botReply"),r.bot);
+  },r.botTime*1000);
+}
+function typeOut(el,text){
+  el.textContent="";let i=0;
+  const step=()=>{el.textContent=text.slice(0,i+=4);if(i<text.length)setTimeout(step,12)};step();
+}
+function send(){
+  const txt=$("reply").value.trim();
+  if(!txt){$("reply").placeholder="Type something first. The customer is waiting…";$("reply").focus();return}
+  clearInterval(timer);
+  const t=(performance.now()-start)/1000;times.push(t);words.push(txt.split(/\s+/).length);
+  $("youTime").textContent=t.toFixed(1)+"s";$("reply").disabled=true;$("sendBtn").hidden=true;
+  const r=ROUNDS[idx],v=$("verdict");
+  const x=(t/r.botTime).toFixed(0);
+  v.hidden=false;
+  idx++;
+  if(idx<ROUNDS.length){
+    v.innerHTML=`<h2>${t<r.botTime?"Wow, you were faster this time.":`The agent was ${x}x faster.`}</h2><p>Look at what it included: prices, times, next steps and a question that moves the customer toward buying. Did yours?</p><button class="btn" id="nextBtn">Next round</button>`;
+    $("nextBtn").onclick=()=>{v.hidden=true;load();$("startBtn").focus()};
+  }else final();
+}
+function final(){
+  const yAvg=times.reduce((a,b)=>a+b,0)/times.length;
+  const bAvg=ROUNDS.reduce((a,r)=>a+r.botTime,0)/ROUNDS.length;
+  const perDay=200,hrs=(yAvg*perDay/3600);
+  $("verdict").innerHTML=`<h2>Final score: the agent wins, ${(yAvg/bAvg).toFixed(0)}x faster on average.</h2>
+  <div class="stats">
+    <div class="stat y"><b>${yAvg.toFixed(1)}s</b><small>Your average reply time</small></div>
+    <div class="stat b"><b>${bAvg.toFixed(1)}s</b><small>Agent average reply time</small></div>
+    <div class="stat y"><b>${hrs.toFixed(1)} hrs</b><small>Your time for 200 messages a day</small></div>
+    <div class="stat b"><b>24/7</b><small>Agent availability, including that 10:58 PM message</small></div>
+  </div>
+  <p>And you were fully focused. Real replies take longer because you're also driving, in a meeting or asleep. A Cleverlon WhatsApp agent answers every customer instantly, from your real prices and calendar, and hands over to you when a human is needed.</p>
+  <div class="row"><a class="btn bot" href="/automation" style="text-decoration:none">Get an agent like this</a><button class="btn ghost" id="replay">Play again</button></div>`;
+  $("replay").onclick=()=>{idx=0;times=[];words=[];$("verdict").hidden=true;load()};
+}
+$("startBtn").onclick=go;$("sendBtn").onclick=send;
+$("reply").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))send()});
+load();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shortlist Rush</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: job brief on the left, the CV pile on the right. Overlays carry the intro, the switch to AI and the final comparison. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --you:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --bad:#A32020; --paper:#FBFBF8;
+  --display:"DM Serif Display",Georgia,serif;
+  --body:"Sora",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:16px}
+.brand{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0}
+.hud{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.watch{font-family:var(--mono);font-weight:700;font-size:26px;padding:6px 16px;border-radius:10px;background:var(--fg);color:var(--bg);font-variant-numeric:tabular-nums}
+.pill{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-variant-numeric:tabular-nums}
+.pill b{font-family:var(--mono)}
+.stage{position:relative;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px;min-height:520px}
+@media (max-width:760px){.stage{grid-template-columns:minmax(0,1fr)}}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;align-self:start}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.brief h2{font-family:var(--display);font-weight:400;font-size:22px;margin:0;line-height:1.15}
+.brief ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.brief .note{font-size:13px;color:var(--muted)}
+.pile{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cv{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--line),0 6px 0 -2px var(--surface),0 6px 0 -1px var(--line),0 12px 0 -4px var(--surface),0 12px 0 -3px var(--line);animation:in .22s ease-out}
+.cv.outL{animation:outL .22s ease-in forwards}.cv.outR{animation:outR .22s ease-in forwards}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes outL{to{opacity:0;transform:translateX(-40px) rotate(-3deg)}}
+@keyframes outR{to{opacity:0;transform:translateX(40px) rotate(3deg)}}
+.cv .name{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.1}
+.cv .role{color:var(--muted)}
+.cv .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 16px}
+.cv .grid div{display:flex;flex-direction:column}
+.cv .grid span:last-child{font-weight:600}
+.cv p{margin:0;max-width:65ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.controls{display:flex;flex-wrap:wrap;gap:10px}
+.btn{font:600 16px var(--body);border:0;border-radius:10px;padding:13px 20px;background:var(--you);color:#fff;cursor:pointer}
+.btn.no{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.bot{background:var(--bot)}
+.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+kbd{font-family:var(--mono);font-size:11px;border:1px solid currentColor;border-radius:4px;padding:0 5px;margin-left:6px;opacity:.7}
+.overlay{position:absolute;inset:0;border-radius:16px;background:color-mix(in srgb,var(--bg) 95%,transparent);display:flex;align-items:flex-start;justify-content:center;padding:24px 8px;z-index:5;overflow:auto}
+.panel{max-width:620px;width:100%;display:flex;flex-direction:column;gap:14px}
+.panel h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4vw,34px);line-height:1.1;margin:0;text-wrap:balance}
+.panel p{margin:0;color:var(--muted)}
+.ai{display:flex;flex-direction:column;gap:12px}
+.scan{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;font-size:13px}
+.scan div{display:flex;justify-content:space-between;gap:6px;padding:4px 8px;border-radius:6px;background:var(--bg);font-variant-numeric:tabular-nums;opacity:.35}
+.scan div.on{opacity:1}
+.scan div.top{background:var(--botsoft);color:var(--fg)}
+.scan b{font-family:var(--mono)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--bot);transition:width .1s linear}
+.rank{display:flex;flex-direction:column;gap:10px}
+.cand{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--bot);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:start}
+.cand .n{font-family:var(--mono);font-weight:700;color:var(--muted)}
+.cand .who{font-weight:600}
+.cand .sc{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--bot);font-variant-numeric:tabular-nums}
+.cand ul{grid-column:2/4;margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+.cand .ok{color:var(--bot)} .cand .gap{color:var(--bad)}
+.cand .q{grid-column:2/4;font-size:13px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:14px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.y{color:var(--you);font-family:var(--mono);font-weight:700}
+td.b{color:var(--bot);font-family:var(--mono);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.foot{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.cv,.cv.outL,.cv.outR{animation:none}}
+</style>
+
+<div class="wrap">
+  <div class="brand"><a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · a 60-second hiring game</div>
+  <h1>Shortlist Rush</h1>
+  <div class="hud">
+    <span class="watch" id="watch">1:00</span>
+    <span class="pill">Reviewed <b id="done">0</b> of <b id="total">0</b></span>
+    <span class="pill">Shortlisted <b id="sl">0</b></span>
+  </div>
+
+  <div class="stage" id="stage">
+    <aside class="brief">
+      <div class="label">The role</div>
+      <h2>Sales Executive, B2B software</h2>
+      <div class="label">Must have</div>
+      <ul>
+        <li>3+ years in sales</li>
+        <li>B2B experience (selling to businesses)</li>
+        <li>Uses a CRM such as HubSpot or Salesforce</li>
+        <li>Proof of hitting targets</li>
+        <li>Can start within 1 month</li>
+      </ul>
+      <div class="note">Shortlist anyone who ticks at least four. Your manager wants the shortlist by noon.</div>
+    </aside>
+
+    <section class="pile" id="pile">
+      <div id="cvSlot"></div>
+      <div class="controls">
+        <button class="btn no" id="rejBtn" disabled>Reject<kbd>←</kbd></button>
+        <button class="btn" id="slBtn" disabled>Shortlist<kbd>→</kbd></button>
+      </div>
+    </section>
+
+    <div class="overlay" id="ov">
+      <div class="panel">
+        <h2>36 CVs landed in your inbox overnight. You have 60 seconds.</h2>
+        <p>You're hiring a Sales Executive. Read each CV against the requirements and decide: shortlist or reject. Use the buttons or your arrow keys.</p>
+        <p>Find the strong candidates before time runs out. Every good one you miss might be hired by a competitor this week.</p>
+        <div class="row"><button class="btn" id="startBtn">Open the inbox</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">A demo by Cleverlon. All candidates are fictional. The AI round shows how Cleverlon's CV screening works: it scores on job requirements only, explains every score, and your team makes the final call.</div>
+</div>
+
+<script>
+const FIRST=["Adaeze","Tunde","Grace","Musa","Chioma","Kemi","Daniel","Fatima","Emeka","Sarah","Ibrahim","Ngozi","James","Aisha","Bola","Yusuf","Funmi","Peter","Halima","Ifeanyi","Zainab","Victor","Amaka","Samuel","Ruth","Kunle","Esther","Obinna","Hauwa","David","Tolu","Mary","Segun","Blessing","Ahmed","Joy"];
+const LAST=["Okafor","Bello","Adeyemi","Mensah","Eze","Lawal","Johnson","Abubakar","Nwosu","Ogunleye","Danjuma","Okeke","Balogun","Ibrahim","Owusu","Adebayo","Chukwu","Yakubu"];
+const TITLES={b2b:["Account Executive, SaaS","Business Development Manager","Corporate Sales Lead","Enterprise Sales Associate"],b2c:["Retail Sales Supervisor","Customer Sales Rep, Telecom","Showroom Sales Officer","Insurance Sales Agent"]};
+const CRMS=["HubSpot","Salesforce","Zoho CRM"];
+const NOCRM=["Excel","Google Sheets","No CRM listed"];
+const NOTICE_OK=["Immediate","2 weeks","1 month"],NOTICE_BAD=["2 months","3 months"];
+const QUOTA=["Hit 118% of annual target in 2025","Closed ₦240m in new contracts last year","Top performer 3 quarters running","Beat quarterly quota 5 times in a row"];
+const NOQUOTA=["Responsible for client relationships","Handled walk-in customers","Supported the sales team","Managed a portfolio of accounts"];
+const FILLER=["Energetic, results-driven professional who loves building relationships and learning new things.","Detail-oriented team player with strong communication skills and a passion for customer success.","Self-motivated professional looking for a challenging role in a fast-growing company.","Hardworking and adaptable, with experience across several industries and a strong work ethic."];
+const SKILLS=["Negotiation","Cold calling","Presentations","Microsoft Office","Lead generation","Customer service","Pipeline management","Team leadership","Social selling","Demo delivery"];
+const CITIES=["Lagos","Abuja","Ibadan","Port Harcourt","Remote, Accra","Ilorin"];
+
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
+const R=rng(4471),pick=a=>a[Math.floor(R()*a.length)];
+function makeCV(i,strong){
+  const c={id:i,name:`${FIRST[i%FIRST.length]} ${pick(LAST)}`,city:pick(CITIES)};
+  if(strong){
+    c.years=3+Math.floor(R()*6);c.b2b=true;c.crm=pick(CRMS);c.quota=pick(QUOTA);c.notice=pick(NOTICE_OK);
+    if(R()<.4){const miss=pick(["notice","crm"]);if(miss==="notice")c.notice=pick(NOTICE_BAD);else c.crm=pick(NOCRM)}
+  }else{
+    const hits=R()<.45?3:Math.floor(R()*3);
+    const keys=["years","b2b","crm","quota","notice"].sort(()=>R()-.5).slice(0,hits);
+    c.years=keys.includes("years")?3+Math.floor(R()*5):Math.floor(R()*3);
+    c.b2b=keys.includes("b2b");
+    c.crm=keys.includes("crm")?pick(CRMS):pick(NOCRM);
+    c.quota=keys.includes("quota")?pick(QUOTA):pick(NOQUOTA);
+    c.notice=keys.includes("notice")?pick(NOTICE_OK):pick(NOTICE_BAD);
+  }
+  c.title=pick(c.b2b?TITLES.b2b:TITLES.b2c);
+  c.summary=pick(FILLER);
+  c.skills=[...SKILLS].sort(()=>R()-.5).slice(0,4);
+  c.checks=[
+    {ok:c.years>=3,t:`${c.years} yrs in sales`},
+    {ok:c.b2b,t:c.b2b?"B2B experience":"Consumer sales only"},
+    {ok:CRMS.includes(c.crm),t:CRMS.includes(c.crm)?c.crm:"No CRM"},
+    {ok:QUOTA.includes(c.quota),t:QUOTA.includes(c.quota)?"Proven targets":"No target evidence"},
+    {ok:NOTICE_OK.includes(c.notice),t:`Notice: ${c.notice}`}
+  ];
+  c.hits=c.checks.filter(x=>x.ok).length;
+  c.score=Math.min(98,c.hits*18+Math.min(c.years,8)+Math.floor(R()*4));
+  c.strong=c.hits>=4;
+  return c;
+}
+let CVS=[];for(let i=0;i<36;i++)CVS.push(makeCV(i,i%6===4));
+CVS.sort(()=>R()-.5);
+const STRONG=CVS.filter(c=>c.strong).length;
+
+const $=id=>document.getElementById(id);
+const ROUND=60;let idx=0,dec=[],t0=0,tm=0,live=false;
+$("total").textContent=CVS.length;
+
+function renderCV(){
+  const c=CVS[idx];
+  if(!c){$("cvSlot").innerHTML="";return}
+  $("cvSlot").innerHTML=`<article class="cv" id="cv">
+    <div><div class="name">${c.name}</div><div class="role">${c.title} · ${c.city}</div></div>
+    <p>${c.summary}</p>
+    <div class="grid">
+      <div><span class="label">Experience</span><span>${c.years} years</span></div>
+      <div><span class="label">CRM tools</span><span>${c.crm}</span></div>
+      <div><span class="label">Notice period</span><span>${c.notice}</span></div>
+      <div><span class="label">Highlight</span><span>${c.quota}</span></div>
+    </div>
+    <div class="chips">${c.skills.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+  </article>`;
+}
+function decide(short){
+  if(!live||!CVS[idx])return;
+  dec.push({c:CVS[idx],short});
+  $("done").textContent=dec.length;$("sl").textContent=dec.filter(d=>d.short).length;
+  const el=$("cv");el.classList.add(short?"outR":"outL");
+  idx++;live=false;
+  setTimeout(()=>{live=true;if(!CVS[idx])end();else renderCV()},200);
+}
+function start(){
+  $("ov").hidden=true;idx=0;dec=[];live=true;
+  $("done").textContent=0;$("sl").textContent=0;
+  $("slBtn").disabled=false;$("rejBtn").disabled=false;
+  renderCV();$("slBtn").focus();
+  t0=performance.now();
+  tm=setInterval(()=>{
+    const left=Math.max(0,ROUND-(performance.now()-t0)/1000);
+    $("watch").textContent=`0:${String(Math.ceil(left)).padStart(2,"0")}`.replace("0:60","1:00");
+    if(left<=0)end();
+  },200);
+}
+function humanStats(){
+  const correct=dec.filter(d=>d.short===d.c.strong).length;
+  const found=dec.filter(d=>d.short&&d.c.strong).length;
+  const wrongRej=dec.filter(d=>!d.short&&d.c.strong).length;
+  const wrongSl=dec.filter(d=>d.short&&!d.c.strong).length;
+  const unread=CVS.length-dec.length;
+  const unreadStrong=CVS.slice(dec.length).filter(c=>c.strong).length;
+  const secs=Math.min(ROUND,(performance.now()-t0)/1000);
+  return{correct,found,wrongRej,wrongSl,unread,unreadStrong,secs,reviewed:dec.length};
+}
+let H=null;
+function end(){
+  if(H)return;
+  clearInterval(tm);live=false;$("slBtn").disabled=true;$("rejBtn").disabled=true;
+  H=humanStats();
+  const missed=H.wrongRej+H.unreadStrong;
+  $("ov").innerHTML=`<div class="panel">
+    <h2>${H.unread>0?`Time's up. ${H.unread} CVs never got opened.`:`You got through the pile in ${Math.round(H.secs)} seconds.`}</h2>
+    <p>You found <b>${H.found} of ${STRONG}</b> strong candidates. ${missed>0?`${missed} strong ${missed===1?"candidate was":"candidates were"} missed${H.unreadStrong?`, ${H.unreadStrong} of them still unread in the pile`:""}.`:"You didn't miss a single strong candidate. Impressive."} ${H.wrongSl?`You also shortlisted ${H.wrongSl} who didn't meet the brief.`:""}</p>
+    <p>A real opening gets 200+ CVs, not 36. Now watch Cleverlon's AI screen this same pile.</p>
+    <div class="row"><button class="btn bot" id="aiBtn">Let the AI screen it</button></div></div>`;
+  $("ov").hidden=false;$("aiBtn").onclick=runAI;$("aiBtn").focus();
+}
+function runAI(){
+  const ordered=[...CVS];
+  $("ov").innerHTML=`<div class="panel ai">
+    <h2>Screening 36 CVs against your brief…</h2>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="scan" id="scan">${ordered.map(c=>`<div data-id="${c.id}"><span>${c.name.split(" ")[0]}</span><b>··</b></div>`).join("")}</div></div>`;
+  let i=0;const t1=performance.now();
+  const iv=setInterval(()=>{
+    const c=ordered[i],cell=document.querySelector(`.scan [data-id="${c.id}"]`);
+    cell.classList.add("on");if(c.strong)cell.classList.add("top");
+    cell.querySelector("b").textContent=c.score;
+    $("bar").style.width=((i+1)/ordered.length*100)+"%";
+    i++;if(i>=ordered.length){clearInterval(iv);setTimeout(()=>showRank((performance.now()-t1)/1000),500)}
+  },90);
+}
+function question(c){
+  const gap=c.checks.find(x=>!x.ok);
+  if(gap&&gap.t.startsWith("Notice"))return `Ask: Could you start sooner than ${c.notice}?`;
+  if(gap&&gap.t==="No CRM")return "Ask: How do you track your pipeline today?";
+  return `Ask: Walk us through how you achieved "${c.quota.toLowerCase()}".`;
+}
+function showRank(aiSecs){
+  const top=[...CVS].sort((a,b)=>b.score-a.score).slice(0,STRONG);
+  $("ov").innerHTML=`<div class="panel">
+    <h2>Done in ${aiSecs.toFixed(1)} seconds. Here's your ranked shortlist.</h2>
+    <div class="rank">${top.map((c,n)=>`<div class="cand">
+      <span class="n">${n+1}</span><span class="who">${c.name}<br><span style="color:var(--muted);font-weight:400;font-size:13px">${c.title}</span></span><span class="sc">${c.score}</span>
+      <ul>${c.checks.map(x=>`<li class="${x.ok?"ok":"gap"}">${x.ok?"✓":"✗"} ${x.t}</li>`).join("")}</ul>
+      <div class="q">${question(c)}</div></div>`).join("")}</div>
+    <div class="tablewrap"><table><thead><tr><th>Result</th><th>You</th><th>Cleverlon AI</th></tr></thead><tbody>
+      <tr><td>CVs reviewed</td><td class="y">${H.reviewed} of 36</td><td class="b">36 of 36</td></tr>
+      <tr><td>Time taken</td><td class="y">${Math.round(H.secs)}s</td><td class="b">${aiSecs.toFixed(1)}s</td></tr>
+      <tr><td>Strong candidates found</td><td class="y">${H.found} of ${STRONG}</td><td class="b">${STRONG} of ${STRONG}</td></tr>
+      <tr><td>Reason given for each decision</td><td class="y">No</td><td class="b">Yes</td></tr>
+      <tr><td>Interview questions drafted</td><td class="y">0</td><td class="b">${STRONG}</td></tr>
+    </tbody></table></div>
+    <p>Cleverlon's CV screening reads every application, scores it against your requirements, explains each score and drafts interview questions. Your team reviews the shortlist and makes every hiring decision.</p>
+    <div class="row"><a class="btn bot" href="/automation" style="text-decoration:none">Set up CV screening</a><button class="btn no" id="again">Play again</button></div></div>`;
+  $("again").onclick=()=>{H=null;$("watch").textContent="1:00";start()};
+}
+document.addEventListener("keydown",e=>{if(!live)return;if(e.key==="ArrowRight"){e.preventDefault();decide(true)}if(e.key==="ArrowLeft"){e.preventDefault();decide(false)}});
+$("slBtn").onclick=()=>decide(true);$("rejBtn").onclick=()=>decide(false);
+$("startBtn").onclick=start;
+renderCV();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cleverlon Interactive Campaigns</title>
+<meta name="description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: hero pairs the pitch with a live wheel and its behind-the-scenes panel; then the lead pipeline, the game portfolio, formats, packages and a booking close. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --accent:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --hot:#A32020; --warm:#8A5A00;
+  --display:"DM Serif Display",Georgia,serif;
+  --body:"Sora",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:18px;flex-wrap:wrap}
+.mark{font-size:15px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
+.mark span{color:var(--accent)}
+.navlink{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--surface)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(36px,6vw,64px);line-height:1;margin:10px 0 16px;letter-spacing:-.02em;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3{font-family:var(--body);font-weight:600;font-size:18px;margin:0;line-height:1.3;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0}
+section{padding-block:56px;display:flex;flex-direction:column;gap:24px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:32px;align-items:start;padding-block:24px 56px}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+.hero-copy{display:flex;flex-direction:column;gap:18px;padding-top:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 16px var(--body);border:0;border-radius:10px;padding:13px 20px;background:var(--accent);color:#fff;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.bot{background:var(--bot)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible,.brand-btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.proof{display:flex;flex-wrap:wrap;gap:8px}
+.proof span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--surface)}
+
+/* demo */
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 40px -24px rgba(13,17,23,.35)}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brands{display:flex;gap:6px;flex-wrap:wrap}
+.brand-btn{font:600 13px var(--body);border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
+.brand-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.stage{border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;transition:background .3s}
+.brandname{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1}
+.tagline{font-size:14px;opacity:.85;margin:0}
+.wheelbox{position:relative;width:min(100%,340px);aspect-ratio:1;margin:4px auto 0;max-width:100%}
+.wheelbox canvas{width:100%;height:100%;display:block}
+.pointer{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #0D1117;filter:drop-shadow(0 2px 0 #fff)}
+.hub{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:#fff;border:4px solid #0D1117;display:flex;align-items:center;justify-content:center;font:800 11px var(--mono);color:#0D1117;letter-spacing:.05em}
+form.cap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+form.cap label{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:600}
+input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:8px;padding:9px 10px;width:100%}
+.cap .full{grid-column:1/-1}
+.stage .btn{width:100%;justify-content:center}
+.note{font-size:12px;opacity:.8;margin:0}
+.result{font-family:var(--display);font-weight:400;font-size:20px;text-align:center;min-height:1.2em;margin:0}
+
+.bts{border:1px dashed var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bts ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.bts li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);transition:color .2s}
+.bts li .dot{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px}
+.bts li.done{color:var(--fg)}
+.bts li.done .dot{background:var(--bot);border-color:var(--bot);color:#fff}
+.bts li b{font-weight:600}
+.crm{overflow-x:auto}
+.crm table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.crm th,.crm td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.crm th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tag{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.Hot{background:var(--hot)} .tag.Warm{background:var(--warm)} .tag.Cold{background:var(--muted)}
+.wa{align-self:flex-start;max-width:100%;background:#DCF8C6;color:#111B21;border-radius:10px 10px 10px 2px;padding:10px 12px;font-size:14px;white-space:pre-line;box-shadow:0 1px 0 rgba(0,0,0,.12)}
+.wa small{display:block;text-align:right;color:#667781;font-size:11px;margin-top:4px}
+
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700}
+.step p{margin:0;color:var(--muted);font-size:15px}
+
+/* games */
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.game{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .15s,border-color .15s}
+.game:hover{transform:translateY(-2px);border-color:var(--accent)}
+.game .kind{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.game p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.game .go{font-weight:600;color:var(--accent)}
+
+/* formats */
+.formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.fmt{background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:4px}
+.fmt b{font-weight:600}
+.fmt span{font-size:14px;color:var(--muted)}
+
+/* packages */
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.pack{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.pack.feature{border:2px solid var(--fg)}
+.price{font-family:var(--display);font-weight:400;font-size:30px;line-height:1}
+.price small{font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted)}
+.pack ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--fg)}
+.pack .best{font-size:14px;color:var(--muted)}
+
+.close{background:var(--fg);color:var(--bg);border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;margin-block:24px 56px}
+.close h2{color:var(--bg)}
+.close p{margin:0;opacity:.8;max-width:56ch}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0 52px;font-size:13px;color:var(--muted);line-height:1.9}
+footer b{font-weight:700;letter-spacing:-.02em;color:var(--fg)}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.game{transition:none}}
+
+/* site chrome */
+.topnav{display:flex;gap:22px;font-size:14px;flex-wrap:wrap}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover{color:var(--fg)}
+@media(max-width:640px){.topnav{gap:14px;font-size:13px}}
+footer .fine{color:var(--muted);opacity:.8}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="/">CLEVERLON<span>.</span></a>
+    <nav class="topnav">
+      <a href="/automation">Automation</a>
+      <a href="/software">Software</a>
+      <a href="/campaigns">Campaigns</a>
+      <a href="/crm">Estate CRM</a>
+      <a href="/audit">Free audit</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Interactive Campaigns</div>
+      <h1>Your customers won't read another ad. They'll <em>play</em> one.</h1>
+      <p class="lede">We build branded games, quizzes and challenges that people actually want to try. Every play captures a lead, scores it, and follows up on WhatsApp automatically, so your team only talks to buyers who are ready.</p>
+      <div class="row">
+        <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Get one for your business</a>
+        <a class="btn ghost" href="#games">Play our games</a>
+      </div>
+      <div class="proof"><span>Lead capture built in</span><span>WhatsApp follow-up</span><span>Lands in your CRM</span><span>Your brand, your prizes</span></div>
+    </div>
+
+    <div class="demo" aria-label="Live demo">
+      <div class="demo-head">
+        <span class="eyebrow">Try it · pick a sample brand</span>
+        <div class="brands" id="brands"></div>
+      </div>
+      <div class="stage" id="stage">
+        <div><div class="brandname" id="bName"></div><p class="tagline" id="bTag"></p></div>
+        <div class="wheelbox"><canvas id="wheel" aria-label="Prize wheel"></canvas><div class="pointer"></div><div class="hub">SPIN</div></div>
+        <p class="result" id="result" aria-live="polite"></p>
+        <form class="cap" id="cap" novalidate>
+          <label>First name<input id="fName" autocomplete="given-name" placeholder="e.g. Tolu" required></label>
+          <label>WhatsApp number<input id="fPhone" inputmode="tel" placeholder="080..."></label>
+          <label class="full"><span id="qLabel"></span><select id="fQ"></select></label>
+          <button class="btn full" id="spinBtn" type="submit">Spin to win</button>
+          <p class="note full">Demo only. Nothing you enter is saved or sent.</p>
+        </form>
+      </div>
+      <div class="bts">
+        <div class="eyebrow">Behind the scenes</div>
+        <ol id="steps">
+          <li data-s="0"><span class="dot">1</span><span><b>Lead captured</b> with consent to be contacted</span></li>
+          <li data-s="1"><span class="dot">2</span><span><b>Lead scored</b> from their answer</span></li>
+          <li data-s="2"><span class="dot">3</span><span><b>Saved to your CRM</b> with the prize code</span></li>
+          <li data-s="3"><span class="dot">4</span><span><b>WhatsApp sent</b> with the prize and next step</span></li>
+          <li data-s="4"><span class="dot">5</span><span><b>Sales team alerted</b> for hot leads only</span></li>
+        </ol>
+        <div class="crm" id="crm" hidden></div>
+        <div class="wa" id="wa" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="eyebrow">Why it works</div>
+    <h2>A game on the front. A sales system behind it.</h2>
+    <p class="lede">Most agencies hand you a game and a list of emails. We connect the game to the follow-up, so every player is contacted while they're still excited.</p>
+    <div class="pipe">
+      <div class="step"><span class="n">01 Play</span><h3>People choose to engage</h3><p>A quick, branded game that's fun to try and easy to share with friends.</p></div>
+      <div class="step"><span class="n">02 Capture</span><h3>Every play is a lead</h3><p>Name, number and one smart question, collected before the reward.</p></div>
+      <div class="step"><span class="n">03 Qualify</span><h3>Hot, warm or cold</h3><p>Answers are scored automatically, so you know who is ready to buy.</p></div>
+      <div class="step"><span class="n">04 Follow up</span><h3>Instant WhatsApp</h3><p>Prize, code and next step sent in seconds. Hot leads go straight to your team.</p></div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="eyebrow">Built by Cleverlon</div>
+    <h2>Play the games we use to market ourselves</h2>
+    <p class="lede">Each one demonstrates a real system we build for clients. Try one and see how long you last.</p>
+    <div class="games">
+      <a class="game" href="/campaigns/beat-the-bot/"><span class="kind">Reply race · 2 minutes</span><h3>Beat the Bot</h3><p>Race our AI agent to answer real customer messages. Shows our WhatsApp support agents.</p><span class="go">Play →</span></a>
+      <a class="game" href="/campaigns/survive-monday/"><span class="kind">Chaos sim · 45 seconds</span><h3>Survive Monday</h3><p>Juggle leads, invoices and complaints. Then replay the same morning with automation on.</p><span class="go">Play →</span></a>
+      <a class="game" href="/campaigns/shortlist-rush/"><span class="kind">Hiring game · 60 seconds</span><h3>Shortlist Rush</h3><p>Screen 36 CVs against the clock, then watch AI rank the same pile with reasons.</p><span class="go">Play →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Formats</div>
+    <h2>Pick the game that fits your customers</h2>
+    <div class="formats">
+      <div class="fmt"><b>Spin the wheel</b><span>Instant rewards for promos and launches</span></div>
+      <div class="fmt"><b>Scratch card</b><span>Mobile-first reveal for discounts and codes</span></div>
+      <div class="fmt"><b>Product quiz</b><span>"Which plan suits you?" with a tailored offer</span></div>
+      <div class="fmt"><b>Score or audit tool</b><span>"How healthy is your business?" for B2B leads</span></div>
+      <div class="fmt"><b>Package builder</b><span>Customers design their order and see the price</span></div>
+      <div class="fmt"><b>Challenge game</b><span>Beat the clock, share your score, dare a friend</span></div>
+      <div class="fmt"><b>Trivia league</b><span>Weekly quiz with a leaderboard and prizes</span></div>
+      <div class="fmt"><b>Loyalty streaks</b><span>Points and badges that bring customers back</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Packages</div>
+    <h2>One campaign or always on</h2>
+    <div class="packs">
+      <div class="pack">
+        <h3>Launch Campaign</h3>
+        <div class="price">from $800 <small>one-time</small></div>
+        <ul><li>One branded game with your prizes</li><li>Landing page and lead capture</li><li>Leads delivered to your CRM or Google Sheets</li><li>Automated WhatsApp or email follow-up</li><li>Results report at the end</li></ul>
+        <div class="best">Best for promos, product launches and seasonal sales. Live in about 2 weeks.</div>
+      </div>
+      <div class="pack feature">
+        <h3>Always-On Engagement</h3>
+        <div class="price">from $800 <small>setup + $150/month</small></div>
+        <ul><li>Everything in Launch Campaign</li><li>Lead scoring and hot-lead alerts</li><li>Monthly new questions, prizes or themes</li><li>Monthly dashboard of plays, leads and sales</li></ul>
+        <div class="best">Best for loyalty, trivia leagues and businesses that want a steady flow of leads.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="close">
+    <div class="eyebrow" style="color:inherit;opacity:.7">30 minutes · No obligation</div>
+    <h2>Want to see one in your brand?</h2>
+    <p>Book a call and tell us about your customers. We'll suggest the right game and show you how the leads would flow into your business.</p>
+    <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book your call</a>
+  </div>
+
+  <footer>
+    <b>CLEVERLON</b><br>
+    Automation systems and software for growing businesses. Lagos, Nigeria. Working with clients worldwide.<br>
+    <a href="/automation">Automation</a> &nbsp;&middot;&nbsp;
+    <a href="/software">Software</a> &nbsp;&middot;&nbsp;
+    <a href="/campaigns">Campaigns</a> &nbsp;&middot;&nbsp;
+    <a href="/crm">Estate CRM</a> &nbsp;&middot;&nbsp;
+    <a href="/tracker">Free tracker</a> &nbsp;&middot;&nbsp;
+    <a href="/audit">Free audit</a> &nbsp;&middot;&nbsp;
+    cleverlon.com<br>
+    <span class="fine">Sample brands in the demos are fictional.</span>
+  </footer>
+</div>
+
+<script>
+const BRANDS=[
+  {id:"homes",label:"Real estate",name:"Palmrose Homes",tag:"New estate launch. Spin for a launch-week reward.",
+   bg:"#123B2E",fg:"#F3EBD8",cols:["#1F6B4F","#E2B14A","#2E8C66","#F3EBD8"],txt:["#fff","#123B2E","#fff","#123B2E"],
+   prizes:["₦250k off a plot","Free site visit ride","Free survey plan","₦100k off","Priority allocation","Free legal review"],
+   q:"When are you planning to buy?",opts:[["Within 3 months","Hot"],["Later this year","Warm"],["Just looking","Cold"]],
+   next:"Reply 1 to book your free site inspection this Saturday."},
+  {id:"food",label:"Restaurant",name:"Bukka Bliss",tag:"Spin before you order. Everyone wins something.",
+   bg:"#7A1E12",fg:"#FFF3E3",cols:["#E8462A","#FFC23D","#B83218","#FFF3E3"],txt:["#fff","#5A1409","#fff","#5A1409"],
+   prizes:["Free small chops","20% off your order","Free drink","Free delivery","Buy 1 get 1 jollof","10% off"],
+   q:"How often do you order food?",opts:[["Every week","Hot"],["Once a month","Warm"],["Rarely","Cold"]],
+   next:"Show this code at checkout or reply MENU to order now."},
+  {id:"money",label:"Finance",name:"Brightway Savings",tag:"Open an account this month and spin for a bonus.",
+   bg:"#14244F",fg:"#EAF0FF",cols:["#2F5BD3","#9BD3FF","#1F3E99","#EAF0FF"],txt:["#fff","#14244F","#fff","#14244F"],
+   prizes:["₦5,000 opening bonus","Zero fees for 3 months","Free money check-up","Higher interest 6 months","₦2,000 airtime","Free debit card"],
+   q:"What are you saving for?",opts:[["A home or business","Hot"],["An emergency fund","Warm"],["Not sure yet","Cold"]],
+   next:"Reply YES and an adviser will call you today to set up your account."}
+];
+const $=id=>document.getElementById(id);
+const canvas=$("wheel"),ctx=canvas.getContext("2d");
+let brand=BRANDS[0],rot=0,spinning=false,timers=[];
+
+function renderBrands(){
+  $("brands").innerHTML=BRANDS.map(b=>`<button class="brand-btn" type="button" data-id="${b.id}" aria-pressed="${b===brand}">${b.label}</button>`).join("");
+  document.querySelectorAll(".brand-btn").forEach(btn=>btn.onclick=()=>{if(spinning)return;brand=BRANDS.find(x=>x.id===btn.dataset.id);applyBrand();resetBts()});
+}
+function applyBrand(){
+  renderBrands();
+  const s=$("stage");s.style.background=brand.bg;s.style.color=brand.fg;
+  $("bName").textContent=brand.name;$("bTag").textContent=brand.tag;
+  $("qLabel").textContent=brand.q;
+  $("fQ").innerHTML=brand.opts.map((o,i)=>`<option value="${i}">${o[0]}</option>`).join("");
+  $("spinBtn").style.background=brand.cols[1];$("spinBtn").style.color=brand.txt[1];
+  $("result").textContent="";
+  draw();
+}
+function wrapText(t,max){const w=t.split(" ");const lines=[];let cur="";for(const x of w){const tryL=cur?cur+" "+x:x;if(ctx.measureText(tryL).width>max&&cur){lines.push(cur);cur=x}else cur=tryL}lines.push(cur);return lines.slice(0,2)}
+function draw(){
+  const size=canvas.clientWidth||320,dpr=window.devicePixelRatio||1;
+  if(canvas.width!==Math.round(size*dpr)){canvas.width=canvas.height=Math.round(size*dpr)}
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,size,size);
+  const c=size/2,r=c-6,n=brand.prizes.length,seg=Math.PI*2/n;
+  ctx.save();ctx.translate(c,c);
+  ctx.beginPath();ctx.arc(0,0,r+5,0,Math.PI*2);ctx.fillStyle="#16213B";ctx.fill();
+  ctx.rotate(rot);
+  for(let i=0;i<n;i++){
+    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,i*seg,(i+1)*seg);ctx.closePath();
+    ctx.fillStyle=brand.cols[i%brand.cols.length];ctx.fill();
+    ctx.save();ctx.rotate(i*seg+seg/2);
+    ctx.fillStyle=brand.txt[i%brand.txt.length];
+    const fs=Math.max(10,Math.round(size/26));
+    ctx.font=`700 ${fs}px "Sora",system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
+    const lines=wrapText(brand.prizes[i],r*0.52);
+    lines.forEach((l,k)=>ctx.fillText(l,r-12,(k-(lines.length-1)/2)*fs*1.15));
+    ctx.restore();
+  }
+  ctx.restore();
+}
+function resetBts(){
+  timers.forEach(clearTimeout);timers=[];
+  document.querySelectorAll("#steps li").forEach(li=>li.classList.remove("done"));
+  document.querySelector('#steps li[data-s="4"] span:last-child').innerHTML="<b>Sales team alerted</b> for hot leads only";
+  $("crm").hidden=true;$("wa").hidden=true;
+}
+function code(){return brand.name.split(" ").map(w=>w[0]).join("")+"-"+Math.floor(1000+Math.random()*9000)}
+$("cap").addEventListener("submit",e=>{
+  e.preventDefault();if(spinning)return;
+  const name=$("fName").value.trim();
+  if(!name){$("fName").focus();$("fName").placeholder="Enter a name to spin";return}
+  resetBts();spinning=true;$("spinBtn").disabled=true;$("result").textContent="";
+  const n=brand.prizes.length,seg=Math.PI*2/n,win=Math.floor(Math.random()*n);
+  const target=-Math.PI/2-(win+0.5)*seg+(Math.random()-.5)*seg*0.6;
+  const start=rot,base=start-(start%(Math.PI*2));
+  let end=base+Math.PI*2*6+target;while(end<start+Math.PI*2*5)end+=Math.PI*2;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,dur=reduce?300:4200,t0=performance.now();
+  const ease=t=>1-Math.pow(1-t,4);
+  (function frame(now){const t=Math.min(1,(now-t0)/dur);rot=start+(end-start)*ease(t);draw();if(t<1)requestAnimationFrame(frame);else finish(name,win)})(t0);
+});
+function finish(name,win){
+  const prize=brand.prizes[win],opt=brand.opts[+$("fQ").value],score=opt[1],c=code();
+  const phone=$("fPhone").value.trim()||"080 •••• ••••";
+  $("result").textContent=`${name}, you won: ${prize}!`;
+  const steps=document.querySelectorAll("#steps li");
+  const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
+  at(300,()=>steps[0].classList.add("done"));
+  at(900,()=>steps[1].classList.add("done"));
+  at(1500,()=>{steps[2].classList.add("done");
+    $("crm").innerHTML=`<table><thead><tr><th>Name</th><th>WhatsApp</th><th>Prize</th><th>Code</th><th>Lead</th></tr></thead><tbody><tr><td>${esc(name)}</td><td>${esc(phone)}</td><td>${prize}</td><td>${c}</td><td><span class="tag ${score}">${score}</span></td></tr></tbody></table>`;
+    $("crm").hidden=false});
+  at(2300,()=>{steps[3].classList.add("done");
+    const now=new Date(),hh=now.getHours(),mm=String(now.getMinutes()).padStart(2,"0");
+    $("wa").innerHTML=`Hi ${esc(name)}! 🎉 You won <b>${prize}</b> from ${brand.name}.\nYour code: <b>${c}</b>\n${brand.next}<small>${hh}:${mm} ✓✓</small>`;
+    $("wa").hidden=false});
+  at(3000,()=>{const li=steps[4];li.classList.add("done");
+    li.querySelector("span:last-child").innerHTML=score==="Hot"?`<b>Sales team alerted:</b> ${esc(name)} is a hot lead`:`<b>No alert needed:</b> ${score.toLowerCase()} lead added to a nurture sequence`;
+    spinning=false;$("spinBtn").disabled=false;$("spinBtn").textContent="Spin again"});
+}
+function esc(s){return s.replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+window.addEventListener("resize",draw);
+document.fonts?.ready.then(draw);
+applyBrand();
+</script>
+
+</body>
+</html>

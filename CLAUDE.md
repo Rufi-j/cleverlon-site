@@ -1,0 +1,101 @@
+# Cleverlon website
+
+Static marketing site for cleverlon.com. Plain HTML and CSS, no build step, no
+framework, no package.json. Deployed by Netlify from this repo on every push to
+`main`.
+
+## Structure
+
+```
+index.html              home, four service doors
+automation/index.html   workflow automation, nine services with prices
+software/index.html     custom software
+campaigns/index.html    interactive campaigns, with a live spin-wheel demo
+campaigns/beat-the-bot/index.html
+campaigns/survive-monday/index.html
+campaigns/shortlist-rush/index.html
+crm/index.html          Estate CRM
+tracker/index.html      free Installment Payment Tracker lead magnet
+shared.css              the design system
+_redirects              Netlify rules
+CLAUDE.md               this file
+```
+
+Every page is a folder with an `index.html`, so URLs have no `.html` extension.
+A new page means a new folder, not a new file at the root. Link to pages as
+`/software`, never `/software/index.html` or `software.html`.
+
+`_redirects` proxies `/audit/*` to the separate Netlify site that hosts the
+diagnostic. The `200` at the end makes it a proxy rather than a redirect, which
+is why the address bar keeps saying cleverlon.com. Do not change that line
+without being asked.
+
+## Design system
+
+`shared.css` holds the tokens and base classes. Use them. Do not introduce new
+colours, fonts or radii; if something seems to need one, say so instead of
+adding it.
+
+- Colours are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
+  `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
+  `--estate` (green, used only for Estate CRM and tracker pages).
+- Fonts are DM Serif Display for `h1` and `h2`, Sora for everything else.
+  `h3` is Sora 600, not the serif.
+- Shared classes: `.wrap`, `.topbar`, `.mark`, `.topnav`, `.eyebrow`, `.lede`,
+  `.btn` (`.ghost`, `.wide`), `.foot`.
+- Page-specific CSS goes in a `<style>` block in that page's head. One file per
+  page, markup and styles together.
+
+The four `campaigns/` pages are the exception. They do not load `shared.css`;
+they carry their own copy of the tokens in a `:root` block, already matched to
+the site. If a token changes in `shared.css`, change it in those four too.
+
+## Rules that apply sitewide
+
+**The nav and footer are duplicated across all nine pages.** There is no
+include mechanism. Changing a nav or footer link means editing all nine, and
+the `campaigns/` pages use slightly different markup to the rest. After any
+such change, check every page, not just the one that prompted it.
+
+When editing the same region across several files, prefer exact string
+replacement over a regex. A loose pattern like `<a href="/...` matches nav
+links and footer links alike and will eat the body of the page between them.
+This has happened. Verify each file after writing it.
+
+**Writing style.** No em dashes or en dashes anywhere in copy, ever. Use a
+comma, a full stop or a colon. Short words over long ones. No marketing
+inflation: say what a thing does rather than how transformative it is. British
+spelling is not used; keep to the spelling already on the page.
+
+**Prices appear on the page itself**, in `automation/index.html` and
+`campaigns/index.html`. They are real quotes, so do not adjust them to make a
+layout work.
+
+## Placeholders currently unset
+
+- `tracker/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
+  and tells the visitor nothing was sent until an Apps Script `/exec` URL is
+  pasted in.
+- `tracker/index.html` and `software/index.html`: `DEMO_URL` is empty. The
+  demo buttons fall back to `/crm` until the CRM walkthrough is recorded.
+
+Leave these as empty strings. They are filled in deliberately, not forgotten.
+
+## Deploying
+
+Commit and push to `main`. Netlify builds from the repo.
+
+Never deploy by dragging this folder onto Netlify. A drag-and-drop replaces the
+entire site with whatever is in the dropped folder, and it desynchronises the
+repo from what is live. If a deploy needs rolling back, publish an earlier
+deploy from the Netlify Deploys tab rather than reverting files by hand.
+
+There is no build command and no publish directory to set. Netlify serves these
+files as they are.
+
+## Checking a change
+
+Open the edited page in a browser before committing. For anything touching the
+campaigns pages, actually play the thing: the spin wheel, the brand switcher,
+and each game run entirely in the browser, so a broken edit shows up as a dead
+button rather than an error anyone would notice otherwise.
