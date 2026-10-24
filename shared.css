@@ -15,6 +15,7 @@ a{color:inherit}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
 .mark{font-size:15px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
 .mark span{color:var(--accent)}
+.mark img{display:block;height:22px;width:auto}
 .topnav{display:flex;gap:22px;font-size:14px}
 .topnav a{color:var(--ink-soft);text-decoration:none}
 .topnav a:hover{color:var(--ink)}
