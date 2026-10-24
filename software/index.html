@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom software | Cleverlon</title>
-<meta name="description" content="Custom internal software for growing businesses. Dashboards, customer portals, internal tools and full systems, designed data model first by engineers who have run production databases.">
+<meta name="description" content="Custom software built to order. Web apps and business systems, mobile apps, video games, interactive tools and client portals, designed data model first by engineers who have run production databases.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -52,6 +52,31 @@
   .case a.btn.line{background:none;color:#fff;border:1px solid rgba(255,255,255,.25)}
   .case a.btn.line:hover{background:rgba(255,255,255,.07)}
 
+  .video{margin-top:76px}
+  .video h2{max-width:22ch;margin-bottom:20px}
+  .vframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
+  .vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  .intake{margin-top:76px}
+  .intake h2{max-width:20ch}
+  .intake .lede{margin-top:14px}
+  .iform{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;margin-top:28px;max-width:720px}
+  @media(max-width:640px){.iform{padding:24px 18px}}
+  .field{margin-bottom:16px}
+  .iform label{display:block;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  .iform input,.iform select,.iform textarea{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--border);
+    border-radius:9px;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
+  .iform textarea{min-height:120px;resize:vertical}
+  .iform select{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A8398' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  .iform input:focus,.iform select:focus,.iform textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+  .iform .invalid{border-color:#A32020}
+  .istatus{font-size:13.5px;color:var(--ink-soft);margin-top:12px;line-height:1.5}
+  .istatus.bad{color:#A32020}
+  .iform .privacy{font-size:12px;color:var(--ink-soft);margin-top:16px;line-height:1.55}
+  .iform .done h3{margin-bottom:8px}
+  .iform .done p{font-size:15px;color:var(--ink-mid)}
+
   .closer{margin-top:76px;text-align:center}
   .closer h2{max-width:20ch;margin:0 auto 16px}
   .closer p{color:var(--ink-mid);max-width:56ch;margin:0 auto 26px}
@@ -66,15 +91,14 @@
       <a href="/automation">Automation</a>
       <a href="/software">Software</a>
       <a href="/campaigns">Campaigns</a>
-      <a href="/crm">Estate CRM</a>
       <a href="/audit">Free audit</a>
     </nav>
   </div>
 
   <header class="head">
     <div class="eyebrow">Custom software</div>
-    <h1>When there is no tool for it, <em>we build the tool.</em></h1>
-    <p class="lede">Automation moves data between systems that already exist. Sometimes the system you need does not exist yet. That is a build, and it is work we take on directly.</p>
+    <h1>If it doesn't exist yet, <em>we'll build it.</em></h1>
+    <p class="lede">Automation moves data between systems that already exist. Sometimes what you need does not exist yet: a business system, a mobile app, a game or an interactive tool. That is a build, and it is work we take on directly.</p>
     <div class="cta-row">
       <a class="btn" href="#how">How we work</a>
       <a class="btn ghost" href="/audit">Take the free audit</a>
@@ -83,23 +107,23 @@
 
   <section class="band">
     <h2>What we build</h2>
-    <p class="lede">Four shapes cover most of what businesses ask us for.</p>
+    <p class="lede">Four kinds of build cover most of what people ask us for.</p>
     <div class="builds">
       <div>
-        <h3>Operational dashboards</h3>
-        <p>The numbers your team checks every morning, on one screen, pulled from the systems they already work in. No more exporting three spreadsheets to answer one question.</p>
+        <h3>Web apps and business systems</h3>
+        <p>Dashboards, portals, CRMs and internal tools shaped around how your business runs.</p>
       </div>
       <div>
-        <h3>Customer portals</h3>
-        <p>Somewhere your clients can see their own records, balances, schedules and documents without emailing your staff to ask for them.</p>
+        <h3>Mobile apps</h3>
+        <p>Apps for iOS and Android, built for the phone your users already carry.</p>
       </div>
       <div>
-        <h3>Internal tools</h3>
-        <p>The approval flow, the intake form, the allocation screen. Small software shaped around how your business actually runs, rather than how a product decided it should.</p>
+        <h3>Video games</h3>
+        <p>Games for the web, mobile and desktop, from a small campaign game to a full release.</p>
       </div>
       <div>
-        <h3>Full systems</h3>
-        <p>Schema, roles, permissions, workflows and interface. Our Estate CRM began exactly here, as one firm's real problem with money they could not track.</p>
+        <h3>Interactive tools and client portals</h3>
+        <p>Calculators, configurators and logins where your clients see their own records.</p>
       </div>
     </div>
   </section>
@@ -128,7 +152,7 @@
 
     <div class="stack">
       <h3>What we build it with</h3>
-      <p>Next.js and React on the front, PostgreSQL and Supabase behind it. Boring, well documented tools that another engineer can pick up if you ever need them to. We come from database and cloud engineering, so the parts you cannot see get the same attention as the parts you can.</p>
+      <p>Web apps and business systems are built on Next.js and PostgreSQL. For mobile apps and games, we choose the right tools for your project on the scoping call.</p>
       <p class="t">Projects are quoted after a scoping call, since a dashboard and a full system are not the same job. The call costs nothing.</p>
     </div>
   </section>
@@ -151,6 +175,87 @@
     </div>
   </section>
 
+  <section class="video">
+    <div class="eyebrow">Demo</div>
+    <h2>See a build in action</h2>
+    <div class="vframe">
+      <iframe src="https://www.loom.com/embed/e7fb8a68c85b4457906f510e914876ba" title="Cleverlon build walkthrough" loading="lazy" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="intake" id="intake">
+    <div class="eyebrow">Start a build</div>
+    <h2>Tell us what you need</h2>
+    <p class="lede">Nine short questions. We read every answer before the scoping call, so the call is spent on your process and not on basics.</p>
+    <form class="iform" id="iform" novalidate>
+      <div class="field">
+        <label for="f-name">Name</label>
+        <input id="f-name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" inputmode="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="f-wa">WhatsApp number (optional)</label>
+        <input id="f-wa" inputmode="tel" autocomplete="tel" placeholder="080...">
+      </div>
+      <div class="field">
+        <label for="f-biz">Business type or industry</label>
+        <input id="f-biz" required>
+      </div>
+      <div class="field">
+        <label for="f-type">What do you want built?</label>
+        <select id="f-type" required>
+          <option value="">Select one</option>
+          <option>Web app or business system</option>
+          <option>Mobile app</option>
+          <option>Video game</option>
+          <option>Interactive tool or portal</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-cur">What do you currently use to run this process?</label>
+        <select id="f-cur">
+          <option value="">Select one</option>
+          <option>Spreadsheets</option>
+          <option>WhatsApp chats</option>
+          <option>Paper records</option>
+          <option>Existing software that doesn't fit</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-who">Who needs access?</label>
+        <select id="f-who">
+          <option value="">Select one</option>
+          <option>Just me</option>
+          <option>My team</option>
+          <option>My team and clients/partners</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-desc">Briefly describe what you want built</label>
+        <textarea id="f-desc" required></textarea>
+      </div>
+      <div class="field">
+        <label for="f-bud">Budget range</label>
+        <select id="f-bud">
+          <option value="">Select one</option>
+          <option>Under $2,000</option>
+          <option>$2,000 to $5,000</option>
+          <option>$5,000 to $10,000</option>
+          <option>Over $10,000</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <button class="btn wide" id="isend" type="submit">Send</button>
+      <div class="istatus" id="ist" role="status" aria-live="polite"></div>
+      <p class="privacy">We use these details to reply about your project. We do not share them.</p>
+    </form>
+  </section>
+
   <section class="closer">
     <h2>Not sure whether you need software or a workflow?</h2>
     <p>That is usually the first real question, and it is worth getting right before anyone quotes you. The free audit takes about four minutes and tells you which of the two your bottleneck actually is.</p>
@@ -163,7 +268,6 @@
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
-    <a href="/crm">Estate CRM</a> &nbsp;·&nbsp;
     <a href="/tracker">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
     cleverlon.com
@@ -178,6 +282,72 @@ if (DEMO_URL) {
   const d = document.getElementById("demoLink");
   d.href = DEMO_URL; d.target = "_blank"; d.rel = "noopener";
 }
+
+/* Apps Script /exec endpoint for software enquiries, same method as the
+   tracker. Until it is set, nothing is sent. */
+const WEBHOOK_URL = "";
+
+const iform = document.getElementById("iform");
+const ist = document.getElementById("ist");
+const isend = document.getElementById("isend");
+const val = id => document.getElementById(id).value.trim();
+
+iform.addEventListener("submit", async e => {
+  e.preventDefault();
+  iform.querySelectorAll(".invalid").forEach(x => x.classList.remove("invalid"));
+  const bad = ["f-name", "f-email", "f-biz", "f-type", "f-desc"].filter(id => !val(id));
+  if (val("f-email") && !/^\S+@\S+\.\S+$/.test(val("f-email"))) bad.push("f-email");
+  if (bad.length) {
+    bad.forEach(id => document.getElementById(id).classList.add("invalid"));
+    document.getElementById(bad[0]).focus();
+    ist.className = "istatus bad";
+    ist.textContent = "Fill in the highlighted fields. We need your name, a valid email, your business type, what you want built and a short description.";
+    return;
+  }
+
+  const payload = {
+    submitted: new Date().toISOString(),
+    source: new URLSearchParams(location.search).get("src") || "direct",
+    form: "Custom software intake",
+    name: val("f-name"),
+    email: val("f-email"),
+    whatsapp: val("f-wa"),
+    business: val("f-biz"),
+    buildType: val("f-type"),
+    current: val("f-cur"),
+    access: val("f-who"),
+    description: val("f-desc"),
+    budget: val("f-bud")
+  };
+
+  isend.disabled = true;
+  ist.className = "istatus";
+  ist.textContent = "Sending...";
+
+  if (!WEBHOOK_URL) {
+    ist.textContent = "Delivery is not configured yet, so nothing was sent.";
+    console.log(payload);
+    isend.disabled = false;
+    return;
+  }
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    iform.innerHTML = '<div class="done"><h3>Got it. Thank you.</h3>' +
+      '<p>We will read what you sent and reply to <b></b> within one working day.</p></div>';
+    iform.querySelector("b").textContent = payload.email;
+    iform.scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch (err) {
+    ist.className = "istatus bad";
+    ist.textContent = "That did not go through. Check your connection and try again.";
+    isend.disabled = false;
+  }
+});
 </script>
 
 </body>
