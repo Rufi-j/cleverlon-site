@@ -17,6 +17,8 @@ campaigns/shortlist-rush/index.html
 crm/index.html          Estate CRM
 tracker/index.html      free Installment Payment Tracker lead magnet
 shared.css              the design system
+favicon.png, og-image.png  favicon and the shared social preview image
+logo-black.png, logo-white.png  official logos used in the nav
 _redirects              Netlify rules
 CLAUDE.md               this file
 ```
@@ -38,7 +40,9 @@ adding it.
 
 - Colours are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
   `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
-  `--estate` (green, used only for Estate CRM and tracker pages).
+  `--estate` (green, used only for Estate CRM and tracker pages), plus
+  `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
+  and `--surface-hover` for the few one-off shades.
 - Fonts are DM Serif Display for `h1` and `h2`, Sora for everything else.
   `h3` is Sora 600, not the serif.
 - Shared classes: `.wrap`, `.topbar`, `.mark`, `.topnav`, `.eyebrow`, `.lede`,
@@ -48,7 +52,7 @@ adding it.
 
 The four `campaigns/` pages are the exception. They do not load `shared.css`;
 they carry their own copy of the tokens in a `:root` block, already matched to
-the site. If a token changes in `shared.css`, change it in those four too.
+the site. They also load JetBrains Mono, which is accepted there. If a token changes in `shared.css`, change it in those four too.
 
 ## Rules that apply sitewide
 

@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Installment Payment Tracker for land companies | Cleverlon</title>
 <meta name="description" content="A ready-made spreadsheet for land and estate companies selling plots on installments. Tracks plots, customers and payment schedules, flags overdue installments automatically, and totals what you are owed.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Installment Payment Tracker for land companies | Cleverlon">
+<meta property="og:description" content="A ready-made spreadsheet for land and estate companies selling plots on installments. Tracks plots, customers and payment schedules, flags overdue installments automatically, and totals what you are owed.">
+<meta property="og:image" content="https://cleverlon.com/og-image.png">
+<meta property="og:url" content="https://cleverlon.com/tracker">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,9 +41,9 @@
     background-repeat:no-repeat;background-position:right 14px center}
   input:focus,select:focus{outline:2px solid var(--estate);outline-offset:-1px;border-color:var(--estate)}
   .form .btn{background:var(--estate);margin-top:6px}
-  .form .btn:hover{background:#0B5743}
+  .form .btn:hover{background:var(--estate-dark)}
   .status{font-size:13.5px;color:var(--ink-soft);margin-top:12px;line-height:1.5}
-  .status.bad{color:#A32020}
+  .status.bad{color:var(--error)}
   .privacy{font-size:12px;color:var(--ink-soft);margin-top:16px;line-height:1.55}
 
   .band{padding:80px 0 0}
@@ -48,13 +54,14 @@
   .demo h2{margin-bottom:12px}
   .demo p{color:rgba(255,255,255,.6);font-size:15.5px}
   .demo a.btn{background:#fff;color:var(--ink)}
-  .demo a.btn:hover{background:#E9ECF5}
+  .demo a.btn:hover{background:var(--surface-hover)}
 
   .health{border:1px solid var(--border);border-radius:var(--radius);padding:34px 32px;margin-top:20px}
   .health h2{font-size:26px;margin-bottom:12px}
   .health p{color:var(--ink-mid);font-size:15.5px;max-width:64ch}
   .health ol{margin:20px 0 24px 20px;font-size:15px;color:var(--ink-mid)}
   .health li{padding:4px 0}
+  .form .note.sent{margin-bottom:18px}
 </style>
 </head>
 <body>
@@ -218,7 +225,7 @@ send.onclick = async () => {
     });
     document.querySelector(".form").innerHTML =
       '<h2>On its way.</h2>' +
-      '<p class="note" style="margin-bottom:18px">' +
+      '<p class="note sent">' +
         (payload.email
           ? 'Check your inbox, it is already there. We will message <b>' + payload.whatsapp + '</b> shortly as well.'
           : 'We will send it to <b>' + payload.whatsapp + '</b> shortly.') +

@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cleverlon Interactive Campaigns</title>
+<title>Interactive Campaigns | Cleverlon</title>
 <meta name="description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Interactive Campaigns | Cleverlon">
+<meta property="og:description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
+<meta property="og:image" content="https://cleverlon.com/og-image.png">
+<meta property="og:url" content="https://cleverlon.com/campaigns">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -115,6 +121,7 @@ input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px soli
 
 .close{background:var(--fg);color:var(--bg);border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;margin-block:24px 56px}
 .close h2{color:var(--bg)}
+.close .eyebrow{color:inherit;opacity:.7}
 .close p{margin:0;opacity:.8;max-width:56ch}
 footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0 52px;font-size:13px;color:var(--muted);line-height:1.9}
 footer b{font-weight:700;letter-spacing:-.02em;color:var(--fg)}
@@ -125,7 +132,8 @@ footer a{color:var(--muted)}
 .topnav{display:flex;gap:22px;font-size:14px;flex-wrap:wrap}
 .topnav a{color:var(--muted);text-decoration:none}
 .topnav a:hover{color:var(--fg)}
-@media(max-width:640px){.topnav{gap:14px;font-size:13px}}
+.topnav a[aria-current="page"]{color:var(--fg);font-weight:600}
+@media(max-width:640px){.topnav{gap:6px 14px;font-size:13px}}
 footer .fine{color:var(--muted);opacity:.8}
 </style>
 
@@ -135,7 +143,7 @@ footer .fine{color:var(--muted);opacity:.8}
     <nav class="topnav">
       <a href="/automation">Automation</a>
       <a href="/software">Software</a>
-      <a href="/campaigns">Campaigns</a>
+      <a href="/campaigns" aria-current="page">Campaigns</a>
       <a href="/audit">Free audit</a>
     </nav>
   </header>
@@ -146,7 +154,7 @@ footer .fine{color:var(--muted);opacity:.8}
       <h1>Your customers won't read another ad. They'll <em>play</em> one.</h1>
       <p class="lede">We build branded games, quizzes and challenges that people actually want to try. Every play captures a lead, scores it, and follows up on WhatsApp automatically, so your team only talks to buyers who are ready.</p>
       <div class="row">
-        <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Get one for your business</a>
+        <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
         <a class="btn ghost" href="#games">Play our games</a>
       </div>
       <div class="proof"><span>Lead capture built in</span><span>WhatsApp follow-up</span><span>Lands in your CRM</span><span>Your brand, your prizes</span></div>
@@ -242,10 +250,10 @@ footer .fine{color:var(--muted);opacity:.8}
   </section>
 
   <div class="close">
-    <div class="eyebrow" style="color:inherit;opacity:.7">30 minutes · No obligation</div>
+    <div class="eyebrow">30 minutes · No obligation</div>
     <h2>Want to see one in your brand?</h2>
     <p>Book a call and tell us about your customers. We'll suggest the right game and show you how the leads would flow into your business.</p>
-    <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book your call</a>
+    <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
   </div>
 
   <footer>

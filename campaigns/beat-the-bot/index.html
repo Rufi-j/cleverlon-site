@@ -3,7 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Beat the Bot</title>
+<title>Beat the Bot | Cleverlon</title>
+<meta name="description" content="A reply race against a Cleverlon WhatsApp agent. See how fast a customer gets an answer when the bot handles it.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Beat the Bot | Cleverlon">
+<meta property="og:description" content="A reply race against a Cleverlon WhatsApp agent. See how fast a customer gets an answer when the bot handles it.">
+<meta property="og:image" content="https://cleverlon.com/og-image.png">
+<meta property="og:url" content="https://cleverlon.com/campaigns/beat-the-bot">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -59,7 +66,7 @@ textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
 </style>
 
 <div class="wrap">
-  <div class="brand"><a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · reply race</div>
+  <div class="brand"><a href="/" style="text-decoration:none">Home</a> · <a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · reply race</div>
   <h1>Beat the Bot</h1>
   <p class="sub">A customer just messaged your business. Type the best reply you can, as fast as you can. Our AI agent answers the same message. Three rounds. Good luck.</p>
 
@@ -76,7 +83,7 @@ textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
 
   <div class="lanes">
     <div class="lane you">
-      <h3>You <span id="youTime">–</span></h3>
+      <h3>You <span id="youTime">0.0s</span></h3>
       <label class="label" for="reply">Your reply</label>
       <textarea id="reply" placeholder="Click Start, then type your reply here…" disabled></textarea>
       <div class="row">
@@ -85,7 +92,7 @@ textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
       </div>
     </div>
     <div class="lane bot">
-      <h3>Cleverlon agent <span id="botTime">–</span></h3>
+      <h3>Cleverlon agent <span id="botTime">0.0s</span></h3>
       <div class="label">Agent reply</div>
       <div class="botreply" id="botReply"><span class="typing">Waiting for the customer's message…</span></div>
     </div>
@@ -110,7 +117,7 @@ function load(){
   $("msg").textContent="Message hidden until you start";$("msg").style.opacity=.5;
   $("from").textContent="";
   $("reply").value="";$("reply").disabled=true;
-  $("youTime").textContent="–";$("botTime").textContent="–";$("watch").textContent="0.0s";
+  $("youTime").textContent="0.0s";$("botTime").textContent="0.0s";$("watch").textContent="0.0s";
   $("botReply").innerHTML='<span class="typing">Waiting for the customer\'s message…</span>';
   $("startBtn").hidden=false;$("sendBtn").hidden=true;$("startBtn").textContent=idx===0?"Start round":"Start next round";
 }
