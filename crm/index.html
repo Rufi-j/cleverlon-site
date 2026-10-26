@@ -80,7 +80,7 @@
 
     <div class="form">
       <h2>Send me the tracker</h2>
-      <p class="note">We send it to your WhatsApp. Add an email and it lands there straight away too.</p>
+      <p class="note">We email it to you straight away.</p>
 
       <div class="field">
         <label for="nm">Your name</label>
@@ -100,12 +100,12 @@
         </select>
       </div>
       <div class="field">
-        <label for="wa">WhatsApp number</label>
-        <input id="wa" inputmode="tel" autocomplete="tel" placeholder="080...">
+        <label for="em">Email</label>
+        <input id="em" type="email" inputmode="email" autocomplete="email" required>
       </div>
       <div class="field">
-        <label for="em">Email (optional)</label>
-        <input id="em" type="email" inputmode="email" autocomplete="email">
+        <label for="ph">Phone number (optional)</label>
+        <input id="ph" inputmode="tel" autocomplete="tel" placeholder="080...">
       </div>
       <div class="field">
         <label for="ct">Customers on installment plans</label>
@@ -121,7 +121,7 @@
 
       <button class="btn wide" id="send">Send it to me</button>
       <div class="status" id="st"></div>
-      <p class="privacy">We use your number to send the tracker and the occasional note about running a property business. Reply STOP and we stop. We do not share your details.</p>
+      <p class="privacy">We use your email to send the tracker and the occasional note about running a property business. Reply STOP and we stop. We do not share your details.</p>
     </div>
   </section>
 
@@ -168,15 +168,15 @@ send.onclick = async () => {
     name: nm.value.trim(),
     company: co.value.trim(),
     sells: sl.value,
-    whatsapp: wa.value.trim(),
     email: em.value.trim(),
+    phone: ph.value.trim(),
     customers: ct.value,
     magnet: "Installment Payment Tracker"
   };
 
-  if (!payload.name || !payload.whatsapp || !payload.sells) {
+  if (!payload.name || !payload.sells || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
     st.className = "status bad";
-    st.textContent = "Add your name, your WhatsApp number and what you sell, so we send the right tracker.";
+    st.textContent = "Add your name, a valid email and what you sell, so we can email the right tracker.";
     return;
   }
 
@@ -200,12 +200,10 @@ send.onclick = async () => {
     });
     document.querySelector(".form").innerHTML =
       '<h2>On its way.</h2>' +
-      '<p class="note sent">' +
-        (payload.email
-          ? 'Check your inbox, it is already there. We will message <b>' + payload.whatsapp + '</b> shortly as well.'
-          : 'We will send it to <b>' + payload.whatsapp + '</b> shortly.') +
-      '</p>' +
-      '<p class="privacy">If it has not reached you within the hour, message us on that number and we will send it by hand.</p>';
+      '<p class="note sent">We have emailed the tracker to <b id="sentTo"></b>.</p>' +
+      '<p class="privacy">If it has not arrived within the hour, check your spam folder. If it is not there, ' +
+        '<a href="https://wa.me/2348051817820?text=Hi%20Cleverlon%2C%20the%20tracker%20has%20not%20reached%20me" target="_blank" rel="noopener">message us on WhatsApp</a>.</p>';
+    document.getElementById("sentTo").textContent = payload.email;
   } catch (e) {
     st.className = "status bad";
     st.textContent = "That did not send. Check your connection and try again, or message us on WhatsApp.";
