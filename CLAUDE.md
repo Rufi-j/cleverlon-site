@@ -42,10 +42,11 @@ adding it.
   `--estate` (green, used only on the tracker page at /crm), plus
   `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
   and `--surface-hover` for the few one-off shades.
-- Fonts are DM Serif Display for `h1` and `h2`, Sora for everything else.
-  `h3` is Sora 600, not the serif.
+- Fonts are Young Serif for `h1` and `h2`, Albert Sans for everything else.
+  Young Serif has one weight, so `h3` and labels use Albert Sans bold.
 - Shared classes: `.wrap`, `.topbar`, `.mark`, `.topnav`, `.eyebrow`, `.lede`,
-  `.btn` (`.ghost`, `.wide`), `.foot`.
+  `.btn` (`.ghost`, `.wide`), `.textlink` (plain link, no arrows), `.rows` and
+  `.row-item` (stacked heading and text rows), `.foot`.
 - Page-specific CSS goes in a `<style>` block in that page's head. One file per
   page, markup and styles together.
 
@@ -69,6 +70,16 @@ This has happened. Verify each file after writing it.
 comma, a full stop or a colon. Short words over long ones. No marketing
 inflation: say what a thing does rather than how transformative it is. British
 spelling is not used; keep to the spelling already on the page.
+
+**Voice.** Write like a person explaining their work to a client over
+WhatsApp: plain words, short sentences, specific details. Vary sentence
+length and do not open consecutive sentences the same way. No italic or
+coloured emphasis words in headlines. No "not X, but Y" or "X, not Y" lines,
+no rhetorical triplets, no neat closing punchline at the end of a paragraph.
+Say a thing once. Avoid stock phrases (seamless, effortless, streamline,
+game-changer, unlock, empower, peace of mind). Prefer concrete examples and
+real numbers to claims. Use a small label above a section only where it
+genuinely helps. No arrow links.
 
 **Prices appear on the page itself**, in `automation/index.html` and
 `campaigns/index.html`. They are real quotes, so do not adjust them to make a

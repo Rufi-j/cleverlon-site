@@ -13,60 +13,46 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
 <style>
-  .head h1{margin-top:40px;max-width:15ch}
-  .head h1 em{font-style:normal;color:var(--accent)}
+  .head h1{margin-top:40px;max-width:16ch}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
-  .band{padding:76px 0 0}
+  .band{padding:72px 0 0}
   .band h2{max-width:19ch}
-  .band .lede{margin-top:14px}
+  .band > .rows{margin-top:26px}
 
-  .builds{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
-  @media(max-width:760px){.builds{grid-template-columns:1fr}}
-  .builds div{background:var(--surface-2);border-radius:var(--radius);padding:26px 24px}
-  .builds h3{margin-bottom:8px}
-  .builds p{font-size:14.5px;color:var(--ink-mid)}
-
-  .steps{counter-reset:s;margin-top:34px;border-top:1px solid var(--border)}
-  .step{counter-increment:s;position:relative;padding:24px 0 24px 56px;
-    border-bottom:1px solid var(--border)}
-  .step::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:27px;
-    font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.06em}
+  .steps{counter-reset:s;margin-top:26px;border-top:1px solid var(--border)}
+  .step{counter-increment:s;position:relative;padding:24px 0 24px 72px;border-bottom:1px solid var(--border)}
+  .step::before{content:counter(s);position:absolute;left:0;top:14px;font-family:'Young Serif',Georgia,serif;font-size:36px;line-height:1;color:var(--ink-ghost)}
   .step h3{margin-bottom:6px}
-  .step p{font-size:15px;color:var(--ink-mid)}
+  .step p{font-size:15.5px;color:var(--ink-mid);max-width:62ch}
 
-  .stack{background:var(--surface-2);border-radius:var(--radius);padding:30px 32px;margin-top:40px}
-  .stack h3{margin-bottom:12px}
-  .stack p{font-size:14.5px;color:var(--ink-mid)}
-  .stack .t{font-size:13.5px;color:var(--ink-soft);margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+  .stack{margin-top:36px;max-width:680px}
+  .stack h3{margin-bottom:8px}
+  .stack p{font-size:15px;color:var(--ink-mid)}
+  .stack p + p{margin-top:10px}
 
-  .case{background:var(--ink);color:#fff;border-radius:var(--radius);padding:44px 40px;margin-top:76px}
-  @media(max-width:640px){.case{padding:32px 24px}}
-  .case .eyebrow{color:var(--accent-mid)}
+  .case{margin-top:88px;max-width:760px}
   .case h2{margin-bottom:14px;max-width:22ch}
-  .case p{color:rgba(255,255,255,.62);font-size:16px;max-width:64ch}
-  .case ul{list-style:none;margin:26px 0 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px}
+  .case p{color:var(--ink-mid);font-size:16px;max-width:64ch}
+  .case ul{list-style:none;margin:22px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 26px}
   @media(max-width:640px){.case ul{grid-template-columns:1fr}}
-  .case li{font-size:14.5px;color:rgba(255,255,255,.72);padding-left:18px;position:relative}
-  .case li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--accent-mid)}
-  .case .row{display:flex;gap:12px;flex-wrap:wrap}
-  .case a.btn{background:#fff;color:var(--ink)}
-  .case a.btn:hover{background:var(--surface-hover)}
-  .case a.btn.line{background:none;color:#fff;border:1px solid rgba(255,255,255,.25)}
-  .case a.btn.line:hover{background:rgba(255,255,255,.07)}
+  .case li{font-size:14.5px;color:var(--ink-mid);padding-left:18px;position:relative}
+  .case li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--ink-ghost)}
 
-  .video{margin-top:76px}
+  .build-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:104px;align-items:start}
+  @media(max-width:900px){.build-split{grid-template-columns:1fr;gap:56px;margin-top:80px}}
+  .video{position:sticky;top:24px}
+  @media(max-width:900px){.video{position:static}}
   .video h2{max-width:22ch;margin-bottom:20px}
   .vframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
   .vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-  .intake{margin-top:76px}
   .intake h2{max-width:20ch}
-  .intake .lede{margin-top:14px}
-  .iform{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;margin-top:28px;max-width:720px}
+  .intake .lede{margin-top:14px;font-size:16px}
+  .iform{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;margin-top:28px;}
   @media(max-width:640px){.iform{padding:24px 18px}}
   .field{margin-bottom:16px}
   .iform label{display:block;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
@@ -83,11 +69,10 @@
   .iform .done h3{margin-bottom:8px}
   .iform .done p{font-size:15px;color:var(--ink-mid)}
 
-  .closer{margin-top:76px;text-align:center}
-  .closer h2{max-width:20ch;margin:0 auto 16px}
-  .closer p{color:var(--ink-mid);max-width:56ch;margin:0 auto 26px}
+  .closer{margin-top:88px;max-width:560px}
+  .closer p{color:var(--ink-mid);margin:12px 0 22px}
   .iform .actions{display:flex;gap:12px;flex-wrap:wrap}
-  .closer .cta-row{justify-content:center;margin-top:0}
+  .closer .cta-row{margin-top:0}
 </style>
 </head>
 <body>
@@ -104,71 +89,67 @@
   </div>
 
   <header class="head">
-    <div class="eyebrow">Custom software</div>
-    <h1>If it doesn't exist yet, <em>we'll build it.</em></h1>
-    <p class="lede">Automation moves data between systems that already exist. Sometimes what you need does not exist yet: a business system, a mobile app, a game or an interactive tool. That is a build, and it is work we take on directly.</p>
+    <h1>If it doesn't exist yet, we'll build it.</h1>
+    <p class="lede">Automation connects software you already have. Some jobs need software that does not exist yet, such as a client portal, a mobile app or a game. We build those to order and quote a fixed price after one call.</p>
     <div class="cta-row">
-      <a class="btn" href="#how">How we work</a>
-      <a class="btn ghost" href="#intake">Tell us what you need</a>
+      <a class="btn" href="#intake">Tell us what you need</a>
+      <a class="btn ghost" href="#how">How we work</a>
     </div>
   </header>
 
   <section class="band">
     <h2>What we build</h2>
-    <p class="lede">Four kinds of build cover most of what people ask us for.</p>
-    <div class="builds">
-      <div>
+    <div class="rows">
+      <div class="row-item">
         <h3>Web apps and business systems</h3>
-        <p>Dashboards, portals, CRMs and internal tools shaped around how your business runs.</p>
+        <p>Dashboards, client portals, CRMs and internal tools shaped around how your team works today.</p>
       </div>
-      <div>
+      <div class="row-item">
         <h3>Mobile apps</h3>
-        <p>Apps for iOS and Android, built for the phone your users already carry.</p>
+        <p>iOS and Android apps for your customers or your staff.</p>
       </div>
-      <div>
+      <div class="row-item">
         <h3>Video games</h3>
-        <p>Games for the web, mobile and desktop, from a small campaign game to a full release.</p>
+        <p>Games for the web, phones and desktop, from a small campaign game to a full release.</p>
       </div>
-      <div>
+      <div class="row-item">
         <h3>Interactive tools and client portals</h3>
-        <p>Calculators, configurators and logins where your clients see their own records.</p>
+        <p>Calculators, quote builders and client logins where people see their own records.</p>
       </div>
     </div>
   </section>
 
   <section class="band" id="how">
     <h2>How we work</h2>
-    <p class="lede">Four steps, and you see something you can click before the invoice gets large.</p>
     <div class="steps">
       <div class="step">
         <h3>Scoping call</h3>
-        <p>We walk through the process as it runs today, including the spreadsheet workarounds and the parts nobody likes admitting to. Most of the real requirements are hiding in those.</p>
+        <p>We walk through the process as it runs today, spreadsheet workarounds included. Most of the real requirements turn up there.</p>
       </div>
       <div class="step">
         <h3>Data model and a fixed quote</h3>
-        <p>We design the schema first, write down what the system will and will not do, and quote a fixed price against that. The data model is what decides whether the thing still works in month four.</p>
+        <p>We design the database first, write down what the system will and will not do, and quote a fixed price against that.</p>
       </div>
       <div class="step">
         <h3>Something you can click, early</h3>
-        <p>You get a working version with your own data in it well before the end, so corrections happen while they are still cheap. Feedback on a screen beats feedback on a document.</p>
+        <p>You get a working version with your own data in it well before the end. A change at that stage costs far less than the same change after launch.</p>
       </div>
       <div class="step">
         <h3>Live, then maintained</h3>
-        <p>We deploy it, train whoever uses it daily, and stay on for changes. Software that nobody maintains quietly stops being used.</p>
+        <p>We deploy it, train the people who use it every day, and stay on for changes.</p>
       </div>
     </div>
 
     <div class="stack">
       <h3>What we build it with</h3>
       <p>Web apps and business systems are built on Next.js and PostgreSQL. For mobile apps and games, we choose the right tools for your project on the scoping call.</p>
-      <p class="t">Projects are quoted after a scoping call, since a dashboard and a full system are not the same job. The call costs nothing.</p>
+      <p>We quote after a scoping call, because a dashboard and a full system take different amounts of work. The call is free.</p>
     </div>
   </section>
 
-  <section class="case">
-    <div class="eyebrow">A system we built</div>
-    <h2>Estate CRM, built for a firm selling land on installments</h2>
-    <p>A land company was tracking hundreds of installment plans across spreadsheets and WhatsApp messages. Nobody could answer who owed money this month without an afternoon of adding up. We built the system that answers it in one screen, and it is now running with a live pilot client.</p>
+  <section class="case" id="case">
+    <h2>A land company's installment tracker, now a system</h2>
+    <p>A land company tracked hundreds of installment plans in spreadsheets and WhatsApp messages. Working out who owed money this month took an afternoon of adding up. We built a system that shows it on one screen, and it now runs with a live pilot client.</p>
     <ul>
       <li>Estates, plots and allocations in one place</li>
       <li>Customers with their own payment schedules</li>
@@ -179,18 +160,17 @@
     </ul>
   </section>
 
-  <section class="video">
-    <div class="eyebrow">Demo</div>
-    <h2>See a build in action</h2>
-    <div class="vframe">
-      <iframe src="https://www.loom.com/embed/e7fb8a68c85b4457906f510e914876ba" title="Cleverlon build walkthrough" loading="lazy" allowfullscreen></iframe>
-    </div>
-  </section>
+  <div class="build-split">
+    <section class="video">
+      <h2>See a build in action</h2>
+      <div class="vframe">
+        <iframe src="https://www.loom.com/embed/e7fb8a68c85b4457906f510e914876ba" title="Cleverlon build walkthrough" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </section>
 
-  <section class="intake" id="intake">
-    <div class="eyebrow">Start a build</div>
+    <section class="intake" id="intake">
     <h2>Tell us what you need</h2>
-    <p class="lede">A few short questions. We read every answer before the scoping call, so the call is spent on your process and not on basics.</p>
+    <p class="lede">A few short questions. We read the answers before the scoping call, so the call can go straight to how you work.</p>
     <form class="iform" id="iform" novalidate>
       <div class="field">
         <label for="f-name">Name</label>
@@ -261,7 +241,8 @@
       <div class="istatus" id="ist" role="status" aria-live="polite"></div>
       <p class="privacy">We use these details to reply about your project. We do not share them.</p>
     </form>
-  </section>
+    </section>
+  </div>
 
   <section class="closer">
     <h2>Have something in mind?</h2>
@@ -274,7 +255,7 @@
 
   <footer class="foot">
     <b>CLEVERLON</b><br>
-    Automation systems and software for growing businesses. Lagos, Nigeria. Working with clients worldwide.<br>
+    Automation systems and software for growing businesses. Working with clients worldwide.<br>
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;

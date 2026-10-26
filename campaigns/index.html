@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Interactive Campaigns | Cleverlon</title>
+<title>Interactive campaigns | Cleverlon</title>
 <meta name="description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Interactive Campaigns | Cleverlon">
+<meta property="og:title" content="Interactive campaigns | Cleverlon">
 <meta property="og:description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/campaigns">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -21,8 +21,8 @@
 :root{
   --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
   --accent:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --hot:#A32020; --warm:#8A5A00;
-  --display:"DM Serif Display",Georgia,serif;
-  --body:"Sora",system-ui,sans-serif;
+  --display:"Young Serif",Georgia,serif;
+  --body:"Albert Sans",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
@@ -35,10 +35,9 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:12p
 .mark img{display:block;height:22px;width:auto}
 .navlink{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--surface)}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(36px,6vw,64px);line-height:1;margin:10px 0 16px;letter-spacing:-.02em;text-wrap:balance}
-h1 em{font-style:normal;color:var(--accent)}
-h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
-h3{font-family:var(--body);font-weight:600;font-size:18px;margin:0;line-height:1.3;letter-spacing:-.01em}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,5.4vw,56px);line-height:1.08;margin:10px 0 16px;letter-spacing:-.005em;text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(25px,3.6vw,34px);line-height:1.15;margin:0;text-wrap:balance}
+h3{font-family:var(--body);font-weight:700;font-size:18px;margin:0;line-height:1.3}
 .lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0}
 section{padding-block:56px;display:flex;flex-direction:column;gap:24px}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:32px;align-items:start;padding-block:24px 56px}
@@ -50,8 +49,6 @@ section{padding-block:56px;display:flex;flex-direction:column;gap:24px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .btn:focus-visible,.brand-btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.proof{display:flex;flex-wrap:wrap;gap:8px}
-.proof span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--surface)}
 
 /* demo */
 .demo{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 40px -24px rgba(13,17,23,.35)}
@@ -91,10 +88,10 @@ input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px soli
 .wa small{display:block;text-align:right;color:#667781;font-size:11px;margin-top:4px}
 
 /* pipeline */
-.pipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:s}
-.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative}
-.step .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700}
-.step p{margin:0;color:var(--muted);font-size:15px}
+.pipe{display:grid;gap:0;border-top:1px solid var(--line);max-width:760px}
+.step{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.step .n{grid-row:1 / span 2;font-family:var(--display);font-size:34px;line-height:1;color:#B4BAC8}
+.step p{margin:0;color:var(--muted);font-size:15.5px}
 
 /* games */
 .games{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
@@ -105,16 +102,19 @@ input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px soli
 .game .go{font-weight:600;color:var(--accent)}
 
 /* formats */
-.formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.fmt{background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:4px}
-.fmt b{font-weight:600}
-.fmt span{font-size:14px;color:var(--muted)}
+.fmtlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 40px;max-width:820px}
+@media(max-width:640px){.fmtlist{grid-template-columns:1fr}}
+.fmtlist li{color:var(--muted);font-size:15.5px;padding-left:16px;position:relative}
+.fmtlist li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:#B4BAC8}
+.fmtlist b{color:var(--fg);font-weight:600}
 
 /* packages */
-.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
-.pack{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
-.pack.feature{border:2px solid var(--fg)}
-.price{font-family:var(--display);font-weight:400;font-size:30px;line-height:1}
+.packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media(max-width:760px){.packs{grid-template-columns:1fr}}
+.pack{padding:26px 32px 26px 0;display:flex;flex-direction:column;gap:12px}
+.pack + .pack{padding-left:32px;border-left:1px solid var(--line)}
+@media(max-width:760px){.pack{padding:24px 0}.pack + .pack{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.price{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
 .price small{font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted)}
 .pack ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--fg)}
 .pack .best{font-size:14px;color:var(--muted)}
@@ -150,19 +150,17 @@ footer .fine{color:var(--muted);opacity:.8}
 
   <div class="hero">
     <div class="hero-copy">
-      <div class="eyebrow">Interactive Campaigns</div>
-      <h1>Your customers won't read another ad. They'll <em>play</em> one.</h1>
-      <p class="lede">We build branded games, quizzes and challenges that people actually want to try. Every play captures a lead, scores it, and follows up on WhatsApp automatically, so your team only talks to buyers who are ready.</p>
+      <h1>Branded games that collect leads for you.</h1>
+      <p class="lede">We build spin wheels, scratch cards and quizzes in your brand. When someone plays, we save their name and number, mark the lead hot, warm or cold from their answer, and send a WhatsApp message with their prize. Your team calls the hot ones.</p>
       <div class="row">
         <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
         <a class="btn ghost" href="#games">Play our games</a>
       </div>
-      <div class="proof"><span>Lead capture built in</span><span>WhatsApp follow-up</span><span>Lands in your CRM</span><span>Your brand, your prizes</span></div>
     </div>
 
     <div class="demo" aria-label="Live demo">
       <div class="demo-head">
-        <span class="eyebrow">Try it · pick a sample brand</span>
+        <span class="eyebrow">Try it. Pick a sample brand.</span>
         <div class="brands" id="brands"></div>
       </div>
       <div class="stage" id="stage">
@@ -193,46 +191,42 @@ footer .fine{color:var(--muted);opacity:.8}
   </div>
 
   <section>
-    <div class="eyebrow">Why it works</div>
-    <h2>A game on the front. A sales system behind it.</h2>
-    <p class="lede">Most agencies hand you a game and a list of emails. We connect the game to the follow-up, so every player is contacted while they're still excited.</p>
+    <h2>How a play becomes a lead</h2>
+    <p class="lede">Many agencies deliver the game and a spreadsheet of emails. We connect the game to your follow-up, so each player hears from you seconds after playing.</p>
     <div class="pipe">
-      <div class="step"><span class="n">01 Play</span><h3>People choose to engage</h3><p>A quick, branded game that's fun to try and easy to share with friends.</p></div>
-      <div class="step"><span class="n">02 Capture</span><h3>Every play is a lead</h3><p>Name, number and one smart question, collected before the reward.</p></div>
-      <div class="step"><span class="n">03 Qualify</span><h3>Hot, warm or cold</h3><p>Answers are scored automatically, so you know who is ready to buy.</p></div>
-      <div class="step"><span class="n">04 Follow up</span><h3>Instant WhatsApp</h3><p>Prize, code and next step sent in seconds. Hot leads go straight to your team.</p></div>
+      <div class="step"><span class="n">1</span><h3>Play</h3><p>A short game in your brand, easy to share with friends.</p></div>
+      <div class="step"><span class="n">2</span><h3>Capture</h3><p>Name, number and one question, asked before the prize is shown.</p></div>
+      <div class="step"><span class="n">3</span><h3>Score</h3><p>The answer to that question marks the lead hot, warm or cold.</p></div>
+      <div class="step"><span class="n">4</span><h3>Follow up</h3><p>The prize code and next step go out on WhatsApp in seconds. Hot leads also alert your sales team.</p></div>
     </div>
   </section>
 
   <section id="games">
-    <div class="eyebrow">Built by Cleverlon</div>
-    <h2>Play the games we use to market ourselves</h2>
-    <p class="lede">Each one demonstrates a real system we build for clients. Try one and see how long you last.</p>
+    <h2>Try three of our own games</h2>
+    <p class="lede">Each one shows a system we build for clients.</p>
     <div class="games">
-      <a class="game" href="/campaigns/beat-the-bot/"><span class="kind">Reply race · 2 minutes</span><h3>Beat the Bot</h3><p>Race our AI agent to answer real customer messages. Shows our WhatsApp support agents.</p><span class="go">Play →</span></a>
-      <a class="game" href="/campaigns/survive-monday/"><span class="kind">Chaos sim · 45 seconds</span><h3>Survive Monday</h3><p>Juggle leads, invoices and complaints. Then replay the same morning with automation on.</p><span class="go">Play →</span></a>
-      <a class="game" href="/campaigns/shortlist-rush/"><span class="kind">Hiring game · 60 seconds</span><h3>Shortlist Rush</h3><p>Screen 36 CVs against the clock, then watch AI rank the same pile with reasons.</p><span class="go">Play →</span></a>
+      <a class="game" href="/campaigns/beat-the-bot/"><span class="kind">Reply race · 2 minutes</span><h3>Beat the Bot</h3><p>You and our AI agent answer the same customer messages. See who replies first. It shows how our WhatsApp support agent works.</p><span class="go">Play</span></a>
+      <a class="game" href="/campaigns/survive-monday/"><span class="kind">Chaos sim · 45 seconds</span><h3>Survive Monday</h3><p>Handle leads, invoices and complaints in 45 seconds. Then replay the same morning with automation switched on.</p><span class="go">Play</span></a>
+      <a class="game" href="/campaigns/shortlist-rush/"><span class="kind">Hiring game · 60 seconds</span><h3>Shortlist Rush</h3><p>Screen 36 CVs against the clock in 60 seconds. Then watch the AI rank the same pile and give a reason for each score.</p><span class="go">Play</span></a>
     </div>
   </section>
 
   <section>
-    <div class="eyebrow">Formats</div>
-    <h2>Pick the game that fits your customers</h2>
-    <div class="formats">
-      <div class="fmt"><b>Spin the wheel</b><span>Instant rewards for promos and launches</span></div>
-      <div class="fmt"><b>Scratch card</b><span>Mobile-first reveal for discounts and codes</span></div>
-      <div class="fmt"><b>Product quiz</b><span>"Which plan suits you?" with a tailored offer</span></div>
-      <div class="fmt"><b>Score or audit tool</b><span>"How healthy is your business?" for B2B leads</span></div>
-      <div class="fmt"><b>Package builder</b><span>Customers design their order and see the price</span></div>
-      <div class="fmt"><b>Challenge game</b><span>Beat the clock, share your score, dare a friend</span></div>
-      <div class="fmt"><b>Trivia league</b><span>Weekly quiz with a leaderboard and prizes</span></div>
-      <div class="fmt"><b>Loyalty streaks</b><span>Points and badges that bring customers back</span></div>
-    </div>
+    <h2>Eight game formats</h2>
+    <ul class="fmtlist">
+      <li><b>Spin the wheel</b> for promos and launches.</li>
+      <li><b>Scratch card</b> for discount codes on a phone.</li>
+      <li><b>Product quiz</b> ("Which plan suits you?") with an offer to match.</li>
+      <li><b>Score tool</b> ("How healthy is your business?") for B2B leads.</li>
+      <li><b>Package builder</b> where customers design an order and see the price.</li>
+      <li><b>Challenge game</b> where players beat the clock and share their score.</li>
+      <li><b>Weekly trivia league</b> with a leaderboard and prizes.</li>
+      <li><b>Loyalty streaks</b> with points and badges.</li>
+    </ul>
   </section>
 
   <section>
-    <div class="eyebrow">Packages</div>
-    <h2>One campaign or always on</h2>
+    <h2>Two packages</h2>
     <div class="packs">
       <div class="pack">
         <h3>Launch Campaign</h3>
@@ -240,7 +234,7 @@ footer .fine{color:var(--muted);opacity:.8}
         <ul><li>One branded game with your prizes</li><li>Landing page and lead capture</li><li>Leads delivered to your CRM or Google Sheets</li><li>Automated WhatsApp or email follow-up</li><li>Results report at the end</li></ul>
         <div class="best">Best for promos, product launches and seasonal sales. Live in about 2 weeks.</div>
       </div>
-      <div class="pack feature">
+      <div class="pack">
         <h3>Always-On Engagement</h3>
         <div class="price">from $800 <small>setup + $150/month</small></div>
         <ul><li>Everything in Launch Campaign</li><li>Lead scoring and hot-lead alerts</li><li>Monthly new questions, prizes or themes</li><li>Monthly dashboard of plays, leads and sales</li></ul>
@@ -250,15 +244,14 @@ footer .fine{color:var(--muted);opacity:.8}
   </section>
 
   <div class="close">
-    <div class="eyebrow">30 minutes · No obligation</div>
     <h2>Want to see one in your brand?</h2>
-    <p>Book a call and tell us about your customers. We'll suggest the right game and show you how the leads would flow into your business.</p>
+    <p>A 30 minute call, no obligation. Tell us about your customers and we will suggest a game and show you how leads would reach your team.</p>
     <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
   </div>
 
   <footer>
     <b>CLEVERLON</b><br>
-    Automation systems and software for growing businesses. Lagos, Nigeria. Working with clients worldwide.<br>
+    Automation systems and software for growing businesses. Working with clients worldwide.<br>
     <a href="/automation">Automation</a> &nbsp;&middot;&nbsp;
     <a href="/software">Software</a> &nbsp;&middot;&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;&middot;&nbsp;
@@ -320,7 +313,7 @@ function draw(){
     ctx.save();ctx.rotate(i*seg+seg/2);
     ctx.fillStyle=brand.txt[i%brand.txt.length];
     const fs=Math.max(10,Math.round(size/26));
-    ctx.font=`700 ${fs}px "Sora",system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
+    ctx.font=`700 ${fs}px "Albert Sans",system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
     const lines=wrapText(brand.prizes[i],r*0.52);
     lines.forEach((l,k)=>ctx.fillText(l,r-12,(k-(lines.length-1)/2)*fs*1.15));
     ctx.restore();

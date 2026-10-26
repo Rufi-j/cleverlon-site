@@ -3,62 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workflow automation | Cleverlon</title>
-<meta name="description" content="Workflow automation for growing businesses. Lead routing, invoice collection, support agents and reporting, built on the tools you already use.">
+<title>Workflow automation and prices | Cleverlon</title>
+<meta name="description" content="Nine workflow automations with prices: lead routing, invoice collection, support agents, reporting and more. Built on the tools you already use.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Workflow automation | Cleverlon">
-<meta property="og:description" content="Workflow automation for growing businesses. Lead routing, invoice collection, support agents and reporting, built on the tools you already use.">
+<meta property="og:title" content="Workflow automation and prices | Cleverlon">
+<meta property="og:description" content="Nine workflow automations with prices: lead routing, invoice collection, support agents, reporting and more. Built on the tools you already use.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/automation">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
 <style>
   .head{padding-bottom:10px}
-  .head h1{margin-top:40px;max-width:15ch}
-  .head h1 em{font-style:normal;color:var(--accent)}
+  .head h1{margin-top:40px;max-width:16ch}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
-  .group{margin-top:76px}
-  .group-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:6px}
-  .group-head h2{font-size:clamp(22px,3vw,30px)}
-  .group-head span{font-size:13px;color:var(--ink-soft)}
+  .group{margin-top:64px}
+  .group h2{font-size:clamp(22px,3vw,28px);padding-bottom:14px;border-bottom:1px solid var(--border)}
 
-  .svc{display:grid;grid-template-columns:1fr 268px;gap:34px;padding:30px 0;border-bottom:1px solid var(--border)}
-  @media(max-width:760px){.svc{grid-template-columns:1fr;gap:18px}}
-  .svc h3{font-size:19px;margin-bottom:9px}
-  .svc p{font-size:15px;color:var(--ink-mid)}
-  .svc ul{list-style:none;margin-top:14px;font-size:14px;color:var(--ink-soft);columns:2;column-gap:28px}
-  @media(max-width:620px){.svc ul{columns:1}}
-  .svc li{padding:4px 0 4px 16px;position:relative;break-inside:avoid}
-  .svc li::before{content:'';position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--ink-ghost)}
-  .price{background:var(--surface-2);border-radius:var(--radius);padding:20px 22px;align-self:start}
-  .price .n{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--accent)}
-  .price .sub{font-size:12.5px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
-  .price .t{font-size:12.5px;color:var(--ink-soft);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+  .svc{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:10px 40px;padding:26px 0;border-bottom:1px solid var(--border)}
+  @media(max-width:760px){.svc{grid-template-columns:1fr;gap:12px}}
+  .svc h3{font-size:19px;margin-bottom:8px}
+  .svc p{font-size:15.5px;color:var(--ink-mid);max-width:64ch}
+  .svc details{margin-top:12px;font-size:14px;color:var(--ink-soft)}
+  .svc summary{cursor:pointer;color:var(--ink-mid);font-weight:600;width:max-content}
+  .svc summary:hover{color:var(--accent)}
+  .svc ul{list-style:none;margin-top:10px}
+  .svc li{padding:3px 0 3px 16px;position:relative}
+  .svc li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--ink-ghost)}
+  .price{align-self:start}
+  .price .n{font-size:19px;font-weight:700;color:var(--ink)}
+  .price .t{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+  @media(min-width:761px){.price{text-align:right}}
 
-  .custom{background:var(--ink);color:#fff;border-radius:var(--radius);padding:44px 40px;margin-top:76px}
-  @media(max-width:640px){.custom{padding:32px 24px}}
-  .custom .eyebrow{color:var(--accent-mid)}
-  .custom h2{margin-bottom:16px}
-  .custom p{color:rgba(255,255,255,.62);font-size:16px;max-width:62ch}
-  .custom .work{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:30px 0 28px}
-  @media(max-width:760px){.custom .work{grid-template-columns:1fr}}
-  .custom .work div{background:rgba(255,255,255,.055);border-radius:10px;padding:20px}
-  .custom .work h3{font-size:15px;margin-bottom:6px}
-  .custom .work p{font-size:13.5px;color:rgba(255,255,255,.55)}
-  .custom a.btn{background:#fff;color:var(--ink)}
-  .custom a.btn:hover{background:var(--surface-hover)}
+  .custom{margin-top:72px;padding-top:30px;border-top:1px solid var(--border);max-width:680px}
+  .custom p{color:var(--ink-mid);margin-top:12px}
+  .custom .textlink{display:inline-block;margin-top:12px}
 
-  .terms{background:var(--surface-2);border-radius:var(--radius);padding:28px 30px;margin-top:40px;font-size:14px;color:var(--ink-mid)}
+  .terms{margin-top:56px;font-size:14.5px;color:var(--ink-mid);max-width:72ch}
   .terms b{color:var(--ink)}
 
-  .closer{margin-top:76px;text-align:center}
-  .closer h2{max-width:20ch;margin:0 auto 16px}
-  .closer p{color:var(--ink-mid);max-width:54ch;margin:0 auto 26px}
-  .custom .after{margin-bottom:26px}
+  .closer{margin-top:64px;max-width:620px}
+  .closer p{color:var(--ink-mid);margin:12px 0 22px}
 </style>
 </head>
 <body>
@@ -75,9 +63,8 @@
   </div>
 
   <section class="head">
-    <div class="eyebrow">Workflow automation</div>
-    <h1>Most automation stops <em>where the tools stop</em>.</h1>
-    <p class="lede">You can connect a form to a CRM to WhatsApp and fix a lot. But at some point a business needs a screen that does not exist yet. We build both parts: the workflows that move the data, and the software itself when nothing off the shelf fits.</p>
+    <h1>Nine automations, with prices.</h1>
+    <p class="lede">Each one is a one-off setup fee plus a monthly fee. The monthly fee covers hosting, tool subscriptions, monitoring and changes. You can cancel any month and keep the workflows.</p>
     <div class="cta-row">
       <a class="btn" href="/audit">Take the free audit</a>
       <a class="btn ghost" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
@@ -85,25 +72,24 @@
   </section>
 
   <section class="group">
-    <div class="group-head">
-      <h2>Sales</h2>
-      <span>Finding, qualifying and converting</span>
-    </div>
+    <h2>Sales</h2>
 
     <div class="svc">
       <div>
         <h3>Lead Generation System</h3>
-        <p>Prospects matching your ideal customer found and enriched automatically, then dropped into a tracker ready for outreach, instead of you hunting them one at a time.</p>
-        <ul>
-          <li>Automated prospect sourcing</li>
-          <li>Contact and company enrichment</li>
-          <li>Deduplication against existing records</li>
-          <li>Delivered into your CRM or a sheet</li>
-        </ul>
+        <p>We find businesses that match your ideal customer, add their contact and company details, remove any you already have, and put them in your CRM or a sheet ready for outreach.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Automated prospect sourcing</li>
+            <li>Contact and company enrichment</li>
+            <li>Deduplication against existing records</li>
+            <li>Delivered into your CRM or a sheet</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$1,500 + $250/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
@@ -111,17 +97,19 @@
     <div class="svc">
       <div>
         <h3>Lead Qualification &amp; Routing</h3>
-        <p>Every enquiry, from every channel, captured in one place, scored against your criteria and routed to the right person fast, so nothing sits unanswered overnight.</p>
-        <ul>
-          <li>Website, WhatsApp, DM and ad leads in one pipe</li>
-          <li>Scoring against your own criteria</li>
-          <li>Instant alert with a drafted first reply</li>
-          <li>Response time logged and measurable</li>
-        </ul>
+        <p>Enquiries from your website, WhatsApp, Instagram messages and ads arrive in one place. Each is scored against your criteria and sent to the right person with a drafted first reply. An enquiry at 11pm triggers an alert straight away.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Website, WhatsApp, DM and ad leads in one pipe</li>
+            <li>Scoring against your own criteria</li>
+            <li>Instant alert with a drafted first reply</li>
+            <li>Response time logged and measurable</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$2,000 + $300/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
@@ -129,42 +117,43 @@
     <div class="svc">
       <div>
         <h3>Client Acquisition &amp; Onboarding</h3>
-        <p>The stretch between someone saying yes and actually becoming a client, running as one sequence: intake, documents, records and kickoff, instead of a scramble across inboxes.</p>
-        <ul>
-          <li>Intake forms and document collection</li>
-          <li>Automatic reminders on what is missing</li>
-          <li>Records created without retyping</li>
-          <li>Optional contract and invoice on signature</li>
-        </ul>
+        <p>When a client says yes, the intake form goes out, documents are collected, missing items are chased, and their records are created without anyone retyping them. A contract and invoice can go out on signature.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Intake forms and document collection</li>
+            <li>Automatic reminders on what is missing</li>
+            <li>Records created without retyping</li>
+            <li>Optional contract and invoice on signature</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$2,500 + $350/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
   </section>
 
   <section class="group">
-    <div class="group-head">
-      <h2>Operations</h2>
-      <span>The work that repeats every week</span>
-    </div>
+    <h2>Operations</h2>
 
     <div class="svc">
       <div>
         <h3>Invoice &amp; Payment Collection</h3>
-        <p>Invoices raised the moment a job or order is confirmed, sent with a payment link, receipted automatically when paid, and chased on a schedule when they are not.</p>
-        <ul>
-          <li>Invoice generated from your own records</li>
-          <li>Payment links through Stripe or your gateway</li>
-          <li>Receipts sent without you touching it</li>
-          <li>Live paid, pending and overdue board</li>
-        </ul>
+        <p>An invoice is created from your records when a job or order is confirmed, and sent with a payment link. When the client pays, a receipt goes out. When they do not, we chase on a schedule you choose.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Invoice generated from your own records</li>
+            <li>Payment links through Stripe or your gateway</li>
+            <li>Receipts sent without you touching it</li>
+            <li>Live paid, pending and overdue board</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$1,500 + $250/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
@@ -172,17 +161,19 @@
     <div class="svc">
       <div>
         <h3>WhatsApp Customer Support Agent</h3>
-        <p>An AI agent on your WhatsApp Business number answering routine questions instantly, day or night, and handing real conversations to a person with the full history attached.</p>
-        <ul>
-          <li>Answers from your own prices and policies</li>
-          <li>Intent classification and multi-path routing</li>
-          <li>Escalation to a human below a confidence threshold</li>
-          <li>Every conversation logged</li>
-        </ul>
+        <p>An AI agent answers routine questions on your WhatsApp Business number at any hour, using your own prices and policies. When it is unsure, it passes the chat to a person with the full history.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Answers from your own prices and policies</li>
+            <li>Intent classification and multi-path routing</li>
+            <li>Escalation to a human below a confidence threshold</li>
+            <li>Every conversation logged</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$2,500 + $400/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
@@ -190,17 +181,19 @@
     <div class="svc">
       <div>
         <h3>Internal Knowledge Bot</h3>
-        <p>Your policies, prices and procedures in one place your team can simply ask questions of, so the answer stops depending on one person being reachable.</p>
-        <ul>
-          <li>Answers grounded in your real documents</li>
-          <li>Says it does not know rather than inventing</li>
-          <li>Slack, Teams or WhatsApp</li>
-          <li>Updated as your documents change</li>
-        </ul>
+        <p>Your team asks a question in Slack, Teams or WhatsApp and gets an answer taken from your own documents. If the answer is not in them, the bot says so.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Answers grounded in your real documents</li>
+            <li>Says it does not know rather than inventing</li>
+            <li>Slack, Teams or WhatsApp</li>
+            <li>Updated as your documents change</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$2,000 + $300/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 12 to 14 days</div>
       </div>
     </div>
@@ -208,17 +201,19 @@
     <div class="svc">
       <div>
         <h3>Automated Business Reporting</h3>
-        <p>Your sales, marketing and payment figures pulled into one place and summarised to your inbox or phone, daily or weekly, with last period alongside for context.</p>
-        <ul>
-          <li>Data pulled from your real sources</li>
-          <li>Period-on-period comparison</li>
-          <li>Unusual movement flagged</li>
-          <li>Separate owner and team versions</li>
-        </ul>
+        <p>Sales, marketing and payment figures from your real sources arrive as one summary on your phone or in your inbox, daily or weekly, with the previous period beside them. Unusual jumps are flagged. Owners and team members can get different versions.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Data pulled from your real sources</li>
+            <li>Period-on-period comparison</li>
+            <li>Unusual movement flagged</li>
+            <li>Separate owner and team versions</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$1,200 + $200/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 10 days</div>
       </div>
     </div>
@@ -226,17 +221,19 @@
     <div class="svc">
       <div>
         <h3>Resume Screening &amp; Candidate Scoring</h3>
-        <p>Applications read, scored against the role and ranked before anyone opens a CV, so hiring costs you a shortlist review instead of an afternoon.</p>
-        <ul>
-          <li>Scoring against your own criteria</li>
-          <li>Ranked shortlist with reasoning</li>
-          <li>Human checkpoint before any rejection</li>
-          <li>Feeds your ATS or a sheet</li>
-        </ul>
+        <p>Applications are read and scored against the role, and you get a ranked shortlist with the reasons. Nobody is rejected until a person has checked.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Scoring against your own criteria</li>
+            <li>Ranked shortlist with reasoning</li>
+            <li>Human checkpoint before any rejection</li>
+            <li>Feeds your ATS or a sheet</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$2,000 + $300/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 14 days</div>
       </div>
     </div>
@@ -244,43 +241,43 @@
     <div class="svc">
       <div>
         <h3>Content Publishing</h3>
-        <p>Your listings, products or expertise published consistently across your channels without anyone sitting down to write posts each week.</p>
-        <ul>
-          <li>Drafted from your own material</li>
-          <li>Scheduled queue you approve</li>
-          <li>LinkedIn, Instagram or Facebook</li>
-          <li>Simple performance summary</li>
-        </ul>
+        <p>We draft posts from your listings, products or notes and queue them for your approval. Approved posts go out on LinkedIn, Instagram or Facebook on schedule, with a short summary of how they did.</p>
+        <details>
+          <summary>What is included</summary>
+          <ul>
+            <li>Drafted from your own material</li>
+            <li>Scheduled queue you approve</li>
+            <li>LinkedIn, Instagram or Facebook</li>
+            <li>Simple performance summary</li>
+          </ul>
+        </details>
       </div>
       <div class="price">
         <div class="n">$800 + $150/mo</div>
-        <div class="sub">One-off setup, then monthly. The monthly covers hosting, every tool subscription, monitoring and ongoing changes.</div>
         <div class="t">Live in 10 days</div>
       </div>
     </div>
   </section>
 
   <section class="custom">
-    <div class="eyebrow">Custom software</div>
-    <h2>If it doesn't exist yet, we'll build it.</h2>
-    <p>Workflows move data between systems that already exist. Sometimes what you need does not exist, and that is a build, not a workflow. Web apps and business systems, mobile apps, video games and interactive tools.</p>
-    <p class="after">We come from database and cloud engineering, so the data model gets designed before the screens do.</p>
-    <a class="btn" href="/software">What we build &rarr;</a>
+    <h2>Need something that does not exist yet?</h2>
+    <p>We also build web apps, mobile apps, games and interactive tools to order. It starts with a call about how you work today.</p>
+    <a class="textlink" href="/software">Custom software</a>
   </section>
 
   <div class="terms">
-    <b>How pricing works.</b> Every system is a one-off setup fee plus a monthly fee. The monthly covers hosting, all tool and platform subscriptions, monitoring and ongoing changes, so there are no separate software bills to manage. The first month is included in the setup fee. Month to month, no lock-in: cancel any time and you keep the workflows. Custom software is quoted per project. Timelines begin at kickoff.
+    <b>How pricing works.</b> Every automation has a one-off setup fee and a monthly fee. The monthly fee covers hosting, tool subscriptions, monitoring and changes, so you get no separate software bills. The first month is included in the setup fee. There is no lock-in. Cancel any month and you keep the workflows. Custom software is quoted per project. Timelines start at kickoff.
   </div>
 
   <section class="closer">
-    <h2>Not sure which of these you need?</h2>
-    <p>The audit asks twelve questions about how your week actually goes, then tells you which system would give back the most hours and which to add after it. Four minutes, no call to book.</p>
+    <h2>Not sure which one to start with?</h2>
+    <p>The free audit asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes and you do not need to book a call.</p>
     <a class="btn" href="/audit">Take the free audit</a>
   </section>
 
   <footer class="foot">
     <b>CLEVERLON</b><br>
-    Automation systems and software for growing businesses. Lagos, Nigeria. Working with clients worldwide.<br>
+    Automation systems and software for growing businesses. Working with clients worldwide.<br>
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
