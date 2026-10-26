@@ -34,10 +34,10 @@ without being asked.
 ## Design system
 
 `shared.css` holds the tokens and base classes. Use them. Do not introduce new
-colours, fonts or radii; if something seems to need one, say so instead of
+colors, fonts or radii; if something seems to need one, say so instead of
 adding it.
 
-- Colours are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
+- Colors are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
   `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
   `--estate` (green, used only on the tracker page at /crm), plus
   `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
@@ -68,13 +68,13 @@ This has happened. Verify each file after writing it.
 
 **Writing style.** No em dashes or en dashes anywhere in copy, ever. Use a
 comma, a full stop or a colon. Short words over long ones. No marketing
-inflation: say what a thing does rather than how transformative it is. British
-spelling is not used; keep to the spelling already on the page.
+inflation: say what a thing does rather than how transformative it is. Use US spelling
+everywhere (organization, color, inquiry, center, program, canceled).
 
 **Voice.** Write like a person explaining their work to a client over
 WhatsApp: plain words, short sentences, specific details. Vary sentence
 length and do not open consecutive sentences the same way. No italic or
-coloured emphasis words in headlines. No "not X, but Y" or "X, not Y" lines,
+colored emphasis words in headlines. No "not X, but Y" or "X, not Y" lines,
 no rhetorical triplets, no neat closing punchline at the end of a paragraph.
 Say a thing once. Avoid stock phrases (seamless, effortless, streamline,
 game-changer, unlock, empower, peace of mind). Prefer concrete examples and

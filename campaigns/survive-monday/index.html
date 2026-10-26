@@ -90,7 +90,7 @@ td.cl{color:var(--bot);font-family:var(--mono);font-weight:700}
     <div class="overlay" id="ov">
       <div class="panel">
         <h2>It's 9:00 on Monday. Your phone is about to explode.</h2>
-        <p>You run a growing business. For the next 45 seconds, enquiries, invoices, applicants and complaints will pour in. Tap each card to deal with it before its timer runs out.</p>
+        <p>You run a growing business. For the next 45 seconds, inquiries, invoices, applicants and complaints will pour in. Tap each card to deal with it before its timer runs out.</p>
         <ul class="rules">
           <li>Some jobs need more than one tap. The dots show how many.</li>
           <li>Red cards are about to expire.</li>
@@ -105,7 +105,7 @@ td.cl{color:var(--bot);font-family:var(--mono);font-weight:700}
 
 <script>
 const TYPES={
-  lead:{kind:"WhatsApp enquiry",what:["Is the 3-bedroom still available?","How much for the starter package?","Can I book a viewing this week?","Do you deliver to my area?"],act:"Reply",taps:2,ttl:6.5,bot:"Lead Bot replied and qualified",loss:"Leads lost"},
+  lead:{kind:"WhatsApp inquiry",what:["Is the 3-bedroom still available?","How much for the starter package?","Can I book a viewing this week?","Do you deliver to my area?"],act:"Reply",taps:2,ttl:6.5,bot:"Lead Bot replied and qualified",loss:"Leads lost"},
   invoice:{kind:"Invoice overdue",what:["Invoice #1042 is 14 days late","Client asked for a payment link","Invoice #1051 not sent yet"],act:"Chase payment",taps:1,ttl:8,bot:"Billing Bot sent reminder and link",loss:"Invoices unpaid"},
   applicant:{kind:"Job applicant",what:["New CV for Sales Executive","Applicant waiting 3 days","Shortlist due today"],act:"Screen CV",taps:3,ttl:10,bot:"HR Bot screened and scored",loss:"Candidates lost"},
   support:{kind:"Unhappy customer",what:["Where is my order?","Nobody answered my call","I want a refund"],act:"Calm them down",taps:2,ttl:6,bot:"Support Agent resolved it",loss:"Clients upset"},

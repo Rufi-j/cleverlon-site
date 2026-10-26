@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cleverlon | Automation and software for growing businesses</title>
-<meta name="description" content="Cleverlon builds automation systems, custom software and lead-capture campaigns for growing businesses.">
+<title>Cleverlon | Workflow automation and custom software</title>
+<meta name="description" content="Cleverlon builds workflow automation and custom software for organizations of any size: integrations, web and mobile apps, games and interactive campaigns.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cleverlon | Automation and software for growing businesses">
-<meta property="og:description" content="Cleverlon builds automation systems, custom software and lead-capture campaigns for growing businesses.">
+<meta property="og:title" content="Cleverlon | Workflow automation and custom software">
+<meta property="og:description" content="Cleverlon builds workflow automation and custom software for organizations of any size: integrations, web and mobile apps, games and interactive campaigns.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -16,32 +16,118 @@
 <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
 <style>
-  .hero{background:var(--ink);color:#fff;padding:14px 0 76px;position:relative;overflow:hidden}
+  /* Screenshot slots. Every <figure class="shot"> below is hidden until you
+     have the image: delete the hidden attribute and the layout around it
+     switches to its two column version on its own. */
+  .shot{margin:0;border-radius:var(--radius);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
+  .shot[hidden]{display:none}
+  .shot img{display:block;width:100%;height:auto}
+
+  .section{padding-top:clamp(72px,9vw,112px)}
+  .section > .wrap > h2{max-width:22ch}
+
+  /* 1. hero: split */
+  .hero{background:var(--ink);color:#fff;padding:14px 0 clamp(64px,8vw,96px);position:relative;overflow:hidden}
   .hero .mark,.hero .topnav a{color:#fff}
   .hero .topnav a{opacity:.62}
   .hero .topnav a:hover{opacity:1}
-  .hero h1{margin-top:58px;max-width:18ch}
-  .hero .lede{color:rgba(255,255,255,.66)}
-  .hero .prices{margin-top:22px;font-size:15px;color:rgba(255,255,255,.5);max-width:620px}
-  .hero::after{content:'';position:absolute;top:-120px;right:-80px;width:420px;height:420px;
-    border-radius:50%;border:1px solid rgba(255,255,255,.05)}
+  .hero::after{content:'';position:absolute;top:-120px;right:-80px;width:420px;height:420px;border-radius:50%;border:1px solid rgba(255,255,255,.05);pointer-events:none}
+  .hero-split{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;margin-top:clamp(40px,6vw,64px);position:relative;z-index:1}
+  .hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center}
+  @media(max-width:860px){.hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr)}}
+  .hero h1{max-width:18ch}
+  .hero .lede{color:rgba(255,255,255,.7);max-width:560px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:32px}
+  .hero .textlink{color:#fff;border-bottom-color:rgba(255,255,255,.35)}
+  .hero .textlink:hover{border-bottom-color:#fff}
+  .hero .shot{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);max-width:420px;justify-self:end}
 
-  .rows{margin-top:44px}
+  /* 2. clients strip (commented out in the markup until names arrive) */
+  .clients{border-bottom:1px solid var(--border);padding:26px 0}
+  .clients-row{display:grid;grid-template-columns:auto repeat(5,minmax(0,1fr));gap:18px;align-items:center}
+  .clients-row h2{font:600 12px/1 'Albert Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .clients-row span{font-size:15px;color:var(--ink-soft);text-align:center;padding:12px 8px;border:1px dashed var(--border);border-radius:8px}
+  @media(max-width:760px){.clients-row{grid-template-columns:repeat(2,minmax(0,1fr))}.clients-row h2{grid-column:1/-1}}
 
-  .why{padding:96px 0 0}
-  .why h2{max-width:18ch}
-  .why .lede{margin-bottom:8px}
-  .points{margin-top:30px;max-width:680px}
-  .points p{padding:14px 0 14px 20px;border-left:2px solid var(--border);font-size:16px;color:var(--ink-mid)}
-  .points p + p{margin-top:2px}
+  /* 3. services: grid */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px;margin-top:44px}
+  @media(max-width:980px){.svc-grid{grid-template-columns:minmax(0,1fr);gap:56px}}
+  .svc{display:flex;flex-direction:column;border-top:2px solid var(--ink);padding-top:22px}
+  .svc .shot{margin-bottom:22px}
+  .svc h3{font-size:15px;color:var(--ink-soft);font-weight:600}
+  .svc .outcome{font-family:'Young Serif',Georgia,serif;font-size:24px;line-height:1.25;margin:8px 0 22px}
+  .svc .eg{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .svc ul{list-style:none;margin:0 0 22px;font-size:15px;color:var(--ink-mid)}
+  .svc li{padding:7px 0 7px 16px;position:relative}
+  .svc li::before{content:'';position:absolute;left:0;top:16px;width:5px;height:5px;border-radius:50%;background:var(--ink-ghost)}
+  .svc .textlink{margin-top:auto;align-self:flex-start}
+  .svc .fine{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
 
-  .case{margin-top:72px;max-width:680px}
-  .case p{color:var(--ink-mid)}
-  .case .textlink{display:inline-block;margin-top:10px}
+  /* 4. who we work with: three text columns, vertical rules */
+  .who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:40px}
+  .who > div{padding:0 32px}
+  .who > div:first-child{padding-left:0}
+  .who > div + div{border-left:1px solid var(--border)}
+  .who h3{font-family:'Young Serif',Georgia,serif;font-weight:400;font-size:22px;margin-bottom:10px}
+  .who p{font-size:15.5px;color:var(--ink-mid)}
+  .who p + p{margin-top:10px}
+  @media(max-width:860px){.who{grid-template-columns:minmax(0,1fr);gap:36px}.who > div{padding:0}.who > div + div{border-left:0;border-top:1px solid var(--border);padding-top:30px}}
+
+  /* 5. selected work: alternating image and text */
+  .cases{margin-top:16px}
+  .case-item{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;padding:44px 0;border-bottom:1px solid var(--border);max-width:820px}
+  .case-item:last-child{border-bottom:0}
+  .case-item:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;max-width:none}
+  .case-item:nth-child(even) .shot{order:2}
+  @media(max-width:860px){.case-item:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr);gap:28px}.case-item:nth-child(even) .shot{order:0}}
+  .case-item h3{font-size:21px;margin-bottom:16px;max-width:30ch}
+  .case-item dl > div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;padding:8px 0}
+  .case-item dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+  .case-item dd{font-size:15.5px;color:var(--ink-mid)}
+  @media(max-width:520px){.case-item dl > div{grid-template-columns:minmax(0,1fr)}}
+
+  /* 6. how we work: numbered timeline */
+  .timeline{list-style:none;counter-reset:t;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 28px;margin-top:44px}
+  .timeline li{counter-increment:t;border-top:2px solid var(--border);padding-top:18px;font-size:15px;color:var(--ink-mid)}
+  .timeline li::before{content:counter(t);display:block;font-family:'Young Serif',Georgia,serif;font-size:40px;line-height:1;color:var(--accent);margin-bottom:12px}
+  .timeline b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
+  @media(max-width:860px){
+    .timeline{grid-template-columns:minmax(0,1fr);gap:0;border-left:2px solid var(--border);margin-left:6px}
+    .timeline li{border-top:0;padding:0 0 30px 26px;position:relative}
+    .timeline li::before{font-size:30px;margin-bottom:6px}
+  }
+
+  /* 7. why: pale full width band, split */
+  .why{background:var(--surface-2);margin-top:clamp(72px,9vw,112px);padding:clamp(56px,7vw,88px) 0}
+  .why-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px;align-items:start}
+  @media(max-width:860px){.why-split{grid-template-columns:minmax(0,1fr);gap:20px}}
+  .why p{color:var(--ink-mid);font-size:16.5px;max-width:58ch}
+  .why ul{list-style:none;margin-top:22px}
+  .why li{padding:10px 0 10px 20px;border-left:2px solid var(--border);color:var(--ink-mid);font-size:15.5px}
+  .why li + li{margin-top:4px}
+
+  /* 8. FAQ */
+  .faq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px;align-items:start}
+  @media(max-width:860px){.faq{grid-template-columns:minmax(0,1fr);gap:24px}}
+  details.q{border-top:1px solid var(--border)}
+  details.q:last-child{border-bottom:1px solid var(--border)}
+  details.q summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-weight:700;font-size:17px;position:relative}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary::after{content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:400;color:var(--ink-soft)}
+  details.q[open] summary::after{content:'\2212'}
+  details.q summary:hover{color:var(--accent)}
+  details.q p{padding:0 40px 22px 0;color:var(--ink-mid);font-size:16px;max-width:60ch}
+
+  .cta + .wrap .foot{margin-top:0;border-top:0}
+
+  /* 9. final call to action */
+  .cta{background:var(--accent-light);margin-top:clamp(72px,9vw,112px);padding:clamp(48px,6vw,72px) 0}
+  .cta h2{max-width:20ch;margin-bottom:22px}
 </style>
 </head>
 <body>
 
+<!-- 1. HERO -->
 <section class="hero">
   <div class="wrap">
     <div class="topbar">
@@ -53,60 +139,258 @@
         <a href="/audit">Free audit</a>
       </nav>
     </div>
-    <h1>Automation and software for businesses that run on spreadsheets and WhatsApp.</h1>
-    <p class="lede">We connect the tools you already pay for, build the ones you are missing, and fix things when a platform changes. Most automations are live in two weeks.</p>
-    <p class="prices">Automation from $800 setup. Campaigns from $800. Software quoted per project.</p>
+    <div class="hero-split">
+      <div>
+        <h1>Workflow automation and custom software for organizations of any size.</h1>
+        <p class="lede">We connect the systems you already run, automate the work that repeats, and build software where nothing off the shelf fits. Our background is database and cloud engineering.</p>
+        <div class="hero-cta">
+          <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
+          <a class="textlink" href="#services">See what we build</a>
+        </div>
+      </div>
+      <!-- SCREENSHOT 1 of 7. WhatsApp agent chat, portrait, 900 x 1125 px. Delete "hidden" to show. -->
+      <figure class="shot" hidden>
+        <img src="/img/home-hero-whatsapp-agent.webp" alt="A customer asks a price question on WhatsApp and the Cleverlon agent answers" width="900" height="1125" loading="lazy">
+      </figure>
+    </div>
   </div>
 </section>
 
-<div class="wrap">
-  <div class="rows">
-    <div class="row-item">
-      <h2>Stop chasing invoices by hand</h2>
-      <div>
-        <p>We set up WhatsApp agents, invoice reminders, lead routing and weekly reports on the tools you already use. Setup starts at $800, plus $150 a month.</p>
+<!-- 2. CLIENTS STRIP. Hidden until real names are supplied. To show it, remove the comment markers and
+     replace each "Client name" with a real name (or a logo image).
+<section class="clients">
+  <div class="wrap">
+    <div class="clients-row">
+      <h2>Clients</h2>
+      <span>Client name 1</span>
+      <span>Client name 2</span>
+      <span>Client name 3</span>
+      <span>Client name 4</span>
+      <span>Client name 5</span>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- 3. SERVICES -->
+<section class="section" id="services">
+  <div class="wrap">
+    <h2>What we build</h2>
+    <div class="svc-grid">
+
+      <article class="svc">
+        <!-- SCREENSHOT 2 of 7. Workflow builder with a whole workflow visible, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-automation-workflow.webp" alt="A workflow that scores an inquiry and routes it to the right person" width="1200" height="800" loading="lazy">
+        </figure>
+        <h3>Automation</h3>
+        <p class="outcome">Repeat work runs without anyone doing it by hand.</p>
+        <p class="eg">For example</p>
+        <ul>
+          <li>A clinic's website, WhatsApp and Instagram inquiries scored and sent to the right person with a drafted reply.</li>
+          <li>Invoices created, sent with a payment link and chased on a schedule for a 20 person agency.</li>
+          <li>A daily sales summary on the owner's phone for a retail chain.</li>
+          <li>Applications read, scored and ranked for a company hiring dozens of people.</li>
+        </ul>
         <a class="textlink" href="/automation">Automation and prices</a>
-      </div>
-    </div>
-    <div class="row-item">
-      <h2>Branded games that collect leads</h2>
-      <div>
-        <p>A spin wheel or quiz in your brand. Each player's name and number goes to your CRM, and a WhatsApp message with their prize goes out within seconds. Packages start at $800.</p>
-        <a class="textlink" href="/campaigns">Play the demos</a>
-      </div>
-    </div>
-    <div class="row-item">
-      <h2>Build something new</h2>
-      <div>
-        <p>Web apps, mobile apps, games and interactive tools, built to order. We start with a call about how you work today, then quote a fixed price.</p>
+        <p class="fine">Setup from $800, plus a monthly fee.</p>
+      </article>
+
+      <article class="svc">
+        <!-- SCREENSHOT 3 of 7. Dashboard with sample data, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-software-dashboard.webp" alt="An operations dashboard with totals above and a table below" width="1200" height="800" loading="lazy">
+        </figure>
+        <h3>Custom software</h3>
+        <p class="outcome">Software that does not exist yet, built to order.</p>
+        <p class="eg">For example</p>
+        <ul>
+          <li>A client portal where customers see their own balances and documents.</li>
+          <li>An internal approval system with roles and an audit trail, for a large organization.</li>
+          <li>A mobile app for field staff.</li>
+          <li>A browser game for a brand launch.</li>
+        </ul>
         <a class="textlink" href="/software">Custom software</a>
+        <p class="fine">Quoted per project after a free scoping call.</p>
+      </article>
+
+      <article class="svc">
+        <!-- SCREENSHOT 4 of 7. The spin wheel game on a phone or in a browser, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-campaign-game.webp" alt="A branded spin wheel game with a prize result" width="1200" height="800" loading="lazy">
+        </figure>
+        <h3>Interactive campaigns</h3>
+        <p class="outcome">Branded games that collect and score leads.</p>
+        <p class="eg">For example</p>
+        <ul>
+          <li>A spin wheel for a restaurant's launch week.</li>
+          <li>A product quiz for a bank's new savings plan.</li>
+          <li>A package builder for a catering company.</li>
+          <li>Loyalty streaks for a retailer.</li>
+        </ul>
+        <a class="textlink" href="/campaigns">Play the demos</a>
+        <p class="fine">From $800.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 4. WHO WE WORK WITH -->
+<section class="section">
+  <div class="wrap">
+    <h2>Who we work with</h2>
+    <div class="who">
+      <div>
+        <h3>Growing businesses</h3>
+        <p>Teams that have outgrown shared inboxes, spreadsheets and chat groups. We usually build lead routing, invoicing and reporting automations first, then an internal tool.</p>
+      </div>
+      <div>
+        <h3>Established organizations</h3>
+        <p>Companies with several departments and systems already in place. We connect those systems, automate the hand-offs between teams, and build the dashboards or portals that are missing.</p>
+      </div>
+      <div>
+        <h3>Large companies</h3>
+        <p>Organizations with security reviews, existing platforms and many users. We integrate through your systems' APIs, design roles and access control, keep an audit trail of changes, document what we build, and plan how data is stored and handled.</p>
+        <p>We sign NDAs and can build inside your own cloud account.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
+<!-- 5. SELECTED WORK -->
+<section class="section">
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <div class="cases">
+
+      <article class="case-item">
+        <!-- SCREENSHOT 5 of 7. The installment tracking system, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-case-installments.webp" alt="The installment tracking system showing customers and payment plans" width="1200" height="800" loading="lazy">
+        </figure>
+        <div>
+          <h3>Installment tracking system for a land sales company</h3>
+          <dl>
+            <div><dt>Problem</dt><dd>Plots, customers and installment plans were tracked in spreadsheets.</dd></div>
+            <div><dt>Built</dt><dd>A system that replaced the spreadsheets, covering plots, customers, installment plans and receipts.</dd></div>
+            <div><dt>Result</dt><dd>In daily use with a pilot client.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case-item">
+        <!-- SCREENSHOT 6 of 7. The WhatsApp support agent, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-case-support-agent.webp" alt="A WhatsApp support agent answering a customer question" width="1200" height="800" loading="lazy">
+        </figure>
+        <div>
+          <h3>WhatsApp customer support agent for a food business</h3>
+          <dl>
+            <div><dt>Problem</dt><dd>Staff answered the same customer questions on WhatsApp by hand, all day.</dd></div>
+            <div><dt>Built</dt><dd>An agent that answers customer questions on WhatsApp and hands complex conversations to a person.</dd></div>
+            <div><dt>Result</dt><dd>Live and handling customer inquiries.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case-item">
+        <!-- SCREENSHOT 7 of 7. The prospect database or sheet, 1200 x 800 px. -->
+        <figure class="shot" hidden>
+          <img src="/img/home-case-lead-generation.webp" alt="A sheet of prospects with enriched contact and company details" width="1200" height="800" loading="lazy">
+        </figure>
+        <div>
+          <h3>Lead generation system for a creative agency</h3>
+          <dl>
+            <div><dt>Problem</dt><dd>The agency found prospects by hand, and their contact details were incomplete.</dd></div>
+            <div><dt>Built</dt><dd>A system that finds prospects, enriches their details with AI and stores them in a database and a sheet.</dd></div>
+            <div><dt>Result</dt><dd>Delivered and in use.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 6. HOW WE WORK -->
+<section class="section">
+  <div class="wrap">
+    <h2>How we work</h2>
+    <ol class="timeline">
+      <li><b>Call</b>A free 30 minute call about how you work today.</li>
+      <li><b>Scope</b>We write down what will and will not be built and quote a fixed price.</li>
+      <li><b>Build</b>You get a working version with your own data early, while changes are cheap.</li>
+      <li><b>Launch</b>Automations go live in 10 to 14 days and campaigns in about 2 weeks. For software we set a timeline when we scope it.</li>
+      <li><b>Maintain</b>The monthly fee covers hosting, tool subscriptions, monitoring and changes. There is no lock-in. If you cancel, we hand over the workflow files and documentation.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 7. WHY CLEVERLON -->
 <section class="why">
   <div class="wrap">
-    <h2>Automations usually break in month four.</h2>
-    <p class="lede">Ten records a day is easy. At ten thousand you hit rate limits, duplicate writes, expired logins and a column somebody renamed. Our background is database and cloud engineering, so we plan for those first.</p>
-
-    <div class="points">
-      <p>If your invoices go through Stripe and your team talks on Slack, we build around that. Nobody has to move to a new system first.</p>
-      <p>Most automations go live in 14 days. Reporting and Content Publishing take 10. You see it running before you decide on anything further.</p>
-      <p>The monthly fee covers hosting, tool subscriptions, monitoring and changes. When WhatsApp or Stripe changes how something works, we fix it.</p>
+    <div class="why-split">
+      <h2>Built on database and cloud engineering.</h2>
+      <div>
+        <p>Ten records a day is easy. At ten thousand you hit rate limits, duplicate writes, expired logins and a column somebody renamed. We plan for those first.</p>
+        <ul>
+          <li>We integrate with the systems you already run, such as Stripe or Slack.</li>
+          <li>Access is set by role and changes are logged.</li>
+          <li>Documentation comes with every build.</li>
+        </ul>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="case">
-      <p>A land company tracked hundreds of installment plans in spreadsheets and WhatsApp messages. We built a system that shows who owes money this month on one screen.</p>
-      <a class="textlink" href="/software#case">Read the case study</a>
+<!-- 8. FAQ -->
+<section class="section">
+  <div class="wrap">
+    <div class="faq">
+      <h2>Questions we hear</h2>
+      <div>
+        <details class="q">
+          <summary>How is our data kept safe?</summary>
+          <p>Access is limited by role and changes are logged. Before we build, we agree a data plan with you. We sign a data processing agreement if you need one.</p>
+        </details>
+        <details class="q">
+          <summary>Who owns the code and the data?</summary>
+          <p>You own your data. For custom software, you own the code once the project is paid in full. If you cancel an automation's monthly plan, we hand over the workflow files and documentation.</p>
+        </details>
+        <details class="q">
+          <summary>How does pricing work?</summary>
+          <p>Automations have a one-off setup fee, from $800 to $2,500, and a monthly fee, from $150 to $400. The first month is included in the setup fee. Campaigns start at $800. Custom software is quoted per project after a free scoping call. There is no lock-in: if you cancel, we hand over the workflow files and documentation.</p>
+        </details>
+        <details class="q">
+          <summary>How long does it take?</summary>
+          <p>Automations go live in 10 to 14 days. A campaign takes about 2 weeks. For custom software we set a timeline when we scope the project.</p>
+        </details>
+        <details class="q">
+          <summary>What happens after launch?</summary>
+          <p>The monthly fee covers hosting, monitoring and changes. For custom software, we stay on for changes after we deploy it.</p>
+        </details>
+        <details class="q">
+          <summary>Can you work in our time zone?</summary>
+          <p>We work in West Africa Time (UTC+1), which overlaps fully with UK and European working hours and with US mornings. We reply within one working day.</p>
+        </details>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- 9. FINAL CALL TO ACTION -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Have a process that needs fixing?</h2>
+    <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
   </div>
 </section>
 
 <div class="wrap">
   <footer class="foot">
     <b>CLEVERLON</b><br>
-    Automation systems and software for growing businesses. Working with clients worldwide.<br>
+    Workflow automation and custom software for organizations of any size. Working with clients worldwide.<br>
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
