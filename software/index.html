@@ -177,10 +177,6 @@
       <li>Full audit trail of who changed what</li>
       <li>Works on the phone the sales team already carries</li>
     </ul>
-    <div class="row">
-      <a class="btn" href="/crm">See the Estate CRM &rarr;</a>
-      <a class="btn line" id="demoLink" href="/crm">Watch the walkthrough</a>
-    </div>
   </section>
 
   <section class="video">
@@ -282,21 +278,13 @@
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
-    <a href="/tracker">Free tracker</a> &nbsp;·&nbsp;
+    <a href="/crm">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
     cleverlon.com
   </footer>
 </div>
 
 <script>
-/* Set this to the CRM demo video once it is recorded.
-   Until then the button just goes to the CRM page. */
-const DEMO_URL = "";
-if (DEMO_URL) {
-  const d = document.getElementById("demoLink");
-  d.href = DEMO_URL; d.target = "_blank"; d.rel = "noopener";
-}
-
 /* Apps Script /exec endpoint for software enquiries, same method as the
    tracker. Until it is set, nothing is sent. */
 const WEBHOOK_URL = "";

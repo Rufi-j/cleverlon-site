@@ -1,1 +1,3 @@
 /audit/*  https://cleverlon-audit.netlify.app/:splat  200
+/tracker  /crm  301
+/tracker/*  /crm  301

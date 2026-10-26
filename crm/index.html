@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estate CRM for land and property companies | Cleverlon</title>
-<meta name="description" content="Plots, customers, installment payments and receipts in one system. Built for land and estate companies selling on installments.">
+<title>Free Installment Payment Tracker for land and property companies | Cleverlon</title>
+<meta name="description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, for Excel and Google Sheets.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Estate CRM for land and property companies | Cleverlon">
-<meta property="og:description" content="Plots, customers, installment payments and receipts in one system. Built for land and estate companies selling on installments.">
+<meta property="og:title" content="Free Installment Payment Tracker for land and property companies | Cleverlon">
+<meta property="og:description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, for Excel and Google Sheets.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/crm">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -16,132 +16,141 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
 <style>
-  .eyebrow{color:var(--estate)}
-  .btn{background:var(--estate)}
-  .btn:hover{background:var(--estate-dark)}
-  .hero{background:var(--ink);color:#fff;padding:14px 0 76px}
-  .hero .mark,.hero .topnav a{color:#fff}
-  .hero .topnav a{opacity:.62}
-  .hero .topnav a:hover{opacity:1}
-  .hero h1{margin-top:52px;max-width:17ch}
-  .hero .lede{color:rgba(255,255,255,.58)}
-  .hero .cta{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
-  .hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.22)}
-  .hero .btn.ghost:hover{background:rgba(255,255,255,.06)}
+  .split{display:grid;grid-template-columns:1fr 420px;gap:56px;padding:36px 0 0;align-items:start}
+  @media(max-width:900px){.split{grid-template-columns:1fr;gap:34px}}
+  .split h1{max-width:14ch}
+  .split h1 em{font-style:normal;color:var(--estate)}
+  .eyebrow.est{color:var(--estate)}
 
-  .pains{padding:72px 0 0}
-  .pains ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;margin-top:28px;max-width:860px}
-  @media(max-width:700px){.pains ul{grid-template-columns:1fr}}
-  .pains li{font-size:16px;color:var(--ink-mid);padding-left:28px;position:relative}
-  .pains li::before{content:'';position:absolute;left:0;top:11px;width:14px;height:2px;background:var(--estate);border-radius:2px}
+  .inside{list-style:none;margin:30px 0 0}
+  .inside li{padding:13px 0 13px 30px;position:relative;font-size:15.5px;border-bottom:1px solid var(--border)}
+  .inside li:last-child{border-bottom:none}
+  .inside li::before{content:'';position:absolute;left:3px;top:20px;width:8px;height:8px;border-radius:2px;background:var(--estate)}
+  .inside b{font-weight:600}
+  .inside span{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:2px}
 
-  .feat{padding:78px 0 0}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
-  @media(max-width:860px){.grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:600px){.grid{grid-template-columns:1fr}}
-  .card{border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px;background:var(--surface)}
-  .card h3{margin-bottom:9px}
-  .card p{font-size:14.5px;color:var(--ink-mid)}
+  .form{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;position:sticky;top:24px}
+  @media(max-width:900px){.form{position:static}}
+  .form h2{font-size:23px;margin-bottom:6px}
+  .form .note{font-size:13.5px;color:var(--ink-soft);margin-bottom:22px}
+  .field{margin-bottom:14px}
+  label{display:block;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  input,select{width:100%;font:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--border);
+    border-radius:9px;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
+  select{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A8398' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center}
+  input:focus,select:focus{outline:2px solid var(--estate);outline-offset:-1px;border-color:var(--estate)}
+  .form .btn{background:var(--estate);margin-top:6px}
+  .form .btn:hover{background:var(--estate-dark)}
+  .status{font-size:13.5px;color:var(--ink-soft);margin-top:12px;line-height:1.5}
+  .status.bad{color:var(--error)}
+  .privacy{font-size:12px;color:var(--ink-soft);margin-top:16px;line-height:1.55}
 
-  .status{margin-top:78px;background:var(--estate-light);border-radius:var(--radius);padding:38px 34px}
-  .status h2{font-size:clamp(23px,3vw,30px);max-width:20ch}
-  .status p{font-size:16px;color:var(--ink-mid);max-width:62ch;margin-top:16px}
-  .status .btn{margin-top:26px}
-
-  .alt{margin-top:62px;border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;
-    display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-  .alt h3{margin-bottom:6px}
-  .alt p{font-size:14.5px;color:var(--ink-mid);max-width:52ch}
-  .eyebrow.on-dark{margin-top:52px;color:var(--estate-bright)}
+  .band{padding:80px 0 0}
+  .health{border:1px solid var(--border);border-radius:var(--radius);padding:34px 32px;margin-top:20px}
+  .health h2{font-size:26px;margin-bottom:12px}
+  .health p{color:var(--ink-mid);font-size:15.5px;max-width:64ch}
+  .health ol{margin:20px 0 24px 20px;font-size:15px;color:var(--ink-mid)}
+  .health li{padding:4px 0}
+  .form .note.sent{margin-bottom:18px}
+  .grow{margin-top:26px;font-size:14.5px;color:var(--ink-soft);max-width:64ch}
 </style>
 </head>
 <body>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="topbar">
-      <a href="/" class="mark"><img src="/logo-white.png" alt="Cleverlon" width="92" height="22"></a>
-      <nav class="topnav">
-        <a href="/automation">Automation</a>
-        <a href="/software">Software</a>
-        <a href="/campaigns">Campaigns</a>
-        <a href="/audit">Free audit</a>
-      </nav>
-    </div>
-    <div class="eyebrow on-dark">Estate CRM</div>
-    <h1>Who owes you money this month?</h1>
-    <p class="lede">If answering that takes opening three spreadsheets and calling a colleague, your records have outgrown the tools holding them. Cleverlon Estate CRM keeps plots, customers, installment plans and receipts in one place.</p>
-    <div class="cta">
-      <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
-      <a class="btn ghost" href="/tracker">Get the free tracker first</a>
-    </div>
-  </div>
-</section>
-
-<section class="pains">
-  <div class="wrap">
-    <div class="eyebrow">Built for one job</div>
-    <h2>Land and estate companies selling plots on installments.</h2>
-    <ul>
-      <li>Allocations tracked across several spreadsheets</li>
-      <li>Nobody certain which plots are genuinely free</li>
-      <li>Overdue payments noticed late, or not at all</li>
-      <li>Receipts written by hand and easy to dispute</li>
-      <li>Reports rebuilt from scratch every month</li>
-      <li>Records only one person really understands</li>
-    </ul>
-  </div>
-</section>
-
-<section class="feat">
-  <div class="wrap">
-    <div class="eyebrow">What it does</div>
-    <h2>One system, from allocation to final payment.</h2>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Estates and plots</h3>
-        <p>Every estate, every plot, and its real status: available, reserved, allocated or fully paid. No more guessing what is still for sale.</p>
-      </div>
-      <div class="card">
-        <h3>Customers and plans</h3>
-        <p>Each customer, their plots, their installment schedule and what falls due next, on one screen instead of five.</p>
-      </div>
-      <div class="card">
-        <h3>Payments and receipts</h3>
-        <p>Record a payment and the balance updates itself. A numbered receipt is generated, so what was paid is never in dispute.</p>
-      </div>
-      <div class="card">
-        <h3>Overdue flagged for you</h3>
-        <p>Late installments surface on their own rather than waiting for someone to notice. You see who to chase before the month closes.</p>
-      </div>
-      <div class="card">
-        <h3>Audit trail</h3>
-        <p>Who recorded what, and when. Every change is logged, which matters when a customer queries a balance from eight months ago.</p>
-      </div>
-      <div class="card">
-        <h3>Works on a phone</h3>
-        <p>Your sales team is at the site, not at a desk. Allocations and payments can be recorded from where the work happens.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <div class="wrap">
-  <div class="status">
-    <div class="eyebrow">Where it stands</div>
-    <h2>Currently in pilot with a property firm.</h2>
-    <p>The CRM is live and in daily use with its first client, and we are taking a small number of additional firms during the pilot. That means direct involvement from us, a build shaped around how you actually sell, and pilot pricing. It also means you should expect the honest version of a young product rather than a polished brochure.</p>
-    <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
+  <div class="topbar">
+    <a href="/" class="mark"><img src="/logo-black.png" alt="Cleverlon" width="91" height="22"></a>
+    <nav class="topnav">
+      <a href="/automation">Automation</a>
+      <a href="/software">Software</a>
+      <a href="/campaigns">Campaigns</a>
+      <a href="/audit">Free audit</a>
+    </nav>
   </div>
 
-  <div class="alt">
+  <section class="split">
     <div>
-      <h3>Not ready for a system yet?</h3>
-      <p>Take the free Installment Payment Tracker. A ready-made spreadsheet for land companies that flags overdue payments and totals what you are owed. Yours to keep, no strings.</p>
+      <div class="eyebrow est">Free template</div>
+      <h1>Who owes you money <em>this month?</em></h1>
+      <p class="lede">If answering that means opening three spreadsheets and calling a colleague, this will help. A ready-made Installment Payment Tracker for companies selling plots or houses on installments. There is a land version and a homes version, and we send the one that fits what you sell. Yours to keep, no strings.</p>
+
+      <ul class="inside">
+        <li><b>Plots or units</b>
+          <span>Every plot or house and where it stands: available, reserved, sold or fully paid.</span></li>
+        <li><b>Customers and installment plans</b>
+          <span>Each buyer, what they bought, their schedule and what falls due next. The homes version also handles payments tied to building stages.</span></li>
+        <li><b>Overdue flagged automatically</b>
+          <span>Late installments turn red on their own. Balances calculate themselves.</span></li>
+        <li><b>A summary that answers the question</b>
+          <span>Total collected, total outstanding and total overdue, on one tab.</span></li>
+        <li><b>Excel and Google Sheets</b>
+          <span>Opens in either, so your team can keep recording things the way it does now.</span></li>
+      </ul>
     </div>
-    <a class="btn ghost" href="/tracker">Get the free tracker</a>
-  </div>
+
+    <div class="form">
+      <h2>Send me the tracker</h2>
+      <p class="note">We send it to your WhatsApp. Add an email and it lands there straight away too.</p>
+
+      <div class="field">
+        <label for="nm">Your name</label>
+        <input id="nm" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="co">Company name</label>
+        <input id="co" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="sl">What do you sell?</label>
+        <select id="sl" required>
+          <option value="">Select one</option>
+          <option>Land or plots</option>
+          <option>Houses or units</option>
+          <option>Both</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="wa">WhatsApp number</label>
+        <input id="wa" inputmode="tel" autocomplete="tel" placeholder="080...">
+      </div>
+      <div class="field">
+        <label for="em">Email (optional)</label>
+        <input id="em" type="email" inputmode="email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="ct">Customers on installment plans</label>
+        <select id="ct">
+          <option value="">Select one</option>
+          <option>Fewer than 20</option>
+          <option>20 to 100</option>
+          <option>100 to 500</option>
+          <option>More than 500</option>
+          <option>Not selling on installments yet</option>
+        </select>
+      </div>
+
+      <button class="btn wide" id="send">Send it to me</button>
+      <div class="status" id="st"></div>
+      <p class="privacy">We use your number to send the tracker and the occasional note about running a property business. Reply STOP and we stop. We do not share your details.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="health">
+      <div class="eyebrow est">Also free</div>
+      <h2>Payment health check</h2>
+      <p>Already have a spreadsheet you are using? Send it over and we will read it properly and send back what it actually says. No charge, no obligation, and we do not keep your file.</p>
+      <ol>
+        <li>Your total overdue, as of today</li>
+        <li>Your oldest outstanding debts, ranked</li>
+        <li>Total outstanding across all active plans</li>
+        <li>Anything in the data that looks wrong or double-counted</li>
+      </ol>
+      <a class="btn ghost" href="https://wa.me/2348051817820?text=Hi%20Cleverlon%2C%20I%27d%20like%20the%20free%20payment%20health%20check" target="_blank" rel="noopener">Send your sheet on WhatsApp</a>
+    </div>
+    <p class="grow">When a spreadsheet stops being enough, the tracker can grow into a full system.</p>
+  </section>
 
   <footer class="foot">
     <b>CLEVERLON</b><br>
@@ -149,11 +158,73 @@
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
-    <a href="/tracker">Free tracker</a> &nbsp;·&nbsp;
+    <a href="/crm">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
     cleverlon.com
   </footer>
 </div>
+
+<script>
+/* ============================================================
+   CONFIG
+   WEBHOOK_URL  your Apps Script /exec endpoint for tracker leads
+   ============================================================ */
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzf2WROaA3CUGDjiMxHknhM7AEyP5KsA_XO6sv8vUWlI2zHElfwcP1wlJad4zZJwwiq/exec";
+
+const st = document.getElementById("st");
+
+send.onclick = async () => {
+  const payload = {
+    submitted: new Date().toISOString(),
+    source: new URLSearchParams(location.search).get("src") || "direct",
+    name: nm.value.trim(),
+    company: co.value.trim(),
+    sells: sl.value,
+    whatsapp: wa.value.trim(),
+    email: em.value.trim(),
+    customers: ct.value,
+    magnet: "Installment Payment Tracker"
+  };
+
+  if (!payload.name || !payload.whatsapp || !payload.sells) {
+    st.className = "status bad";
+    st.textContent = "Add your name, your WhatsApp number and what you sell, so we send the right tracker.";
+    return;
+  }
+
+  send.disabled = true;
+  st.className = "status";
+  st.textContent = "Sending…";
+
+  if (!WEBHOOK_URL) {
+    st.textContent = "Delivery is not configured yet, so nothing was sent.";
+    console.log(payload);
+    send.disabled = false;
+    return;
+  }
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    document.querySelector(".form").innerHTML =
+      '<h2>On its way.</h2>' +
+      '<p class="note sent">' +
+        (payload.email
+          ? 'Check your inbox, it is already there. We will message <b>' + payload.whatsapp + '</b> shortly as well.'
+          : 'We will send it to <b>' + payload.whatsapp + '</b> shortly.') +
+      '</p>' +
+      '<p class="privacy">If it has not reached you within the hour, message us on that number and we will send it by hand.</p>';
+  } catch (e) {
+    st.className = "status bad";
+    st.textContent = "That did not send. Check your connection and try again, or message us on WhatsApp.";
+    send.disabled = false;
+  }
+};
+</script>
 
 </body>
 </html>

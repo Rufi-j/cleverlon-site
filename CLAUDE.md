@@ -7,15 +7,14 @@ framework, no package.json. Deployed by Netlify from this repo on every push to
 ## Structure
 
 ```
-index.html              home, four service doors
+index.html              home, three doors
 automation/index.html   workflow automation, nine services with prices
 software/index.html     custom software
 campaigns/index.html    interactive campaigns, with a live spin-wheel demo
 campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
-crm/index.html          Estate CRM
-tracker/index.html      free Installment Payment Tracker lead magnet
+crm/index.html          free Installment Payment Tracker lead magnet (land and homes)
 shared.css              the design system
 favicon.png, og-image.png  favicon and the shared social preview image
 logo-black.png, logo-white.png  official logos used in the nav
@@ -40,7 +39,7 @@ adding it.
 
 - Colours are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
   `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
-  `--estate` (green, used only for Estate CRM and tracker pages), plus
+  `--estate` (green, used only on the tracker page at /crm), plus
   `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
   and `--surface-hover` for the few one-off shades.
 - Fonts are DM Serif Display for `h1` and `h2`, Sora for everything else.
@@ -56,8 +55,8 @@ the site. They also load JetBrains Mono, which is accepted there. If a token cha
 
 ## Rules that apply sitewide
 
-**The nav and footer are duplicated across all nine pages.** There is no
-include mechanism. Changing a nav or footer link means editing all nine, and
+**The nav and footer are duplicated across all eight pages.** There is no
+include mechanism. Changing a nav or footer link means editing all eight, and
 the `campaigns/` pages use slightly different markup to the rest. After any
 such change, check every page, not just the one that prompted it.
 
@@ -77,11 +76,11 @@ layout work.
 
 ## Placeholders currently unset
 
-- `tracker/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
+- `crm/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
   and tells the visitor nothing was sent until an Apps Script `/exec` URL is
   pasted in.
-- `tracker/index.html` and `software/index.html`: `DEMO_URL` is empty. The
-  demo buttons fall back to `/crm` until the CRM walkthrough is recorded.
+- `software/index.html`: `WEBHOOK_URL` is empty. The intake form logs to the
+  console and tells the visitor nothing was sent until an endpoint is pasted in.
 
 Leave these as empty strings. They are filled in deliberately, not forgotten.
 
