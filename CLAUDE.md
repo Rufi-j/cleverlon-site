@@ -14,7 +14,7 @@ campaigns/index.html    interactive campaigns, with a live spin-wheel demo
 campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
-crm/index.html          free Installment Payment Tracker lead magnet (land and homes)
+tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
 shared.css              the design system
 favicon.png, og-image.png  favicon and the shared social preview image
 logo-black.png, logo-white.png  official logos used in the nav
@@ -25,6 +25,9 @@ CLAUDE.md               this file
 Every page is a folder with an `index.html`, so URLs have no `.html` extension.
 A new page means a new folder, not a new file at the root. Link to pages as
 `/software`, never `/software/index.html` or `software.html`.
+
+`/crm` currently redirects to `/tracker` (see `_redirects`). The name is
+reserved for a future CRM product page, so do not link to `/crm`.
 
 `_redirects` proxies `/audit/*` to the separate Netlify site that hosts the
 diagnostic. The `200` at the end makes it a proxy rather than a redirect, which
@@ -39,7 +42,7 @@ adding it.
 
 - Colors are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
   `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
-  `--estate` (green, used only on the tracker page at /crm), plus
+  `--estate` (green, used only on the tracker page at /tracker), plus
   `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
   and `--surface-hover` for the few one-off shades.
 - Fonts are Young Serif for `h1` and `h2`, Albert Sans for everything else.
@@ -87,7 +90,7 @@ layout work.
 
 ## Placeholders currently unset
 
-- `crm/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
+- `tracker/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
   and tells the visitor nothing was sent until an Apps Script `/exec` URL is
   pasted in.
 - `software/index.html`: `WEBHOOK_URL` is empty. The intake form logs to the
