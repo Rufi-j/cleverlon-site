@@ -106,6 +106,18 @@ Never create a new deployment, because that changes the `/exec` URL the page
 posts to. The tracker sheet links (`TRACKER_LINK_LAND`, `TRACKER_LINK_HOMES`)
 are set in that file.
 
+## Software intake script
+
+`software/index.html` posts to a separate Apps Script web app. Its source is
+`C:\Users\Ayodele\Desktop\cleverlon-tracker\Software.gs`. It is not a clasp
+project: it was deployed by hand in the Apps Script editor as a web app bound to
+the "Cleverlon software enquiries" Google Sheet, owned by
+hellocleverlon@gmail.com. To change it, edit `Software.gs`, paste the new code
+into that Apps Script project, then use Deploy, Manage deployments, the pencil
+icon, Version: New version, Deploy. Always redeploy as a new version of the
+existing deployment, never as a new deployment, because a new deployment changes
+the `/exec` URL and the form stops delivering.
+
 ## Home hero collage
 
 The three cards beside the hero headline (workflow, game, dashboard) are built
@@ -129,10 +141,9 @@ removed or reworded once every card is a real screenshot.
 ## Form endpoints
 
 No placeholders are unset. Both forms post to live Apps Script web apps through
-`WEBHOOK_URL`: `tracker/index.html` (the script is described above) and
-`software/index.html` (the intake form, a separate Apps Script whose source is
-not kept in this repo). Do not change or empty either URL without being asked,
-because the form would stop delivering.
+`WEBHOOK_URL`: `tracker/index.html` and `software/index.html` (both scripts are described
+above). Do not change or empty either URL without being asked, because the form
+would stop delivering.
 
 ## Deploying
 
