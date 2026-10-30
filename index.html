@@ -41,16 +41,12 @@
   .hero-top{padding-bottom:0;overflow:visible;overflow-x:clip;z-index:2}
   .hero-body{padding-top:0}
   .hero-body::after{display:none}
-  .hero-split{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;margin-top:clamp(40px,6vw,64px);position:relative;z-index:1}
-  .hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center}
-  @media(max-width:860px){.hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr)}}
-  .hero h1{max-width:18ch}
-  .hero .lede{color:rgba(255,255,255,.7);max-width:560px}
+  .hero-split{margin-top:clamp(40px,6vw,64px);position:relative;z-index:1}
+  .hero h1{font-size:clamp(28px,5.6vw,68px);max-width:none}
+  .hero .lede{color:rgba(255,255,255,.7);max-width:34em}
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:32px}
   .hero .textlink{color:#fff;border-bottom-color:rgba(255,255,255,.35)}
   .hero .textlink:hover{border-bottom-color:#fff}
-  .hero .shot{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);max-width:420px;justify-self:end}
-
   /* 2. clients strip (commented out in the markup until names arrive) */
   .clients{border-bottom:1px solid var(--border);padding:26px 0}
   .clients-row{display:grid;grid-template-columns:auto repeat(5,minmax(0,1fr));gap:18px;align-items:center}
@@ -167,10 +163,6 @@
           <a class="textlink" href="#services">See what we build</a>
         </div>
       </div>
-      <!-- SCREENSHOT 1 of 7. WhatsApp agent chat, portrait, 900 x 1125 px. Delete "hidden" to show. -->
-      <figure class="shot" hidden>
-        <img src="/img/home-hero-whatsapp-agent.webp" alt="A customer asks a price question on WhatsApp and the Cleverlon agent answers" width="900" height="1125" loading="lazy">
-      </figure>
     </div>
   </div>
 </section>
@@ -198,7 +190,7 @@
     <div class="svc-grid">
 
       <article class="svc">
-        <!-- SCREENSHOT 2 of 7. Workflow builder with a whole workflow visible, 1200 x 800 px. -->
+        <!-- SCREENSHOT 1 of 6. Workflow builder with a whole workflow visible, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-automation-workflow.webp" alt="A workflow that scores an inquiry and routes it to the right person" width="1200" height="800" loading="lazy">
         </figure>
@@ -216,7 +208,7 @@
       </article>
 
       <article class="svc">
-        <!-- SCREENSHOT 3 of 7. Dashboard with sample data, 1200 x 800 px. -->
+        <!-- SCREENSHOT 2 of 6. Dashboard with sample data, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-software-dashboard.webp" alt="An operations dashboard with totals above and a table below" width="1200" height="800" loading="lazy">
         </figure>
@@ -234,7 +226,7 @@
       </article>
 
       <article class="svc">
-        <!-- SCREENSHOT 4 of 7. The spin wheel game on a phone or in a browser, 1200 x 800 px. -->
+        <!-- SCREENSHOT 3 of 6. The spin wheel game on a phone or in a browser, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-campaign-game.webp" alt="A branded spin wheel game with a prize result" width="1200" height="800" loading="lazy">
         </figure>
@@ -284,7 +276,7 @@
     <div class="cases">
 
       <article class="case-item">
-        <!-- SCREENSHOT 5 of 7. The installment tracking system, 1200 x 800 px. -->
+        <!-- SCREENSHOT 4 of 6. The installment tracking system, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-case-installments.webp" alt="The installment tracking system showing customers and payment plans" width="1200" height="800" loading="lazy">
         </figure>
@@ -299,7 +291,7 @@
       </article>
 
       <article class="case-item">
-        <!-- SCREENSHOT 6 of 7. The WhatsApp support agent, 1200 x 800 px. -->
+        <!-- SCREENSHOT 5 of 6. The WhatsApp support agent, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-case-support-agent.webp" alt="A WhatsApp support agent answering a customer question" width="1200" height="800" loading="lazy">
         </figure>
@@ -314,7 +306,7 @@
       </article>
 
       <article class="case-item">
-        <!-- SCREENSHOT 7 of 7. The prospect database or sheet, 1200 x 800 px. -->
+        <!-- SCREENSHOT 6 of 6. The prospect database or sheet, 1200 x 800 px. -->
         <figure class="shot" hidden>
           <img src="/img/home-case-lead-generation.webp" alt="A sheet of prospects with enriched contact and company details" width="1200" height="800" loading="lazy">
         </figure>
