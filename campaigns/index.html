@@ -9,7 +9,12 @@
 <meta property="og:title" content="Interactive campaigns | Cleverlon">
 <meta property="og:description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
-<meta property="og:url" content="https://cleverlon.com/campaigns">
+<meta property="og:url" content="https://cleverlon.com/campaigns/">
+<link rel="canonical" href="https://cleverlon.com/campaigns/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Interactive campaigns | Cleverlon">
+<meta name="twitter:description" content="Branded games that turn customers into qualified leads, with the follow-up automated.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -19,7 +24,7 @@
 <style>
 /* Layout: hero pairs the pitch with a live wheel and its behind-the-scenes panel; then the lead pipeline, the game portfolio, formats, packages and a booking close. */
 :root{
-  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#5F677A; --line:#E2E5EF;
   --accent:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --hot:#A32020; --warm:#8A5A00;
   --display:"Young Serif",Georgia,serif;
   --body:"Albert Sans",system-ui,sans-serif;
@@ -135,6 +140,18 @@ footer a{color:var(--muted)}
 .topnav a[aria-current="page"]{color:var(--fg);font-weight:600}
 @media(max-width:640px){.topnav{gap:6px 14px;font-size:13px}}
 footer .fine{color:var(--muted);opacity:.8}
+
+/* keyboard focus, hover and pressed states */
+a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s,transform .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2{text-wrap:balance}
+@media(max-width:640px){
+  .topnav a,.mark{display:inline-flex;align-items:center;min-height:44px}
+  .eyebrow,.hub,.game .kind,.tag,.crm th,.wa small,.bts li .dot{font-size:12px}
+  .tagline,.bts li,.step p,.game p,.fmtlist li,.pack .best{font-size:16px}
+  .brand-btn{min-height:44px;padding:6px 16px}
+  input,select{font-size:16px}
+}
 </style>
 
 <div class="wrap">
@@ -148,6 +165,7 @@ footer .fine{color:var(--muted);opacity:.8}
     </nav>
   </header>
 
+  <main>
   <div class="hero">
     <div class="hero-copy">
       <h1>Branded games that collect leads for you.</h1>
@@ -248,6 +266,7 @@ footer .fine{color:var(--muted);opacity:.8}
     <p>A 30 minute call, no obligation. Tell us about your customers and we will suggest a game and show you how leads would reach your team.</p>
     <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
   </div>
+  </main>
 
   <footer>
     <b>CLEVERLON</b><br>
@@ -258,6 +277,7 @@ footer .fine{color:var(--muted);opacity:.8}
     <a href="/tracker/">Free tracker</a> &nbsp;&middot;&nbsp;
     <a href="/audit">Free audit</a> &nbsp;&middot;&nbsp;
     cleverlon.com<br>
+    &copy; 2026 Cleverlon. All rights reserved.<br>
     <span class="fine">Sample brands in the demos are fictional.</span>
   </footer>
 </div>

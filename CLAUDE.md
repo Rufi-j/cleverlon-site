@@ -15,6 +15,7 @@ campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
 tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
+404.html                the not-found page, served by Netlify for any missing URL
 shared.css              the design system
 favicon.png, og-image.png  favicon and the shared social preview image
 logo-black.png, logo-white.png  official logos used in the nav
@@ -63,6 +64,13 @@ the site. They also load JetBrains Mono, which is accepted there. If a token cha
 include mechanism. Changing a nav or footer link means editing all eight, and
 the `campaigns/` pages use slightly different markup to the rest. After any
 such change, check every page, not just the one that prompted it.
+
+Every page also carries the same small furniture: a `<main>` around the page
+content, a canonical link and Twitter card tags in the head (matching `og:url`,
+with a trailing slash), and the line "&copy; 2026 Cleverlon. All rights
+reserved." at the end of the footer. Keep these when adding or editing a page.
+The logos are 184px wide (2x the 92px they display at), so keep the `width` and
+`height` attributes on the img at the display size.
 
 When editing the same region across several files, prefer exact string
 replacement over a regex. A loose pattern like `<a href="/...` matches nav

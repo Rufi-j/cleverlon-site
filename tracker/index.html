@@ -9,7 +9,12 @@
 <meta property="og:title" content="Free Installment Payment Tracker for land and property companies | Cleverlon">
 <meta property="og:description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, in Google Sheets.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
-<meta property="og:url" content="https://cleverlon.com/tracker">
+<meta property="og:url" content="https://cleverlon.com/tracker/">
+<link rel="canonical" href="https://cleverlon.com/tracker/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Installment Payment Tracker for land and property companies | Cleverlon">
+<meta name="twitter:description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, in Google Sheets.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +58,11 @@
     background:#fff;border:1px solid var(--border);border-radius:9px}
   .opt input{width:20px;height:20px;padding:0;margin:0;flex:none;-webkit-appearance:radio;appearance:radio;accent-color:var(--estate)}
   .opt:has(input:checked){border-color:var(--estate)}
-  .opt:has(input:focus-visible){outline:2px solid var(--estate);outline-offset:1px}</style>
+  .opt:has(input:focus-visible){outline:2px solid var(--estate);outline-offset:1px}
+  @media(max-width:640px){
+    .form .note,.status,.grow,.opt,input,select{font-size:16px}
+  }
+</style>
 </head>
 <body>
 
@@ -68,6 +77,7 @@
     </nav>
   </div>
 
+  <main>
   <section class="split">
     <div>
       <p class="eyebrow">For real estate companies selling land and homes on installments</p>
@@ -117,6 +127,7 @@
   <section class="band">
     <p class="grow">If you outgrow the spreadsheet, we can build you a full system. Message us when you get there.</p>
   </section>
+  </main>
 
   <footer class="foot">
     <b>CLEVERLON</b><br>
@@ -126,7 +137,8 @@
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
     <a href="/tracker/">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
-    cleverlon.com
+    cleverlon.com<br>
+    &copy; 2026 Cleverlon. All rights reserved.
   </footer>
 </div>
 
@@ -159,6 +171,7 @@ send.onclick = async () => {
   }
 
   send.disabled = true;
+  send.textContent = "Sending…";
   st.className = "status";
   st.textContent = "Sending…";
 
@@ -166,6 +179,7 @@ send.onclick = async () => {
     st.textContent = "Delivery is not configured yet, so nothing was sent.";
     console.log(payload);
     send.disabled = false;
+    send.textContent = "Send it to me";
     return;
   }
 
@@ -186,6 +200,7 @@ send.onclick = async () => {
     st.className = "status bad";
     st.textContent = "That did not send. Check your connection and try again, or message us on WhatsApp.";
     send.disabled = false;
+    send.textContent = "Send it to me";
   }
 };
 </script>

@@ -9,7 +9,12 @@
 <meta property="og:title" content="Survive Monday | Cleverlon">
 <meta property="og:description" content="A 45-second game. Get through a busy Monday morning by hand, then replay it with AI automations switched on.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
-<meta property="og:url" content="https://cleverlon.com/campaigns/survive-monday">
+<meta property="og:url" content="https://cleverlon.com/campaigns/survive-monday/">
+<link rel="canonical" href="https://cleverlon.com/campaigns/survive-monday/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Survive Monday | Cleverlon">
+<meta name="twitter:description" content="A 45-second game. Get through a busy Monday morning by hand, then replay it with AI automations switched on.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -19,7 +24,7 @@
 <style>
 /* Layout: one game board. Header with clock and tallies, a wall of task cards, overlays for start, round switch and results. */
 :root{
-  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#5F677A; --line:#E2E5EF;
   --alarm:#1246E6; --danger:#A32020; --bot:#0F6E56; --botsoft:#E6F5EF; --warn:#8A5A00;
   --display:"Young Serif",Georgia,serif;
   --body:"Albert Sans",system-ui,sans-serif;
@@ -76,10 +81,22 @@ td.cl{color:var(--bot);font-family:var(--mono);font-weight:700}
 .row{display:flex;flex-wrap:wrap;gap:10px}
 .foot{font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.card,.card.gone,.card.failed{animation:none}}
+
+/* keyboard focus, hover and pressed states */
+a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s,transform .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2{text-wrap:balance}
+@media(max-width:640px){
+  body{font-size:16px}
+  .brand a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+  .clock small,.card .kind,th{font-size:12px}
+  textarea,input{font-size:16px}
+}
 </style>
 
 <div class="wrap">
   <div class="brand"><a href="/" style="text-decoration:none">Home</a> · <a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · a 45-second game</div>
+  <main>
   <h1>Survive Monday</h1>
   <div class="hud">
     <div class="clock"><small>TIME</small><span id="clock">9:00</span></div>
@@ -100,7 +117,8 @@ td.cl{color:var(--bot);font-family:var(--mono);font-weight:700}
       </div>
     </div>
   </div>
-  <div class="foot">A demo by Cleverlon. Round two shows the same morning with AI automations switched on.</div>
+  </main>
+  <div class="foot">A demo by Cleverlon. Round two shows the same morning with AI automations switched on.<br>&copy; 2026 Cleverlon. All rights reserved.</div>
 </div>
 
 <script>

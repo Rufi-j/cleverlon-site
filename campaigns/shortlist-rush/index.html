@@ -9,7 +9,12 @@
 <meta property="og:title" content="Shortlist Rush | Cleverlon">
 <meta property="og:description" content="A 60-second hiring game. Shortlist CVs by hand, then watch AI screening work through the same pile.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
-<meta property="og:url" content="https://cleverlon.com/campaigns/shortlist-rush">
+<meta property="og:url" content="https://cleverlon.com/campaigns/shortlist-rush/">
+<link rel="canonical" href="https://cleverlon.com/campaigns/shortlist-rush/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shortlist Rush | Cleverlon">
+<meta name="twitter:description" content="A 60-second hiring game. Shortlist CVs by hand, then watch AI screening work through the same pile.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -19,7 +24,7 @@
 <style>
 /* Layout: job brief on the left, the CV pile on the right. Overlays carry the intro, the switch to AI and the final comparison. */
 :root{
-  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#5F677A; --line:#E2E5EF;
   --you:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --bad:#A32020; --paper:#FBFBF8;
   --display:"Young Serif",Georgia,serif;
   --body:"Albert Sans",system-ui,sans-serif;
@@ -91,10 +96,22 @@ td.b{color:var(--bot);font-family:var(--mono);font-weight:700}
 .row{display:flex;flex-wrap:wrap;gap:10px}
 .foot{font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.cv,.cv.outL,.cv.outR{animation:none}}
+
+/* keyboard focus, hover and pressed states */
+a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s,transform .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2{text-wrap:balance}
+@media(max-width:640px){
+  body{font-size:16px}
+  .brand a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+  .label,th,kbd{font-size:12px}
+  textarea,input{font-size:16px}
+}
 </style>
 
 <div class="wrap">
   <div class="brand"><a href="/" style="text-decoration:none">Home</a> · <a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · a 60-second hiring game</div>
+  <main>
   <h1>Shortlist Rush</h1>
   <div class="hud">
     <span class="watch" id="watch">1:00</span>
@@ -134,7 +151,8 @@ td.b{color:var(--bot);font-family:var(--mono);font-weight:700}
       </div>
     </div>
   </div>
-  <div class="foot">A demo by Cleverlon. All candidates are fictional. The AI round shows how Cleverlon's CV screening works: it scores on job requirements only, explains every score, and your team makes the final call.</div>
+  </main>
+  <div class="foot">A demo by Cleverlon. All candidates are fictional. The AI round shows how Cleverlon's CV screening works: it scores on job requirements only, explains every score, and your team makes the final call.<br>&copy; 2026 Cleverlon. All rights reserved.</div>
 </div>
 
 <script>

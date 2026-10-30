@@ -10,6 +10,11 @@
 <meta property="og:description" content="Cleverlon builds workflow automation and custom software for organizations of any size: integrations, web and mobile apps, games and interactive campaigns.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/">
+<link rel="canonical" href="https://cleverlon.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cleverlon | Workflow automation and custom software">
+<meta name="twitter:description" content="Cleverlon builds workflow automation and custom software for organizations of any size: integrations, web and mobile apps, games and interactive campaigns.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +37,10 @@
   .hero .topnav a{opacity:.62}
   .hero .topnav a:hover{opacity:1}
   .hero::after{content:'';position:absolute;top:-120px;right:-80px;width:420px;height:420px;border-radius:50%;border:1px solid rgba(255,255,255,.05);pointer-events:none}
+  /* the hero is split in two so the nav sits in a header and the rest in main; they share the dark background */
+  .hero-top{padding-bottom:0;overflow:visible;overflow-x:clip;z-index:2}
+  .hero-body{padding-top:0}
+  .hero-body::after{display:none}
   .hero-split{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;margin-top:clamp(40px,6vw,64px);position:relative;z-index:1}
   .hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center}
   @media(max-width:860px){.hero-split:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr)}}
@@ -123,12 +132,15 @@
   /* 9. final call to action */
   .cta{background:var(--accent-light);margin-top:clamp(72px,9vw,112px);padding:clamp(48px,6vw,72px) 0}
   .cta h2{max-width:20ch;margin-bottom:22px}
+
+  @media(max-width:640px){
+    .svc ul,.timeline li,.who p,.case-item dd,.why li{font-size:16px}
+  }
 </style>
 </head>
 <body>
 
-<!-- 1. HERO -->
-<section class="hero">
+<header class="hero hero-top">
   <div class="wrap">
     <div class="topbar">
       <a href="/" class="mark"><img src="/logo-white.png" alt="Cleverlon" width="92" height="22"></a>
@@ -139,6 +151,13 @@
         <a href="/audit">Free audit</a>
       </nav>
     </div>
+  </div>
+</header>
+
+<main>
+<!-- 1. HERO -->
+<section class="hero hero-body">
+  <div class="wrap">
     <div class="hero-split">
       <div>
         <h1>Workflow automation and custom software for organizations of any size.</h1>
@@ -274,7 +293,7 @@
           <dl>
             <div><dt>Problem</dt><dd>Plots, customers and installment plans were tracked in spreadsheets.</dd></div>
             <div><dt>Built</dt><dd>A system that replaced the spreadsheets, covering plots, customers, installment plans and receipts.</dd></div>
-            <div><dt>Result</dt><dd>In daily use with a pilot client.</dd></div>
+            <div><dt>Result</dt><dd>Built and live. Shaped by feedback from a land company's operations team. Ask for a walkthrough.</dd></div>
           </dl>
         </div>
       </article>
@@ -386,6 +405,7 @@
     <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
   </div>
 </section>
+</main>
 
 <div class="wrap">
   <footer class="foot">
@@ -396,7 +416,8 @@
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
     <a href="/tracker/">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
-    cleverlon.com
+    cleverlon.com<br>
+    &copy; 2026 Cleverlon. All rights reserved.
   </footer>
 </div>
 

@@ -9,7 +9,12 @@
 <meta property="og:title" content="Beat the Bot | Cleverlon">
 <meta property="og:description" content="A reply race against a Cleverlon WhatsApp agent. See how fast a customer gets an answer when the bot handles it.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
-<meta property="og:url" content="https://cleverlon.com/campaigns/beat-the-bot">
+<meta property="og:url" content="https://cleverlon.com/campaigns/beat-the-bot/">
+<link rel="canonical" href="https://cleverlon.com/campaigns/beat-the-bot/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beat the Bot | Cleverlon">
+<meta name="twitter:description" content="A reply race against a Cleverlon WhatsApp agent. See how fast a customer gets an answer when the bot handles it.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -19,7 +24,7 @@
 <style>
 /* Layout: a split arena. Left lane is the player's chat reply, right lane is the bot's. A stopwatch sits above both. */
 :root{
-  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#7A8398; --line:#E2E5EF;
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#5F677A; --line:#E2E5EF;
   --you:#1246E6; --bot:#0F6E56; --botsoft:#E6F5EF; --bubble:#ECEEF5;
   --display:"Young Serif",Georgia,serif;
   --body:"Albert Sans",system-ui,sans-serif;
@@ -63,10 +68,22 @@ textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
 .stat small{color:var(--muted);font-size:13px}
 .row{display:flex;flex-wrap:wrap;gap:10px}
 .foot{font-size:13px;color:var(--muted)}
+
+/* keyboard focus, hover and pressed states */
+a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s,transform .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2{text-wrap:balance}
+@media(max-width:640px){
+  body{font-size:16px}
+  .brand a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+  .label{font-size:12px}
+  textarea,input{font-size:16px}
+}
 </style>
 
 <div class="wrap">
   <div class="brand"><a href="/" style="text-decoration:none">Home</a> · <a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · reply race</div>
+  <main>
   <h1>Beat the Bot</h1>
   <p class="sub">A customer just messaged your business. Type the best reply you can, as fast as you can. Our AI agent answers the same message. Three rounds. Good luck.</p>
 
@@ -99,7 +116,8 @@ textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
   </div>
 
   <div class="verdict" id="verdict" hidden></div>
-  <div class="foot">Demo with scripted agent replies. Real Cleverlon agents answer from your own prices, stock, calendar and FAQs.</div>
+  </main>
+  <div class="foot">Demo with scripted agent replies. Real Cleverlon agents answer from your own prices, stock, calendar and FAQs.<br>&copy; 2026 Cleverlon. All rights reserved.</div>
 </div>
 
 <script>

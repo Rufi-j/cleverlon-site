@@ -1,5 +1,5 @@
 :root{
-  --ink:#0D1117; --ink-mid:#3D4451; --ink-soft:#7A8398; --ink-ghost:#B4BAC8;
+  --ink:#0D1117; --ink-mid:#3D4451; --ink-soft:#5F677A; --ink-ghost:#B4BAC8;
   --surface:#FFFFFF; --surface-2:#F5F6FA; --surface-3:#ECEEF5; --border:#E2E5EF;
   --accent:#1246E6; --accent-light:#EBF0FF; --accent-mid:#3D6BFF;
   --estate:#0F6E56; --estate-light:#E6F5EF; --estate-dark:#0B5743; --estate-bright:#5FD3AE;
@@ -51,3 +51,19 @@ h3{font-size:18px;font-weight:700;letter-spacing:-.005em}
 .row-item p{color:var(--ink-mid);font-size:16px;max-width:60ch}
 .row-item .textlink{display:inline-block;margin-top:10px;font-size:15px}
 @media(max-width:760px){.row-item{grid-template-columns:1fr;padding:24px 0}}
+
+/* keyboard focus, hover and pressed states */
+a,.btn,summary{transition:color .15s,background .15s,background-color .15s,border-color .15s,opacity .15s,transform .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.hero :focus-visible{outline-color:#fff}
+.btn:active{transform:translateY(0);filter:brightness(.92)}
+.btn.ghost:active{background:var(--surface-3);filter:none}
+.topnav a:active,.textlink:active,.foot a:active{opacity:.7}
+.foot a:hover{color:var(--ink)}
+summary{cursor:pointer}
+h1,h2{text-wrap:balance}
+
+@media(max-width:640px){
+  .topnav a,.mark{display:inline-flex;align-items:center;min-height:44px}
+  .eyebrow{font-size:12px}
+}
