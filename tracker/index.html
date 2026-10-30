@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Installment Payment Tracker for land and property companies | Cleverlon</title>
-<meta name="description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, for Excel and Google Sheets.">
+<meta name="description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, in Google Sheets.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Free Installment Payment Tracker for land and property companies | Cleverlon">
-<meta property="og:description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, for Excel and Google Sheets.">
+<meta property="og:description" content="A free spreadsheet for companies selling plots or houses on installments. Tracks buyers and payment schedules, flags overdue installments and totals what you are owed. Land and homes versions, in Google Sheets.">
 <meta property="og:image" content="https://cleverlon.com/og-image.png">
 <meta property="og:url" content="https://cleverlon.com/tracker">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -41,15 +41,19 @@
   .status.bad{color:var(--error)}
   .privacy{font-size:12px;color:var(--ink-soft);margin-top:16px;line-height:1.55}
 
-  .band{padding:96px 0 0}
-  .health{border-top:1px solid var(--border);padding-top:34px;margin-top:20px}
-  .health h2{font-size:26px;margin-bottom:12px}
-  .health p{color:var(--ink-mid);font-size:15.5px;max-width:64ch}
-  .health ol{margin:20px 0 24px 20px;font-size:15px;color:var(--ink-mid)}
-  .health li{padding:4px 0}
+  .band{padding:72px 0 0}
   .form .note.sent{margin-bottom:18px}
-  .grow{margin-top:26px;font-size:14.5px;color:var(--ink-soft);max-width:64ch}
-</style>
+  .grow{font-size:14.5px;color:var(--ink-soft);max-width:64ch}
+
+  fieldset{border:0;padding:0;margin:0;min-width:0}
+  legend{padding:0;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;margin:0;cursor:pointer;
+    font-size:15px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink);
+    background:#fff;border:1px solid var(--border);border-radius:9px}
+  .opt input{width:20px;height:20px;padding:0;margin:0;flex:none;-webkit-appearance:radio;appearance:radio;accent-color:var(--estate)}
+  .opt:has(input:checked){border-color:var(--estate)}
+  .opt:has(input:focus-visible){outline:2px solid var(--estate);outline-offset:1px}</style>
 </head>
 <body>
 
@@ -66,6 +70,7 @@
 
   <section class="split">
     <div>
+      <p class="eyebrow">For real estate companies selling land and homes on installments</p>
       <h1>A free spreadsheet that shows who owes you money this month.</h1>
       <p class="lede">If working that out means opening three spreadsheets and phoning a colleague, this tracker saves you the afternoon. It is for companies selling plots or houses on installments. There is a land version and a homes version, and we send the one that matches what you sell. It is free to keep.</p>
 
@@ -74,7 +79,7 @@
         <li>Each buyer, what they bought, their schedule and what falls due next. The homes version also handles payments tied to construction stages.</li>
         <li>Late installments turn red by themselves, and balances work themselves out.</li>
         <li>One dashboard tab shows total collected, total outstanding and total overdue.</li>
-        <li>Works in Excel and Google Sheets.</li>
+        <li>Works in Google Sheets, and downloads to Excel.</li>
       </ul>
     </div>
 
@@ -91,52 +96,25 @@
         <input id="co" autocomplete="organization">
       </div>
       <div class="field">
-        <label for="sl">What do you sell?</label>
-        <select id="sl" required>
-          <option value="">Select one</option>
-          <option>Land or plots</option>
-          <option>Houses or units</option>
-          <option>Both</option>
-        </select>
-      </div>
-      <div class="field">
         <label for="em">Email</label>
         <input id="em" type="email" inputmode="email" autocomplete="email" required>
       </div>
-      <div class="field">
-        <label for="ph">Phone number (optional)</label>
-        <input id="ph" inputmode="tel" autocomplete="tel" placeholder="080...">
-      </div>
-      <div class="field">
-        <label for="ct">Customers on installment plans</label>
-        <select id="ct">
-          <option value="">Select one</option>
-          <option>Fewer than 20</option>
-          <option>20 to 100</option>
-          <option>100 to 500</option>
-          <option>More than 500</option>
-          <option>Not selling on installments yet</option>
-        </select>
-      </div>
+      <fieldset class="field">
+        <legend>What do you sell?</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="sells" value="Land or plots" required> Land or plots</label>
+          <label class="opt"><input type="radio" name="sells" value="Houses or units"> Houses or units</label>
+          <label class="opt"><input type="radio" name="sells" value="Both"> Both</label>
+        </div>
+      </fieldset>
 
       <button class="btn wide" id="send">Send it to me</button>
       <div class="status" id="st"></div>
-      <p class="privacy">We use your email to send the tracker and the occasional note about running a property business. Reply STOP and we stop. We do not share your details.</p>
+      <p class="privacy">We use your email to send the tracker and the occasional note about running a property business. You can ask us to stop at any time. We do not share your details.</p>
     </div>
   </section>
 
   <section class="band">
-    <div class="health">
-      <h2>Payment health check</h2>
-      <p>Already have a spreadsheet? Send it to us on WhatsApp. We read it and send back the four things below. It is free, and we do not keep your file.</p>
-      <ol>
-        <li>Your total overdue, as of today</li>
-        <li>Your oldest outstanding debts, ranked</li>
-        <li>Total outstanding across all active plans</li>
-        <li>Anything in the data that looks wrong or double-counted</li>
-      </ol>
-      <a class="btn ghost" href="https://wa.me/2348051817820?text=Hi%20Cleverlon%2C%20I%27d%20like%20the%20free%20payment%20health%20check" target="_blank" rel="noopener">Send your sheet on WhatsApp</a>
-    </div>
     <p class="grow">If you outgrow the spreadsheet, we can build you a full system. Message us when you get there.</p>
   </section>
 
@@ -146,7 +124,7 @@
     <a href="/automation">Automation</a> &nbsp;·&nbsp;
     <a href="/software">Software</a> &nbsp;·&nbsp;
     <a href="/campaigns">Campaigns</a> &nbsp;·&nbsp;
-    <a href="/tracker">Free tracker</a> &nbsp;·&nbsp;
+    <a href="/tracker/">Free tracker</a> &nbsp;·&nbsp;
     <a href="/audit">Free audit</a> &nbsp;·&nbsp;
     cleverlon.com
   </footer>
@@ -167,10 +145,10 @@ send.onclick = async () => {
     source: new URLSearchParams(location.search).get("src") || "direct",
     name: nm.value.trim(),
     company: co.value.trim(),
-    sells: sl.value,
+    sells: (document.querySelector('input[name="sells"]:checked') || {}).value || "",
+    whatsapp: "",
     email: em.value.trim(),
-    phone: ph.value.trim(),
-    customers: ct.value,
+    customers: "",
     magnet: "Installment Payment Tracker"
   };
 

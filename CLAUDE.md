@@ -88,11 +88,18 @@ genuinely helps. No arrow links.
 `campaigns/index.html`. They are real quotes, so do not adjust them to make a
 layout work.
 
+## Tracker lead script
+
+`tracker/index.html` posts to a live Apps Script web app. The live script is
+`C:\Users\Ayodele\Desktop\tracker-script\Code.js` (a clasp project, script ID
+in its `.clasp.json`). It is the only copy: edit it there, then `clasp push`,
+`clasp version "..."` and `clasp deploy -i <existing deployment ID> -V <n>`.
+Never create a new deployment, because that changes the `/exec` URL the page
+posts to. The tracker sheet links (`TRACKER_LINK_LAND`, `TRACKER_LINK_HOMES`)
+are set in that file.
+
 ## Placeholders currently unset
 
-- `tracker/index.html`: `WEBHOOK_URL` is empty. The form logs to the console
-  and tells the visitor nothing was sent until an Apps Script `/exec` URL is
-  pasted in.
 - `software/index.html`: `WEBHOOK_URL` is empty. The intake form logs to the
   console and tells the visitor nothing was sent until an endpoint is pasted in.
 
