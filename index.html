@@ -48,6 +48,72 @@
   .proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;margin-top:clamp(40px,5vw,64px);padding-top:22px;border-top:1px solid rgba(255,255,255,.14);font-size:15px;color:rgba(255,255,255,.7)}
   .proof b{display:block;color:#fff;font-size:16px;margin-bottom:2px}
   @media(max-width:640px){.proof{grid-template-columns:1fr;gap:16px;font-size:16px}}
+  @media(min-width:861px){
+    .hero-split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:0 56px;align-items:center}
+    .hero h1{font-size:clamp(32px,3.9vw,50px)}
+    .proof{grid-column:1/-1}
+  }
+
+  /* Hero collage: three cards built in HTML and CSS with sample data.
+     To use a real screenshot, replace the <div class="cl-mock"> inside a card with one <img>
+     (see CLAUDE.md). Sizes are in em so the whole collage scales together. */
+  .cl-wrap{container-type:inline-size}
+  .collage{position:relative;height:39em;font-size:min(12px,2.857cqw)}
+  .cl-card{position:absolute;margin:0;overflow:hidden;background:#fff;color:var(--ink);border-radius:1.2em;
+    box-shadow:0 1.8em 4em rgba(0,0,0,.45),0 .15em .5em rgba(0,0,0,.25);transform:rotate(var(--r));
+    transition:transform .2s ease,box-shadow .2s ease}
+  .cl-card>img{display:block;width:100%;height:100%;object-fit:cover}
+  .cl-flow{--r:-3deg;width:20em;aspect-ratio:5/3;left:0;top:0;z-index:3}
+  .cl-game{--r:4deg;width:19em;aspect-ratio:19/20;left:17em;top:6.5em;z-index:1}
+  .cl-dash{--r:-1.5deg;width:21em;aspect-ratio:21/17;left:1.5em;top:21.5em;z-index:2}
+  .cl-mock{display:flex;flex-direction:column;height:100%}
+  .cl-mock>*{flex:none}
+  .cl-bar{display:flex;align-items:center;gap:.4em;padding:.7em .9em;border-bottom:1px solid var(--border);background:var(--surface-2);font-weight:700;line-height:1.2}
+  .cl-bar i{display:block;width:.6em;height:.6em;border-radius:50%;background:var(--ink-ghost)}
+  .cl-bar span{margin-left:.3em}
+  .cl-body{position:relative;flex:1 1 0!important}
+  .cl-n{position:absolute;padding:.4em .7em;border:1px solid var(--border);border-radius:.6em;background:#fff;font-size:.92em;font-weight:600;white-space:nowrap}
+  .cl-n.a{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent)}
+  .cl-n.g{background:var(--estate-light);border-color:var(--estate);color:var(--estate)}
+  .cl-h,.cl-v{position:absolute;background:var(--ink-ghost)}
+  .cl-h{height:2px}.cl-v{width:2px}
+  .cl-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:.5em;padding:.9em .9em .3em}
+  .cl-kpi div{background:var(--surface-2);border-radius:.6em;padding:.5em .6em;font-size:.8em;color:var(--ink-mid)}
+  .cl-kpi b{display:block;font:400 1.4em/1.2 'Young Serif',Georgia,serif;color:var(--ink)}
+  .cl-kpi .o b{color:var(--error)}
+  .cl-chart{flex:1 1 0!important;min-height:0;display:flex;align-items:flex-end;gap:.5em;padding:.5em .9em 0}
+  .cl-chart i{display:block;flex:1;background:var(--accent);border-radius:.3em .3em 0 0}
+  .cl-chart i:nth-child(even){background:var(--accent-mid)}
+  .cl-rows{padding:.5em .9em;font-size:.88em}
+  .cl-rows div{display:flex;justify-content:space-between;align-items:center;padding:.3em 0;border-top:1px solid var(--border);color:var(--ink-mid)}
+  .cl-rows em{font-style:normal;font-weight:600;font-size:.85em;padding:.1em .6em;border-radius:99px;background:var(--estate-light);color:var(--estate)}
+  .cl-rows em.l{background:var(--amber-light);color:var(--amber)}
+  .cl-gm{flex:1 1 0!important;background:var(--estate);color:#fff;text-align:center;padding:.9em .9em 1em}
+  .cl-gm small{display:block;font-size:.85em;opacity:.9;margin-bottom:1.3em}
+  .cl-wheel{position:relative;width:8.6em;height:8.6em;margin:0 auto;border-radius:50%;border:.3em solid var(--ink);
+    background:conic-gradient(var(--amber-light) 0 60deg,var(--estate-bright) 60deg 120deg,var(--estate-light) 120deg 180deg,var(--amber-light) 180deg 240deg,var(--estate-bright) 240deg 300deg,var(--estate-light) 300deg 360deg)}
+  .cl-wheel::before{content:'';position:absolute;left:50%;top:-1.2em;transform:translateX(-50%);border:.55em solid transparent;border-top:.95em solid var(--ink)}
+  .cl-wheel b{position:absolute;inset:0;margin:auto;width:2.6em;height:2.6em;border-radius:50%;background:#fff;color:var(--ink);border:.25em solid var(--ink);display:grid;place-items:center;font-size:.6em}
+  .cl-go{display:block;margin:1em auto 0;width:78%;padding:.55em 0;border-radius:.6em;background:var(--amber-light);color:var(--ink);font-weight:700}
+  .cl-note{margin-top:.8em;font-size:12px;color:rgba(255,255,255,.62)}
+  @media(hover:hover) and (min-width:861px){
+    .cl-card:hover{transform:rotate(var(--r)) translateY(-.7em);box-shadow:0 2.4em 5em rgba(0,0,0,.5),0 .15em .5em rgba(0,0,0,.25);z-index:5}
+  }
+  @media(prefers-reduced-motion:reduce){.cl-card{transition:none}.cl-card:hover{transform:rotate(var(--r))}}
+  /* narrow screens: a row of full-size cards you swipe, with the next card peeking in */
+  @media(max-width:860px){
+    .cl-wrap{margin:40px -20px 0}
+    .collage{display:flex;align-items:flex-start;gap:14px;height:auto;font-size:12.5px;padding:6px 20px 18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .collage::-webkit-scrollbar{display:none}
+    .cl-card{position:relative;left:auto;top:auto;flex:none;scroll-snap-align:start;transform:none}
+    .cl-note{padding:0 20px;margin-top:0}
+  }
+  /* very narrow phones: a slightly smaller headline keeps "Book a call" on the first screen */
+  @media(max-width:359px){
+    .hero h1{font-size:24px}
+    .hero-split{margin-top:20px}
+    .hero-cta{margin-top:24px}
+  }
   .hero .textlink{color:#fff;border-bottom-color:rgba(255,255,255,.35)}
   .hero .textlink:hover{border-bottom-color:#fff}
   /* 2. clients strip (commented out in the markup until names arrive) */
@@ -165,6 +231,44 @@
           <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
           <a class="textlink" href="#services">See what we build</a>
         </div>
+      </div>
+      <div class="cl-wrap">
+        <!-- Three sample cards. To swap in a real screenshot, replace the <div class="cl-mock"> in a card with
+             <img src="/img/home-card-NAME.webp" alt="..." width="W" height="H">. Sizes: workflow 1000 x 600,
+             game 950 x 1000, dashboard 1050 x 850. The card keeps its size, rotation and position. -->
+        <div class="collage" role="img" aria-label="Examples of what we build: a lead routing workflow, a spin to win game and a collections dashboard, shown with sample data">
+          <figure class="cl-card cl-flow"><div class="cl-mock">
+            <div class="cl-bar"><i></i><i></i><i></i><span>Lead routing</span></div>
+            <div class="cl-body">
+              <div class="cl-n a" style="left:.9em;top:.8em">New inquiry</div>
+              <div class="cl-h" style="left:7.7em;top:1.8em;width:1.1em"></div>
+              <div class="cl-n" style="left:8.8em;top:.8em">Score</div>
+              <div class="cl-h" style="left:12.5em;top:1.8em;width:1.1em"></div>
+              <div class="cl-n" style="left:13.6em;top:.8em">Route</div>
+              <div class="cl-v" style="left:15.6em;top:2.8em;height:.9em"></div>
+              <div class="cl-h" style="left:11.9em;top:3.7em;width:5.8em"></div>
+              <div class="cl-v" style="left:11.9em;top:3.7em;height:.9em"></div>
+              <div class="cl-v" style="left:17.7em;top:3.7em;height:.9em"></div>
+              <div class="cl-n" style="left:8.8em;top:4.6em">Sales team</div>
+              <div class="cl-n" style="left:15.2em;top:4.6em">Support</div>
+              <div class="cl-v" style="left:11.9em;top:6.6em;height:.8em"></div>
+              <div class="cl-n g" style="left:7.6em;top:7.4em">Saved to a sheet</div>
+            </div>
+          </div></figure>
+          <figure class="cl-card cl-game"><div class="cl-mock">
+            <div class="cl-bar"><i></i><i></i><i></i><span>Spin to win</span></div>
+            <div class="cl-gm"><small>New launch. Spin for a reward.</small>
+              <div class="cl-wheel"><b>SPIN</b></div>
+              <span class="cl-go">Spin to win</span></div>
+          </div></figure>
+          <figure class="cl-card cl-dash"><div class="cl-mock">
+            <div class="cl-bar"><i></i><i></i><i></i><span>Collections dashboard</span></div>
+            <div class="cl-kpi"><div>Collected<b>$184,200</b></div><div>Customers<b>48</b></div><div class="o">Overdue<b>5</b></div></div>
+            <div class="cl-chart"><i style="height:35%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:88%"></i></div>
+            <div class="cl-rows"><div><span>Unit 12, A. Smith</span><em>Paid</em></div><div><span>Unit 07, B. Jones</span><em class="l">Due in 5 days</em></div></div>
+          </div></figure>
+        </div>
+        <p class="cl-note">Examples with sample data.</p>
       </div>
       <div class="proof">
         <div><b>10 to 14 days</b>From a first call to a live automation.</div>

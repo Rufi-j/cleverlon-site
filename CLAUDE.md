@@ -106,6 +106,26 @@ Never create a new deployment, because that changes the `/exec` URL the page
 posts to. The tracker sheet links (`TRACKER_LINK_LAND`, `TRACKER_LINK_HOMES`)
 are set in that file.
 
+## Home hero collage
+
+The three cards beside the hero headline (workflow, game, dashboard) are built
+in HTML and CSS with sample data, so they work without screenshots. They are
+`<figure class="cl-card ...">` elements, each holding one `<div class="cl-mock">`.
+To use a real screenshot, replace that `cl-mock` div inside the card with one
+image, and leave the figure alone:
+
+```html
+<figure class="cl-card cl-flow"><img src="/img/home-card-workflow.webp" alt="..." width="1000" height="600"></figure>
+```
+
+The card keeps its size, rotation, shadow, hover lift and position. The image
+fills the card and is cropped to fit, so export at the card's ratio:
+workflow `cl-flow` 1000 x 600 (5:3), game `cl-game` 950 x 1000 (19:20),
+dashboard `cl-dash` 1050 x 850 (21:17). Real screenshots must not show client
+names or brands unless the client has agreed. On phones the cards become a
+swipe row, and the "Examples with sample data." note under them should be
+removed or reworded once every card is a real screenshot.
+
 ## Placeholders currently unset
 
 - `software/index.html`: `WEBHOOK_URL` is empty. The intake form logs to the
