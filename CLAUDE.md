@@ -126,12 +126,13 @@ names or brands unless the client has agreed. On phones the cards become a
 swipe row, and the "Examples with sample data." note under them should be
 removed or reworded once every card is a real screenshot.
 
-## Placeholders currently unset
+## Form endpoints
 
-- `software/index.html`: `WEBHOOK_URL` is empty. The intake form logs to the
-  console and tells the visitor nothing was sent until an endpoint is pasted in.
-
-Leave these as empty strings. They are filled in deliberately, not forgotten.
+No placeholders are unset. Both forms post to live Apps Script web apps through
+`WEBHOOK_URL`: `tracker/index.html` (the script is described above) and
+`software/index.html` (the intake form, a separate Apps Script whose source is
+not kept in this repo). Do not change or empty either URL without being asked,
+because the form would stop delivering.
 
 ## Deploying
 

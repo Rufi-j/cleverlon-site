@@ -77,6 +77,7 @@
   .closer{margin-top:88px;max-width:560px}
   .closer p{color:var(--ink-mid);margin:12px 0 22px}
   .iform .actions{display:flex;gap:12px;flex-wrap:wrap}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
   .closer .cta-row{margin-top:0}
 
   @media(max-width:640px){
@@ -182,6 +183,10 @@
     <h2>Tell us what you need</h2>
     <p class="lede">A few short questions. We read the answers before the scoping call, so the call can go straight to how you work.</p>
     <form class="iform" id="iform" novalidate>
+      <div class="hp" aria-hidden="true">
+        <label for="f-website">Website</label>
+        <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
       <div class="field">
         <label for="f-name">Name</label>
         <input id="f-name" autocomplete="name" required>
@@ -280,7 +285,7 @@
 <script>
 /* Apps Script /exec endpoint for software inquiries, same method as the
    tracker. Until it is set, nothing is sent. */
-const WEBHOOK_URL = "";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw4Wp8VOrUP1KtenETkxAeCttx9IYQ7PkeuWQWGEKqTwJ1PFPyn4xRdoJ4PHSFgxz3Fuw/exec";
 
 const iform = document.getElementById("iform");
 const ist = document.getElementById("ist");
@@ -300,19 +305,20 @@ iform.addEventListener("submit", async e => {
     return;
   }
 
+  const utm = new URLSearchParams(location.search).get("utm_source");
   const payload = {
     submitted: new Date().toISOString(),
-    source: new URLSearchParams(location.search).get("src") || "direct",
-    form: "Custom software intake",
+    source: location.pathname + (utm ? "?utm_source=" + utm : ""),
     name: val("f-name"),
     email: val("f-email"),
     whatsapp: val("f-wa"),
     business: val("f-biz"),
-    buildType: val("f-type"),
+    build: val("f-type"),
     current: val("f-cur"),
     access: val("f-who"),
+    budget: val("f-bud"),
     description: val("f-desc"),
-    budget: val("f-bud")
+    website: val("f-website")
   };
 
   isend.disabled = true;
