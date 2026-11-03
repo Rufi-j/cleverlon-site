@@ -202,6 +202,135 @@
     .svc ul,.timeline li,.who p,.case-item dd,.why li{font-size:16px}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://cleverlon.com/#organization",
+      "name": "Cleverlon",
+      "url": "https://cleverlon.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cleverlon.com/logo-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Workflow automation and custom software for organizations of any size.",
+      "sameAs": [
+        "https://www.linkedin.com/company/cleverlon/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cleverlon.com/#website",
+      "url": "https://cleverlon.com/",
+      "name": "Cleverlon",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://cleverlon.com/#organization"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://cleverlon.com/#service",
+      "name": "Cleverlon",
+      "url": "https://cleverlon.com/",
+      "image": "https://cleverlon.com/og-image.png",
+      "description": "We connect the systems you already run, automate the work that repeats, and build software where nothing off the shelf fits. Our background is database and cloud engineering.",
+      "areaServed": "Worldwide",
+      "parentOrganization": {
+        "@id": "https://cleverlon.com/#organization"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "What we build",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Workflow automation",
+              "url": "https://cleverlon.com/automation/"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom software",
+              "url": "https://cleverlon.com/software/"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Interactive campaigns",
+              "url": "https://cleverlon.com/campaigns/"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cleverlon.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is our data kept safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Access is limited by role and changes are logged. Before we build, we agree a data plan with you. We sign a data processing agreement if you need one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who owns the code and the data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You own your data. For custom software, you own the code once the project is paid in full. If you cancel an automation's monthly plan, we hand over the workflow files and documentation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does pricing work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Automations have a one-off setup fee, from $800 to $2,500, and a monthly fee, from $150 to $400. The first month is included in the setup fee. Campaigns start at $800. Custom software is quoted per project after a free scoping call. There is no lock-in: if you cancel, we hand over the workflow files and documentation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Automations go live in 10 to 14 days. A campaign takes about 2 weeks. For custom software we set a timeline when we scope the project."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after launch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The monthly fee covers hosting, monitoring and changes. For custom software, we stay on for changes after we deploy it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you work in our time zone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We work in West Africa Time (UTC+1), which overlaps fully with UK and European working hours and with US mornings. We reply within one working day."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

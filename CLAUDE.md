@@ -19,6 +19,10 @@ tracker/index.html      free Installment Payment Tracker lead magnet (land and h
 shared.css              the design system
 favicon.png, og-image.png  favicon and the shared social preview image
 logo-black.png, logo-white.png  official logos used in the nav
+logo-512.png            512 x 512 square logo, used only as the Organization logo in the
+                        home page JSON-LD. Do not link it from any page.
+sitemap.xml             every public page, with a lastmod date. Add new pages here.
+robots.txt              allows everything and points to sitemap.xml
 _redirects              Netlify rules
 CLAUDE.md               this file
 ```
