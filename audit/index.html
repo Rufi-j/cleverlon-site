@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Automation Audit | Cleverlon</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
   <meta name="description" content="A free audit that asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Automation Audit | Cleverlon">
@@ -16,9 +17,8 @@
   <meta name="twitter:title" content="Automation Audit | Cleverlon">
   <meta name="twitter:description" content="A free audit that asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes.">
   <meta name="twitter:image" content="https://cleverlon.com/og-image.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
   <style>
     :root {
       --paper: #EDEDE8;
@@ -485,7 +485,11 @@
         transition: none
       }
     }
+      .foot a {
+      color: inherit
+    }
   </style>
+<script src="/analytics.js" defer></script>
 </head>
 
 <body>
@@ -506,7 +510,7 @@
     </div>
   </div>
 
-  <div class="foot">Takes under 4 minutes · Your answers are not shared</div>
+  <div class="foot">Takes under 4 minutes · Your answers are not shared · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></div>
 
   <script>
     /* ============================================================

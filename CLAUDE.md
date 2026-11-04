@@ -16,6 +16,11 @@ campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
 tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
 audit/index.html        the diagnostic questionnaire (self-contained, see below)
+privacy/index.html      privacy policy
+terms/index.html        terms of use
+analytics.js            loads Umami Cloud analytics and tracks the events (see Analytics)
+fonts.css, fonts/       self-hosted fonts (woff2). Pages link fonts.css, never Google Fonts.
+_headers                Netlify headers: long cache for /fonts/*
 whatsapp-support-agent/index.html  detail page for the WhatsApp support agent automation
 lead-qualification-routing/index.html  detail page for the lead qualification and routing automation
 404.html                the not-found page, served by Netlify for any missing URL
@@ -41,7 +46,12 @@ reserved for a future CRM product page, so do not link to `/crm`.
 self-contained: it uses its own font (Archivo) and its own styling in one file,
 and it does not load `shared.css`. Do not restyle it to match the rest of the
 site or add the shared nav, footer or `<main>` wrapper to it without being
-asked. Its form posts to its own Apps Script endpoint.
+asked. Its form posts to its own Apps Script endpoint. It does load `/fonts.css`, `/favicon.png` and `/analytics.js`.
+
+This repo is the only source for the audit: `cleverlon.com/audit/` serves `audit/index.html` from here, and
+there is no proxy rule. The old project in `Desktopdiagnostic site` only affects
+`cleverlon-audit.netlify.app`, which redirects to `https://cleverlon.com/audit/`. Edit the audit here, never
+there, and do not expect a change in the old project to show on cleverlon.com.
 
 ## Design system
 
@@ -55,7 +65,10 @@ adding it.
   `--estate-dark`, `--estate-bright`, `--amber`, `--amber-light`, `--error`
   and `--surface-hover` for the few one-off shades.
 - Fonts are Young Serif for `h1` and `h2`, Albert Sans for everything else.
-  Young Serif has one weight, so `h3` and labels use Albert Sans bold.
+  Young Serif has one weight, so `h3` and labels use Albert Sans bold. All fonts
+  are self-hosted from `/fonts/` through `/fonts.css` (Latin and Latin Extended,
+  `font-display: swap`). Do not add Google Fonts links. The campaigns pages also use
+  JetBrains Mono and the audit page uses Archivo, both from the same `fonts.css`.
 - Shared classes: `.wrap`, `.topbar`, `.mark`, `.topnav`, `.eyebrow`, `.lede`,
   `.btn` (`.ghost`, `.wide`), `.textlink` (plain link, no arrows), `.rows` and
   `.row-item` (stacked heading and text rows), `.foot`.
@@ -76,7 +89,9 @@ such change, check every page, not just the one that prompted it.
 Every page also carries the same small furniture: a `<main>` around the page
 content, a canonical link and Twitter card tags in the head (matching `og:url`,
 with a trailing slash), and the line "&copy; 2026 Cleverlon. All rights
-reserved." at the end of the footer. Keep these when adding or editing a page.
+reserved." at the end of the footer, with Privacy and Terms links in the footer line and
+`<script src="/analytics.js" defer></script>` in the head. Keep these when adding or editing a page.
+Forms link the privacy policy and terms in the line under the form.
 The logos are 184px wide (2x the 92px they display at), so keep the `width` and
 `height` attributes on the img at the display size.
 
@@ -152,6 +167,30 @@ No placeholders are unset. Both forms post to live Apps Script web apps through
 `WEBHOOK_URL`: `tracker/index.html` and `software/index.html` (both scripts are described
 above). Do not change or empty either URL without being asked, because the form
 would stop delivering.
+
+## Analytics
+
+Umami Cloud (EU region, cookieless, no banner needed) is loaded by `analytics.js`, which every page includes,
+including `audit/index.html`. The website ID is `WEBSITE_ID` at the top of that file; while it is empty nothing
+loads and no request is made. `data-domains="cleverlon.com"` keeps localhost, previews and
+cleverlon-audit.netlify.app out of the stats. Umami keeps data for 6 months on the free plan.
+
+Events (`window.cleverlonTrack(name, data)`, safe to call before Umami loads): "Book a call" (any Calendly link) and
+"Audit link click" (any link to /audit) are tracked by `analytics.js` itself. "Tracker form submit" and
+"Software form submit" are called after a successful send in those pages. "Game play" (with a `game` property)
+is called when each game starts: Beat the Bot, Survive Monday, Shortlist Rush and the spin wheel demo. Never
+send what a visitor typed. The standalone audit project in `Desktop\diagnostic site` carries the same Umami
+snippet with the same ID, but `/audit` is now served from this repo. Keep `privacy/index.html` accurate when
+analytics changes.
+
+## Legal pages
+
+`privacy/index.html` and `terms/index.html` are linked from every footer and from the consent line under each
+form. The business is registered in Nigeria as Cleverlon Concepts: the two legal pages use that name, and their footer
+says "Cleverlon is a trading name of Cleverlon Concepts, registered in Nigeria." Everywhere else the name is Cleverlon.
+Never publish the registration number, address or tax number. The contact email is hellocleverlon@gmail.com (in the
+footers and the legal pages, not in the JSON-LD). If a form starts collecting something new, or the analytics, storage
+or cookie setup changes, update the privacy policy at the same time.
 
 ## Deploying
 
