@@ -15,6 +15,7 @@ campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
 tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
+whatsapp-support-agent/index.html  detail page for the WhatsApp support agent automation
 404.html                the not-found page, served by Netlify for any missing URL
 shared.css              the design system
 favicon.png, og-image.png  favicon and the shared social preview image
