@@ -32,6 +32,7 @@
   .sec h2{font-size:clamp(22px,3vw,28px);max-width:24ch}
   .sec > p{color:var(--ink-mid);margin-top:14px;max-width:64ch}
   .sec .textlink{display:inline-block;margin-top:12px}
+  .sec p .textlink{display:inline;margin-top:0}
 
   .inc{list-style:none;margin-top:16px;max-width:64ch}
   .inc li{padding:10px 0 10px 18px;position:relative;border-bottom:1px solid var(--border);color:var(--ink-mid)}
@@ -64,7 +65,7 @@
 
   @media(max-width:640px){
     .inc li,.price-box .t,.terms{font-size:16px}
-    .sec .textlink,.cta-row .textlink{display:inline-flex;align-items:center;min-height:44px}
+    .sec > .textlink,.cta-row .textlink{display:inline-flex;align-items:center;min-height:44px}
   }
 </style>
 <script type="application/ld+json">
@@ -162,6 +163,7 @@
   <section class="sec">
     <h2>What it does</h2>
     <p>Customers write to your WhatsApp Business number and the agent answers. It works from your own prices and policies, so the answers are yours and not generic. It works out what each customer wants and sends the chat down the right path. If it is not sure, a person takes over and sees the whole conversation.</p>
+    <p>Serious inquiries from WhatsApp go straight into <a class="textlink" href="/lead-qualification-routing/">lead qualification and routing</a>, which scores them and sends them to the right person.</p>
   </section>
 
   <section class="sec">
