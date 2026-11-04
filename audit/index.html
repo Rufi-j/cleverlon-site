@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automation Audit | Cleverlon</title>
+  <meta name="description" content="A free audit that asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Automation Audit | Cleverlon">
+  <meta property="og:description" content="A free audit that asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes.">
+  <meta property="og:image" content="https://cleverlon.com/og-image.png">
+  <meta property="og:url" content="https://cleverlon.com/audit/">
+  <link rel="canonical" href="https://cleverlon.com/audit/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automation Audit | Cleverlon">
+  <meta name="twitter:description" content="A free audit that asks a short set of questions about your week. It tells you which automation would give back the most hours, and which to add next. It takes under four minutes.">
+  <meta name="twitter:image" content="https://cleverlon.com/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #EDEDE8;
+      --card: #F7F7F4;
+      --ink: #16181C;
+      --muted: #6B7078;
+      --rule: #C9CCD2;
+      --accent: #2340C8;
+      --signal: #B8860B;
+      --display: "Archivo", system-ui, sans-serif;
+      --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased
+    }
+
+    body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column
+    }
+
+    .shell {
+      flex: 1;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 20px 20px 0;
+      display: flex;
+      flex-direction: column
+    }
+
+    /* masthead */
+    .mast {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 14px
+    }
+
+    .mark {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -.03em
+    }
+
+    .mark span {
+      color: var(--accent)
+    }
+
+    .count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em
+    }
+
+    /* segmented progress — one segment per question */
+    .prog {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 26px
+    }
+
+    .seg {
+      flex: 1;
+      height: 3px;
+      background: var(--rule)
+    }
+
+    .seg.done {
+      background: var(--accent)
+    }
+
+    .seg.now {
+      background: var(--ink)
+    }
+
+    /* question */
+    .stage {
+      flex: 1
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(22px, 5.4vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      margin-bottom: 8px
+    }
+
+    .helper {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.5
+    }
+
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .opt {
+      width: 100%;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 15px 16px;
+      font: inherit;
+      font-size: 15px;
+      line-height: 1.35;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      transition: border-color .12s, background .12s
+    }
+
+    .opt:hover {
+      border-color: var(--ink)
+    }
+
+    .opt:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    .box {
+      flex: none;
+      width: 15px;
+      height: 15px;
+      border: 1.5px solid var(--rule);
+      border-radius: 1px;
+      position: relative
+    }
+
+    .opt[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: #fff
+    }
+
+    .opt[aria-pressed="true"] .box {
+      border-color: var(--accent);
+      background: var(--accent)
+    }
+
+    .opt[aria-pressed="true"] .box::after {
+      content: "";
+      position: absolute;
+      inset: 2px 3px;
+      border: solid #fff;
+      border-width: 0 0 1.6px 1.6px;
+      transform: rotate(-45deg);
+      height: 5px
+    }
+
+    /* nav */
+    .nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 22px 0 12px
+    }
+
+    .btn {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -.01em;
+      padding: 13px 22px;
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      background: var(--ink);
+      color: var(--paper);
+      cursor: pointer
+    }
+
+    .btn:disabled {
+      opacity: .28;
+      cursor: not-allowed
+    }
+
+    .btn.ghost {
+      background: none;
+      color: var(--ink);
+      border-color: var(--rule)
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    /* signal meter — the live read-out */
+    .meter {
+      border-top: 1px solid var(--rule);
+      background: var(--paper);
+      position: sticky;
+      bottom: 0;
+      padding: 11px 0 15px
+    }
+
+    .meter-hd {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px
+    }
+
+    .bars {
+      display: flex;
+      gap: 5px
+    }
+
+    .bar {
+      flex: 1
+    }
+
+    .bar-track {
+      height: 4px;
+      background: var(--rule);
+      overflow: hidden
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      background: var(--signal);
+      transition: width .45s cubic-bezier(.2, .7, .3, 1)
+    }
+
+    .bar-fill.lead {
+      background: var(--accent)
+    }
+
+    .bar-lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-top: 5px
+    }
+
+    /* results */
+    .verdict {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 22px 20px;
+      margin-bottom: 12px
+    }
+
+    .verdict .eyebrow {
+      color: var(--accent)
+    }
+
+    .verdict h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(21px, 5vw, 27px);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+      margin-bottom: 12px
+    }
+
+    .reasons {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule)
+    }
+
+    .reasons li {
+      font-size: 14px;
+      line-height: 1.45;
+      padding-left: 16px;
+      position: relative;
+      color: #2C3038
+    }
+
+    .reasons li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--signal)
+    }
+
+    .addon {
+      border: 1px solid var(--rule);
+      background: var(--card);
+      padding: 17px 18px;
+      margin-bottom: 12px
+    }
+
+    .addon h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 5px;
+      letter-spacing: -.01em
+    }
+
+    .addon p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    .roi {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      border: 1px solid var(--rule);
+      background: var(--card);
+      padding: 17px 18px;
+      margin-bottom: 22px
+    }
+
+    .roi b {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 34px;
+      letter-spacing: -.04em;
+      color: var(--accent);
+      line-height: 1
+    }
+
+    .roi span {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4
+    }
+
+    /* capture */
+    .field {
+      margin-bottom: 13px
+    }
+
+    label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    input,
+    select {
+      width: 100%;
+      font: inherit;
+      font-size: 15px;
+      padding: 13px 14px;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      background: #fff;
+      color: var(--ink)
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: -1px;
+      border-color: var(--accent)
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.5
+    }
+
+    .status.bad {
+      color: #A32020
+    }
+
+    .nav.results {
+      flex-wrap: wrap
+    }
+
+    .softexit {
+      flex-basis: 100%;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted)
+    }
+
+    .softexit a {
+      color: var(--muted);
+      text-underline-offset: 2px
+    }
+
+    .softexit a:hover {
+      color: var(--ink)
+    }
+
+    .foot {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      padding: 16px 0 22px;
+      letter-spacing: .05em
+    }
+
+    .fade {
+      animation: in .3s ease both
+    }
+
+    @keyframes in {
+      from {
+        opacity: 0;
+        transform: translateY(7px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      .fade {
+        animation: none
+      }
+
+      .bar-fill {
+        transition: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <div class="mast">
+      <div class="mark">CLEVERLON<span>.</span></div>
+      <div class="count" id="count"></div>
+    </div>
+    <div class="prog" id="prog"></div>
+    <main class="stage" id="stage" aria-live="polite"></main>
+    <div class="nav" id="nav"></div>
+  </div>
+
+  <div class="meter" id="meter" hidden>
+    <div class="shell" style="padding-bottom:0">
+      <div class="meter-hd">Reading your answers</div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+
+  <div class="foot">Takes under 4 minutes · Your answers are not shared</div>
+
+  <script>
+    /* ============================================================
+       CONFIG — set this to your Apps Script or n8n webhook URL.
+       Leave empty and the page works standalone (results on screen).
+       ============================================================ */
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzzi4Him03a7cq_jVMnKVLMvsp6SURL9iAVYnG5SN7GjhdIcxMgqDdAjy_he1svr4-6/exec";
+
+    /* Your Calendly or WhatsApp link, shown as the CTA on the result screen. */
+    const BOOK_LINK = "https://calendly.com/cleverlon/audit-review";
+
+    /* Shown only if the email copy fails to send. */
+    const CONTACT = "+2348051817820";
+
+    /* Service lines. Keys are used in every weight table below. */
+    /* Indicative pricing, matched to the proposals site. Keep these in step. */
+    const PRICING = {
+      leadgen: "$1,500 + $250/mo", qualify: "$2,000 + $300/mo", onboard: "$2,500 + $350/mo",
+      linkedin: "$800 + $150/mo", chat: "$2,500 + $400/mo", know: "$2,000 + $300/mo",
+      hiring: "$2,000 + $300/mo", money: "$1,500 + $250/mo", report: "$1,200 + $200/mo"
+    };
+
+    /* The nine service lines — names match the offerings on the proposals site exactly,
+       so a prospect can find what they were recommended. */
+    const LINES = {
+      leadgen: {
+        code: "LEAD", name: "Lead Generation System",
+        pitch: "Prospects matching your ideal customer found and enriched automatically, then dropped into a tracker ready for outreach, instead of you hunting them one by one."
+      },
+      qualify: {
+        code: "QUAL", name: "Lead Qualification & Routing System",
+        pitch: "Every enquiry, from every channel, captured in one place, qualified against your criteria, and routed to the right person fast, so nothing sits unanswered."
+      },
+      onboard: {
+        code: "ONBD", name: "Client Acquisition & Onboarding System",
+        pitch: "Intake, documents, records and kickoff running as one sequence, so the stretch between someone saying yes and actually becoming a client stops being a scramble."
+      },
+      linkedin: {
+        code: "POST", name: "Automated LinkedIn Content Publishing",
+        pitch: "Consistent publishing that builds authority and brings enquiries in, without you sitting down to write posts each week."
+      },
+      chat: {
+        code: "CHAT", name: "WhatsApp Customer Support Agent",
+        pitch: "An AI agent on your WhatsApp Business number answering the routine questions instantly, day or night, and handing real conversations to you with the full history attached."
+      },
+      know: {
+        code: "KNOW", name: "Internal Company Knowledge Bot",
+        pitch: "Your policies, prices and procedures in one place your team can simply ask questions of, so the answer stops depending on one person being reachable."
+      },
+      hiring: {
+        code: "HIRE", name: "Resume Screening & Candidate Scoring",
+        pitch: "Applications read, scored against the role, and ranked before anyone opens a CV, so hiring costs you a shortlist review instead of an afternoon."
+      },
+      money: {
+        code: "CASH", name: "Invoice & Payment Collection",
+        pitch: "Invoices raised the moment a job or order is confirmed, sent with a payment link, receipted automatically when paid, and chased on a schedule when they aren't."
+      },
+      report: {
+        code: "DATA", name: "Automated Business Reporting",
+        pitch: "Your sales, marketing and payment figures pulled into one place and summarised to your phone daily or weekly, with last period's numbers alongside for context."
+      }
+    };
+    const ORDER = ["leadgen", "qualify", "onboard", "linkedin", "chat", "know", "hiring", "money", "report"];
+
+    /* Industry priors — deliberately small. They break ties, they never decide. */
+    const INDUSTRIES = {
+      realestate: { label: "Real estate / property", prior: {leadgen:3,qualify:3,chat:1} },
+      microfinance: { label: "Microfinance / lending", prior: {qualify:3,report:3,money:2,know:3} },
+      retail: { label: "Retail / trading / e-commerce", prior: {chat:3,money:3,report:2} },
+      service: { label: "Service business", prior: {onboard:3,chat:2,money:3} }
+    };
+
+    /* The task question — same question, each sector's own vocabulary. */
+    const TASKS = {
+      realestate: [
+        { t: "Sending property details and photos to enquirers", w: {chat:6}, n: "Sending the same property details by hand is the clearest case for an enquiry agent." },
+        { t: "Scheduling and confirming inspections", w: {chat:3,onboard:4}, n: "Inspection scheduling is booking logic that runs unattended." },
+        { t: "Following up prospects who went quiet", w: {qualify:6,leadgen:4}, n: "Dormant prospects are revenue you have already paid for, and follow-up should be automatic." },
+        { t: "Finding new prospects and listings", w: {leadgen:9}, n: "Prospecting by hand caps your pipeline at how many hours you can spare." },
+        { t: "Chasing documents, rent or commission payments", w: {money:9,onboard:3}, n: "Chasing payments and documents is a sequence of reminders, not a judgement call." },
+        { t: "Posting listings to social media", w: {linkedin:19}, n: "Listings can publish themselves from the same sheet you already keep." },
+        { t: "Sifting applications when hiring agents", w: {hiring:8}, n: "Reading every application by hand is the most automatable part of hiring." }],
+      microfinance: [
+        { t: "Answering loan product and eligibility questions", w: {chat:6,know:6}, n: "Eligibility questions repeat almost word for word, which is ideal for an agent backed by your policy." },
+        { t: "Collecting and checking KYC documents", w: {onboard:7}, n: "KYC collection is a checklist workflow, and checklists automate cleanly." },
+        { t: "Sending repayment reminders and chasing arrears", w: {money:12,chat:2}, n: "Repayment chasing is collection work. It should run on a schedule, not on memory." },
+        { t: "Finding new borrowers", w: {leadgen:9}, n: "Borrower acquisition by hand limits your book to your outreach hours." },
+        { t: "Preparing portfolio or branch reports", w: {report:12}, n: "Reports assembled by hand each week are the easiest hours on this list to give back." },
+        { t: "Explaining policy and procedure to staff", w: {know:15}, n: "Repeated policy questions mean the knowledge is in heads, not in a system." },
+        { t: "Screening applications when hiring officers", w: {hiring:8}, n: "Reading every application by hand is the most automatable part of hiring." }],
+      retail: [
+        { t: "Answering price and availability questions", w: {chat:6}, n: "Price and stock questions are the highest-volume, most repetitive messages in retail." },
+        { t: "Taking orders and confirming payment", w: {chat:3,money:9}, n: "Confirming payments by hand is slow and the easiest place for money to go missing." },
+        { t: "Sending delivery and dispatch updates", w: {chat:3,onboard:3}, n: "Delivery updates are triggered messages. They should fire when the status changes." },
+        { t: "Chasing customers and running promotions", w: {leadgen:5,linkedin:11}, n: "Promotions and repeat-customer nudges run well on a schedule." },
+        { t: "Stock counts and reorder tracking", w: {report:10}, n: "Reorder tracking is arithmetic on data you already hold." },
+        { t: "Posting products to social media", w: {linkedin:19}, n: "Product posting can run from your catalogue instead of your evenings." },
+        { t: "Sifting applications when hiring staff", w: {hiring:8}, n: "Reading every application by hand is the most automatable part of hiring." }],
+      service: [
+        { t: "Booking and rescheduling appointments", w: {chat:5,onboard:3}, n: "Booking and rescheduling is rules-based and runs unattended." },
+        { t: "Answering the same service and pricing questions", w: {chat:6,know:6}, n: "Repeating your service and pricing answers is pure deflectable volume." },
+        { t: "Client intake and onboarding", w: {onboard:9}, n: "Intake is a fixed sequence: collect, validate, file, notify." },
+        { t: "Sending invoices and chasing payment", w: {money:14}, n: "Invoice follow-up is the automation you notice in your bank balance first." },
+        { t: "Finding new clients", w: {leadgen:9}, n: "Client acquisition by hand stops the moment delivery work gets busy." },
+        { t: "Publishing content to attract clients", w: {linkedin:19}, n: "Consistent publishing is what fails first when delivery work gets busy." },
+        { t: "Screening applications when hiring", w: {hiring:8}, n: "Reading every application by hand is the most automatable part of hiring." }]
+    };
+
+    /* Remaining questions apply to every sector. */
+    const QUESTIONS = [
+      {
+        id: "channel", q: "How do customers usually reach you first?", h: "Pick the one that carries the most.",
+        o: [{ t: "WhatsApp", w: {chat:5} },
+        { t: "Instagram or Facebook DM", w: {chat:3,qualify:3} },
+        { t: "Phone calls", w: {qualify:3} },
+        { t: "Email", w: {qualify:3,onboard:1} },
+        { t: "Website form", w: {qualify:6}, n: "Enquiries landing in a form inbox are the ones most often left sitting." },
+        { t: "Paid ad lead forms on Meta or Google", w: {qualify:7,leadgen:4}, n: "Paid leads go cold fastest, so routing and speed decide whether that spend pays back." },
+        { t: "They walk in", w: {chat:1,report:2} }]
+      },
+      {
+        id: "volume", q: "Roughly how many enquiries do you get a week?", h: "A rough figure is fine.",
+        o: [{ t: "Under 10", w: {leadgen:7}, n: "At this volume the constraint is demand, not handling it." },
+        { t: "10 to 50", w: {chat:2,leadgen:4} },
+        { t: "50 to 200", w: {chat:5,qualify:3}, n: "At this volume, routine replies are eating real hours every day." },
+        { t: "Over 200", w: {chat:7,qualify:4}, n: "At your volume, even a small share of deflected messages is a large weekly saving." }]
+      },
+      {
+        id: "speed", q: "How quickly do enquiries usually get a first reply?", h: "Be honest. This is the number that decides most deals.",
+        o: [{ t: "Within minutes", w: {} },
+        { t: "Within a few hours", w: {qualify:3} },
+        { t: "Usually the next day", w: {qualify:6,chat:2}, n: "Next-day replies lose enquiries to whoever answered first." },
+        { t: "Some get missed entirely", w: {qualify:9,chat:2}, n: "Missed enquiries are the most expensive problem on this list, and the cheapest to fix." }]
+      },
+      {
+        id: "afterhours", q: "Who covers enquiries at night and on weekends?", h: "",
+        o: [{ t: "Nobody, they just wait", w: {chat:5}, n: "Nights and weekends are unattended hours an agent covers at no extra cost." },
+        { t: "I answer them myself", w: {chat:3}, n: "You are personally the after-hours cover, which is the hardest cost to keep paying." },
+        { t: "Staff on rotation", w: {chat:1,qualify:1} },
+        { t: "An agency or virtual assistant", w: {} }]
+      },
+      {
+        id: "acquire", q: "Where do new customers mostly come from?", h: "",
+        o: [{ t: "Referrals and walk-ins only", w: {leadgen:5}, n: "Referral-only growth is unpredictable and can't be scaled on demand." },
+        { t: "Paid ads", w: {qualify:4}, n: "Paid spend only pays back if every lead it buys gets answered fast." },
+        { t: "We reach out to people directly", w: {leadgen:4,onboard:1}, n: "Manual outreach is the single most automatable part of acquisition." },
+        { t: "We don't actively look for them", w: {leadgen:5,linkedin:8}, n: "With no acquisition system, growth depends entirely on who happens to find you." }]
+      },
+      {
+        id: "records", q: "Where does customer information actually live?", h: "",
+        o: [{ t: "Inside WhatsApp chats", w: {onboard:6,qualify:3}, n: "Records trapped in chat threads can't be searched, reported on, or handed over." },
+        { t: "A notebook or paper file", w: {onboard:6}, n: "Paper records make every report a manual rebuild." },
+        { t: "Excel or Google Sheets", w: {onboard:3,report:2} },
+        { t: "A proper CRM", w: {leadgen:4} },
+        { t: "Scattered across several places", w: {onboard:3,know:6,report:4}, n: "Scattered records mean staff spend real time just locating things." }]
+      },
+      {
+        id: "keyperson", q: "When one key person is unavailable, what stalls?", h: "",
+        o: [{ t: "Questions about our services or prices", w: {know:15,chat:2}, n: "Answers living in one person's head is exactly what a knowledge bot fixes." },
+        { t: "Approvals and moving work along", w: {onboard:7}, n: "Approval bottlenecks are routing problems, and routing automates well." },
+        { t: "Finding records and past details", w: {know:12,onboard:4}, n: "Time spent hunting for past details compounds quietly across a team." },
+        { t: "Honestly, nothing stalls", w: {} }]
+      },
+      {
+        id: "payments", q: "How do customers usually pay you?", h: "",
+        o: [{ t: "Bank transfer, and we check for the alert ourselves", w: {money:12}, n: "Confirming transfers by hand is slow, error-prone and easy to automate away." },
+        { t: "Cash on delivery or in person", w: {money:2,onboard:3} },
+        { t: "POS or card terminal", w: {money:2,report:2} },
+        { t: "We already send payment links", w: {report:2} },
+        { t: "We invoice and wait, then follow up", w: {money:9}, n: "Invoice-and-wait is where cash quietly gets stuck; automated follow-up fixes it." }]
+      },
+      {
+        id: "visibility", q: "How do you find out how the business performed last week?", h: "",
+        o: [{ t: "I open each platform and work it out myself", w: {report:10}, n: "Pulling numbers from several places by hand is a report waiting to be automated." },
+        { t: "Someone prepares a report for me", w: {report:8}, n: "A person assembling your weekly numbers is doing work a system should do." },
+        { t: "Honestly, we don't really track it", w: {report:6,onboard:1}, n: "Without regular numbers you find out how a month went only after it's over." },
+        { t: "A dashboard already shows me", w: {} }]
+      },
+      {
+        id: "hiring", q: "How often are you hiring?", h: "You mentioned applications eat your time.",
+        when: () => (answers.tasks || []).some(o => o.w.hiring),
+        o: [{ t: "Constantly, there is usually a role open", w: {hiring:14}, n: "With a role almost always open, screening is a permanent cost rather than an occasional one." },
+        { t: "Several times a year", w: {hiring:8}, n: "Hiring often enough that screening repeats is hiring often enough to automate it." },
+        { t: "Once in a while", w: {hiring:3} },
+        { t: "Rarely, it is mostly just us", w: {} }]
+      },
+      {
+        id: "hours", q: "How many hours a week go into your single most repetitive task?", h: "Across everyone who touches it.",
+        o: [{ t: "1 to 5 hours", w: {}, hrs: 3 },
+        { t: "6 to 15 hours", w: {onboard:1}, hrs: 10 },
+        { t: "16 to 30 hours", w: {onboard:3}, hrs: 23 },
+        { t: "More than 30 hours", w: {onboard:4}, hrs: 35 }]
+      }
+    ];
+
+    /* ---------------- state ---------------- */
+    const params = new URLSearchParams(location.search);
+    const SOURCE = (params.get("src") || params.get("utm_source") || "direct").slice(0, 40);
+    const answers = {};
+    let captured = null, emailState = null;
+    let industry = null, step = -1;
+    /* Some questions only apply to some businesses, so the length is computed live. */
+    function activeQs() { return QUESTIONS.filter(q => !q.when || q.when()); }
+    function total() { return 2 + activeQs().length; }
+
+    const stage = document.getElementById("stage");
+    const nav = document.getElementById("nav");
+    const prog = document.getElementById("prog");
+    const meter = document.getElementById("meter");
+    const bars = document.getElementById("bars");
+    const count = document.getElementById("count");
+
+    bars.innerHTML = ORDER.map(k =>
+      `<div class="bar"><div class="bar-track"><div class="bar-fill" id="f-${k}"></div></div>
+   <div class="bar-lbl">${LINES[k].code}</div></div>`).join("");
+
+    function drawSegs() { prog.innerHTML = Array.from({ length: total() }, (_, i) => `<div class="seg" id="s${i}"></div>`).join(""); }
+    drawSegs();
+
+    function scores() {
+      const s = Object.fromEntries(ORDER.map(k => [k, 0]));
+      const add = w => { for (const k in w) s[k] += w[k]; };
+      if (industry) add(INDUSTRIES[industry].prior);
+      if (answers.tasks) answers.tasks.forEach(o => add(o.w));
+      activeQs().forEach(q => { if (answers[q.id]) add(answers[q.id].w); });
+      return s;
+    }
+    function drawMeter() {
+      const s = scores();
+      const max = Math.max(1, ...ORDER.map(k => s[k]));
+      const lead = ORDER.reduce((a, b) => s[b] > s[a] ? b : a);
+      ORDER.forEach(k => {
+        const f = document.getElementById("f-" + k);
+        f.style.width = Math.round(s[k] / max * 100) + "%";
+        f.classList.toggle("lead", k === lead && s[k] > 0);
+      });
+    }
+    function drawProg() {
+      const T = total();
+      if (prog.children.length !== T) drawSegs();
+      for (let i = 0; i < T; i++) {
+        const el = document.getElementById("s" + i);
+        el.className = "seg" + (i < step ? " done" : i === step ? " now" : "");
+      }
+      count.textContent = step >= 0 && step < T ? `${step + 1} / ${T}` : "";
+    }
+
+    /* ---------------- rendering ---------------- */
+    function render() {
+      drawProg(); drawMeter();
+      meter.hidden = step < 1;
+      stage.className = "stage fade";
+      void stage.offsetWidth;
+
+      if (step === -1) return intro();
+      if (step === 0) return industryQ();
+      if (step === 1) return tasksQ();
+      if (step <= total() - 1) return plainQ(activeQs()[step - 2]);
+      if (step === total()) return gate();
+      return results();
+    }
+
+    function intro() {
+      stage.innerHTML = `
+    <div class="eyebrow">Automation diagnostic</div>
+    <h1>A dozen questions about how your business actually spends its week.</h1>
+    <p class="helper">No sales pitch first. Answer honestly and you'll see which one automation would give you the most time back, and roughly how much. Under four minutes.</p>`;
+      nav.innerHTML = `<button class="btn" id="go">Start</button>`;
+      go.onclick = () => { step = 0; render(); };
+    }
+
+    function industryQ() {
+      stage.innerHTML = `
+    <div class="eyebrow">Question 1</div>
+    <h1>What kind of business is it?</h1>
+    <p class="helper">This changes the questions you get, not the outcome.</p>
+    <div class="opts">${Object.entries(INDUSTRIES).map(([k, v]) =>
+        `<button class="opt" data-k="${k}" aria-pressed="${industry === k}"><span class="box"></span>${v.label}</button>`).join("")}</div>`;
+      stage.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+        if (industry !== b.dataset.k) { industry = b.dataset.k; answers.tasks = null; }
+        advance();
+      });
+      nav.innerHTML = "";
+    }
+
+    function tasksQ() {
+      const list = TASKS[industry];
+      const sel = answers.tasks || [];
+      stage.innerHTML = `
+    <div class="eyebrow">Question 2</div>
+    <h1>Which of these eat the most repeated hours each week?</h1>
+    <p class="helper">Choose up to three. This is the answer that carries the most weight.</p>
+    <div class="opts">${list.map((o, i) =>
+        `<button class="opt" data-i="${i}" aria-pressed="${sel.includes(o)}"><span class="box"></span>${o.t}</button>`).join("")}</div>`;
+      stage.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+        const o = list[+b.dataset.i];
+        let cur = answers.tasks || [];
+        if (cur.includes(o)) cur = cur.filter(x => x !== o);
+        else if (cur.length < 3) cur = [...cur, o];
+        answers.tasks = cur;
+        b.setAttribute("aria-pressed", cur.includes(o));
+        drawMeter(); navButtons();
+      });
+      navButtons();
+    }
+
+    function plainQ(q) {
+      stage.innerHTML = `
+    <div class="eyebrow">Question ${step + 1}</div>
+    <h1>${q.q}</h1>
+    ${q.h ? `<p class="helper">${q.h}</p>` : `<div style="height:14px"></div>`}
+    <div class="opts">${q.o.map((o, i) =>
+        `<button class="opt" data-i="${i}" aria-pressed="${answers[q.id] === o}"><span class="box"></span>${o.t}</button>`).join("")}</div>`;
+      stage.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+        answers[q.id] = q.o[+b.dataset.i];
+        b.setAttribute("aria-pressed", "true");
+        advance();
+      });
+      navButtons();
+    }
+
+    function navButtons() {
+      const ready = step === 1 ? (answers.tasks || []).length > 0 : true;
+      nav.innerHTML = `<button class="btn ghost" id="back">Back</button>
+    ${step === 1 ? `<button class="btn" id="next" ${ready ? "" : "disabled"}>Continue</button>` : ""}`;
+      back.onclick = () => { step--; render(); };
+      if (step === 1) next.onclick = () => { step++; render(); };
+    }
+
+    function advance() {
+      drawMeter();
+      const wait = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 180;
+      setTimeout(() => { step++; render(); }, wait);
+    }
+
+    /* ---------------- results ---------------- */
+    function verdict() {
+      const s = scores();
+      const rank = ORDER.slice().sort((a, b) => s[b] - s[a]);
+      const win = rank[0], second = rank[1];
+
+      // Explain the winner using the answers that actually pushed it up.
+      const picks = [answers.tasks || [], activeQs().map(q => answers[q.id]).filter(Boolean)].flat();
+      const reasons = picks
+        .filter(o => o.n && o.w && o.w[win])
+        .sort((a, b) => b.w[win] - a.w[win])
+        .slice(0, 3).map(o => o.n);
+
+      const hrs = answers.hours ? answers.hours.hrs : 0;
+      const monthly = Math.round(hrs * 4.33 * 0.6 / 5) * 5;
+      return { s, win, second, reasons, monthly };
+    }
+
+    function gate() {
+      const v = verdict();
+      meter.hidden = false; drawMeter();
+      count.textContent = "Result ready";
+      prog.querySelectorAll(".seg").forEach(el => el.className = "seg done");
+
+      stage.innerHTML = `
+    <div class="eyebrow">All answered</div>
+    <h1>Your result is ready.</h1>
+    <p class="helper">You've been matched to one primary system, one add-on worth doing next, and an estimate of the hours it could give back each month. Enter your details and it appears on the next screen. A copy goes to your inbox at the same time.</p>
+    <div class="field"><label for="nm">Your name</label><input id="nm" autocomplete="name"></div>
+    <div class="field"><label for="bz">Business name</label><input id="bz" autocomplete="organization"></div>
+    <div class="field"><label for="em">Email</label><input id="em" type="email" inputmode="email" autocomplete="email"></div>
+    <div class="field"><label for="wa">WhatsApp number</label><input id="wa" inputmode="tel" autocomplete="tel"></div>
+    <div class="field"><label for="tl">When would you want this running?</label>
+      <select id="tl"><option>Within a month</option><option>One to three months</option><option>Just exploring for now</option></select></div>
+    <div class="status" id="st"></div>`;
+
+      nav.innerHTML = `<button class="btn ghost" id="back">Back</button><button class="btn" id="send">Show my result</button>`;
+      back.onclick = () => { step--; render(); };
+      send.onclick = () => submit(v);
+    }
+
+    async function submit(v) {
+      const st = document.getElementById("st");
+      if (!nm.value.trim() || !em.value.trim()) {
+        st.className = "status bad";
+        st.textContent = "Add your name and email so your result can reach you.";
+        return;
+      }
+      captured = {
+        submitted: new Date().toISOString(),
+        name: nm.value.trim(), business: bz.value.trim(),
+        email: em.value.trim(), whatsapp: wa.value.trim(), timeline: tl.value,
+        source: SOURCE,
+        industry: INDUSTRIES[industry].label,
+        recommended: LINES[v.win].name, addon: LINES[v.second].name,
+        price: PRICING[v.win], addonPrice: PRICING[v.second],
+        hoursBack: v.monthly, reasons: v.reasons, scores: v.s,
+        tasks: (answers.tasks || []).map(o => o.t),
+        answers: Object.fromEntries(QUESTIONS.map(q => [q.id, answers[q.id]?.t || ""]))  // full set, blanks for skipped
+      };
+
+      send.disabled = true;
+      st.className = "status"; st.textContent = "One moment\u2026";
+
+      // Show the result regardless of what the network does. They earned it.
+      const deliver = WEBHOOK_URL
+        ? fetch(WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(captured) })
+          .then(() => true).catch(err => { console.error("Diagnostic delivery failed:", err); return false; })
+        : Promise.resolve(null);
+
+      step++; render();
+      emailState = await deliver;
+      const note = document.getElementById("mailnote");
+      if (note) {
+        if (emailState === true) note.innerHTML = "Sent to <b>" + captured.email + "</b>. If it is not there in a minute, check your spam folder, and marking it not spam means the proposal reaches you too.";
+        else if (emailState === false) note.innerHTML = "Your result is above, but the email copy didn't send. Message <b>" + CONTACT + "</b> and I'll send it across.";
+        else { note.textContent = "Delivery isn't configured yet, so nothing was sent."; console.log(captured); }
+      }
+    }
+
+    function results() {
+      const v = verdict();
+      meter.hidden = false; drawMeter();
+      count.textContent = "Result";
+
+      stage.innerHTML = `
+    <div class="verdict">
+      <div class="eyebrow">Start here</div>
+      <h2>${LINES[v.win].name}</h2>
+      <p class="helper" style="margin:0">${LINES[v.win].pitch}</p>
+      ${v.reasons.length ? `<ul class="reasons">${v.reasons.map(r => `<li>${r}</li>`).join("")}</ul>` : ""}
+    </div>
+    <div class="addon">
+      <h3>Then add: ${LINES[v.second].name}</h3>
+      <p>${LINES[v.second].pitch}</p>
+    </div>
+    ${v.monthly ? `<div class="roi"><b>~${v.monthly}</b><span>hours a month this could give back, based on the time you reported. Conservative, since it assumes only part of the work is automatable. Worth comparing against what those hours cost you in wages.</span></div>` : ""}
+    <p class="status" id="mailnote">Sending your copy\u2026</p>
+    <h1 style="font-size:20px;margin:22px 0 6px">Want this costed?</h1>
+    <p class="helper">I'll put together a plan for your business: what gets built, how long it takes, and what it costs.</p>`;
+
+      nav.className = "nav results";
+      nav.innerHTML = (BOOK_LINK
+        ? `<a class="btn" href="${BOOK_LINK}" target="_blank" rel="noopener">Book a free 30-minute call</a>`
+        : "") + `<p class="softexit">Need a system built from scratch instead? <a href="https://cleverlon.com/software">See our custom software services.</a></p>`;
+    }
+
+    render();
+  </script>
+</body>
+
+</html>

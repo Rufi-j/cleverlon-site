@@ -15,6 +15,7 @@ campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
 tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
+audit/index.html        the diagnostic questionnaire (self-contained, see below)
 whatsapp-support-agent/index.html  detail page for the WhatsApp support agent automation
 lead-qualification-routing/index.html  detail page for the lead qualification and routing automation
 404.html                the not-found page, served by Netlify for any missing URL
@@ -36,10 +37,11 @@ A new page means a new folder, not a new file at the root. Link to pages as
 `/crm` currently redirects to `/tracker` (see `_redirects`). The name is
 reserved for a future CRM product page, so do not link to `/crm`.
 
-`_redirects` proxies `/audit/*` to the separate Netlify site that hosts the
-diagnostic. The `200` at the end makes it a proxy rather than a redirect, which
-is why the address bar keeps saying cleverlon.com. Do not change that line
-without being asked.
+`audit/index.html` is the diagnostic questionnaire. It is deliberately
+self-contained: it uses its own font (Archivo) and its own styling in one file,
+and it does not load `shared.css`. Do not restyle it to match the rest of the
+site or add the shared nav, footer or `<main>` wrapper to it without being
+asked. Its form posts to its own Apps Script endpoint.
 
 ## Design system
 
