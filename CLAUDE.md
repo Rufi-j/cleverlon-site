@@ -143,25 +143,26 @@ the `/exec` URL and the form stops delivering.
 
 ## Home hero collage
 
-The three cards beside the hero headline (workflow, game, dashboard) are built
-in HTML and CSS with sample data, so they work without screenshots. They are
-`<figure class="cl-card ...">` elements, each holding one `<div class="cl-mock">`.
-To use a real screenshot, replace that `cl-mock` div inside the card with one
-image, and leave the figure alone:
+The three cards beside the hero headline are real screenshots in `img/`, each in a
+`<figure class="cl-card ...">` with one `<img>`: workflow `cl-flow`
+(`home-automation-workflow.webp`, 2000 x 1200, 5:3), game `cl-game`
+(`home-campaign-game.webp`, 1900 x 2000, 19:20) and dashboard `cl-dash`
+(`home-software-dashboard.webp`, 2100 x 1700, 21:17). To change one, replace the file
+or its `<img>` and keep the ratio: the card keeps its size, rotation, shadow, hover lift
+and position, and the image is cropped to fit with `object-fit: cover`. On phones the cards become a swipe row.
+Each image has three files: `name.webp` (the large original), `name-1200.webp` and `name-600.webp`,
+used through `srcset` and `sizes` on the `<img>`; regenerate the two smaller ones whenever an image is replaced
+(resize to 600 and 1200 px wide, WebP quality about 80). Keep `width` and `height` at the original size. Only the
+first hero card loads normally; the other two are `loading="lazy"` with `fetchpriority="low"`, and everything below
+the first screen is lazy. Screenshots must not show client names or brands unless the client has agreed, and any
+demo data should be labeled as such where it is not obvious. The older HTML and CSS mockups
+were removed once all three cards had screenshots.
 
-```html
-<figure class="cl-card cl-flow"><img src="/img/home-card-workflow.webp" alt="..." width="1000" height="600"></figure>
-```
-
-The card keeps its size, rotation, shadow, hover lift and position. The image
-fills the card and is cropped to fit, so export at the card's ratio:
-workflow `cl-flow` 1000 x 600 (5:3), game `cl-game` 950 x 1000 (19:20),
-dashboard `cl-dash` 1050 x 850 (21:17). Real screenshots must not show client
-names or brands unless the client has agreed. On phones the cards become a
-swipe row, and the "Examples with sample data." note under them should be
-removed or reworded once every card is a real screenshot. The workflow card (`cl-flow`) already uses a real
-screenshot, `img/home-automation-workflow.webp` (2000 x 1200); the game and dashboard cards are still HTML
-mockups with sample data, so the note stays for now.
+The hidden service slots further down the home page use their own filenames
+(`home-automation-service.webp`, `home-software-service.webp`, `home-campaign-service.webp`)
+so a hero image never appears twice if a slot is unhidden. The installment tracking
+case study uses `home-case-installments.webp` (shown with demo data), the WhatsApp case study uses
+`whatsapp-agent-workflow.webp`, and the tracker page uses `campaign-game-real-estate.webp`.
 
 ## Form endpoints
 

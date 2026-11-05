@@ -173,6 +173,7 @@ input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px soli
 footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0 52px;font-size:13px;color:var(--muted);line-height:1.9}
 footer b{font-weight:700;letter-spacing:-.02em;color:var(--fg)}
 footer a{color:var(--muted)}
+footer a[href^="mailto:"]{display:inline-block;padding:5px 0}
 @media (prefers-reduced-motion:reduce){.game{transition:none}}
 
 /* site chrome */
@@ -181,7 +182,7 @@ footer a{color:var(--muted)}
 .topnav a:hover{color:var(--fg)}
 .topnav a[aria-current="page"]{color:var(--fg);font-weight:600}
 @media(max-width:640px){.topnav{gap:6px 14px;font-size:13px}}
-footer .fine{color:var(--muted);opacity:.8}
+footer .fine{color:var(--muted)}
 
 /* keyboard focus, hover and pressed states */
 a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s,transform .15s}
