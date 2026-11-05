@@ -48,9 +48,10 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);lin
 .lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
 .lane{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .lane.you{border-top:4px solid var(--you)} .lane.bot{border-top:4px solid var(--bot)}
-.lane h3{margin:0;font-family:var(--display);font-weight:400;font-size:20px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.lane h3 span{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.lane.you h3 span{color:var(--you)} .lane.bot h3 span{color:var(--bot)}
+.lane h2{margin:0;font-family:var(--display);font-weight:400;font-size:20px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lane h2 span{font-family:var(--mono);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.lane.you h2 span{color:var(--you)} .lane.bot h2 span{color:var(--bot)}
+.msg.is-hidden{color:var(--muted)}
 textarea{width:100%;min-height:130px;resize:vertical;font:15px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px}
 textarea:focus-visible{outline:3px solid var(--you);outline-offset:1px}
 .botreply{min-height:130px;background:var(--botsoft);border-radius:10px;padding:10px 12px;white-space:pre-wrap}
@@ -110,7 +111,7 @@ h1{letter-spacing:-.02em}
 
   <div class="lanes">
     <div class="lane you">
-      <h3>You <span id="youTime">0.0s</span></h3>
+      <h2>You <span id="youTime">0.0s</span></h2>
       <label class="label" for="reply">Your reply</label>
       <textarea id="reply" placeholder="Click Start, then type your reply here…" disabled></textarea>
       <div class="row">
@@ -119,7 +120,7 @@ h1{letter-spacing:-.02em}
       </div>
     </div>
     <div class="lane bot">
-      <h3>Cleverlon agent <span id="botTime">0.0s</span></h3>
+      <h2>Cleverlon agent <span id="botTime">0.0s</span></h2>
       <div class="label">Agent reply</div>
       <div class="botreply" id="botReply"><span class="typing">Waiting for the customer's message…</span></div>
     </div>
@@ -142,7 +143,7 @@ let idx=0,start=0,timer=0,times=[],words=[];
 function load(){
   const r=ROUNDS[idx];
   $("round").textContent=`Round ${idx+1} of ${ROUNDS.length}`;
-  $("msg").textContent="Message hidden until you start";$("msg").style.opacity=.5;
+  $("msg").textContent="Message hidden until you start";$("msg").classList.add("is-hidden");
   $("from").textContent="";
   $("reply").value="";$("reply").disabled=true;
   $("youTime").textContent="0.0s";$("botTime").textContent="0.0s";$("watch").textContent="0.0s";
@@ -151,7 +152,7 @@ function load(){
 }
 function go(){
   const r=ROUNDS[idx];
-  $("msg").textContent=r.msg;$("msg").style.opacity=1;$("from").textContent=`From ${r.from}`;
+  $("msg").textContent=r.msg;$("msg").classList.remove("is-hidden");$("from").textContent=`From ${r.from}`;
   $("reply").disabled=false;$("reply").focus();
   $("startBtn").hidden=true;$("sendBtn").hidden=false;
   start=performance.now();
