@@ -36,13 +36,11 @@ a{color:inherit}
 .mark{font-size:15px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
 .mark span{color:var(--accent)}
 .mark img{display:block;height:22px;width:auto}
-.topnav{display:flex;align-items:center;gap:6px 22px;flex-wrap:wrap;font-size:14px}
+.topnav{display:flex;gap:6px 22px;flex-wrap:wrap;font-size:14px}
 .topnav a{color:var(--ink-soft);text-decoration:none}
 .topnav a:hover{color:var(--ink)}
 .topnav a[aria-current="page"]{color:var(--ink);font-weight:600}
-.topnav .nav-cta{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid var(--ink);border-radius:var(--r-control);color:var(--ink);font-weight:600}
-.topnav .nav-cta:hover{background:var(--ink);color:#fff}
-@media(max-width:640px){.topnav{gap:6px 14px;font-size:13px}.topnav .nav-cta{display:none}}
+@media(max-width:640px){.topnav{gap:6px 14px;font-size:13px}}
 
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 h1{font-family:'Young Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5.4vw,52px);line-height:1.04;letter-spacing:var(--track-display)}

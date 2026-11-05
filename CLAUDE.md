@@ -96,9 +96,6 @@ seems to need one, say so instead of adding it.
   Nothing is below 12px.
 - **Buttons:** 48px tall, 15px text, weight 600, 4px radius. Primary is accent blue (estate
   green on the tracker form). Ghost is a 1px ink border that fills with ink on hover.
-- **Nav button:** every page with a site nav ends the nav with `a.nav-cta`, an outlined
-  "Book a call" button linking to the Calendly page. It is hidden at 640px and below so the
-  nav never wraps. The game pages and the audit have no site nav and no nav button.
 - **Step markers:** numbered steps use a 24px square marker (`--r-control`, accent fill,
   white 13px bold numeral) on a 1px hairline, horizontal on desktop and vertical on phones.
   List bullets are 5 to 6px squares with a 1px radius.
