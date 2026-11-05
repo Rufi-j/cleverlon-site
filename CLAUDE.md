@@ -49,9 +49,9 @@ site or add the shared nav, footer or `<main>` wrapper to it without being
 asked. Its form posts to its own Apps Script endpoint. It does load `/fonts.css`, `/favicon.png` and `/analytics.js`.
 
 This repo is the only source for the audit: `cleverlon.com/audit/` serves `audit/index.html` from here, and
-there is no proxy rule. The old project in `Desktopdiagnostic site` only affects
-`cleverlon-audit.netlify.app`, which redirects to `https://cleverlon.com/audit/`. Edit the audit here, never
-there, and do not expect a change in the old project to show on cleverlon.com.
+there is no proxy rule. `Desktop\diagnostic site` is an archived backup only. It is no longer deployed
+anywhere (the `cleverlon-audit.netlify.app` site was deleted). All audit changes happen in `audit/index.html`
+in this repo.
 
 ## Design system
 
@@ -209,15 +209,14 @@ would stop delivering.
 
 Umami Cloud (EU region, cookieless, no banner needed) is loaded by `analytics.js`, which every page includes,
 including `audit/index.html`. The website ID is `WEBSITE_ID` at the top of that file; while it is empty nothing
-loads and no request is made. `data-domains="cleverlon.com"` keeps localhost, previews and
-cleverlon-audit.netlify.app out of the stats. Umami keeps data for 6 months on the free plan.
+loads and no request is made. `data-domains="cleverlon.com"` keeps localhost and
+deploy previews out of the stats. Umami keeps data for 6 months on the free plan.
 
 Events (`window.cleverlonTrack(name, data)`, safe to call before Umami loads): "Book a call" (any Calendly link) and
 "Audit link click" (any link to /audit) are tracked by `analytics.js` itself. "Tracker form submit" and
 "Software form submit" are called after a successful send in those pages. "Game play" (with a `game` property)
 is called when each game starts: Beat the Bot, Survive Monday, Shortlist Rush and the spin wheel demo. Never
-send what a visitor typed. The standalone audit project in `Desktop\diagnostic site` carries the same Umami
-snippet with the same ID, but `/audit` is now served from this repo. Keep `privacy/index.html` accurate when
+send what a visitor typed. Keep `privacy/index.html` accurate when
 analytics changes.
 
 ## Legal pages
