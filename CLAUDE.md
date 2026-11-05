@@ -159,7 +159,9 @@ workflow `cl-flow` 1000 x 600 (5:3), game `cl-game` 950 x 1000 (19:20),
 dashboard `cl-dash` 1050 x 850 (21:17). Real screenshots must not show client
 names or brands unless the client has agreed. On phones the cards become a
 swipe row, and the "Examples with sample data." note under them should be
-removed or reworded once every card is a real screenshot.
+removed or reworded once every card is a real screenshot. The workflow card (`cl-flow`) already uses a real
+screenshot, `img/home-automation-workflow.webp` (2000 x 1200); the game and dashboard cards are still HTML
+mockups with sample data, so the note stays for now.
 
 ## Form endpoints
 
