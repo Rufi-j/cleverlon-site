@@ -56,8 +56,8 @@ there, and do not expect a change in the old project to show on cleverlon.com.
 ## Design system
 
 `shared.css` holds the tokens and base classes. Use them. Do not introduce new
-colors, fonts or radii; if something seems to need one, say so instead of
-adding it.
+colors or fonts, and do not add radii other than the two below; if something
+seems to need one, say so instead of adding it.
 
 - Colors are CSS custom properties on `:root`: `--ink`, `--ink-mid`,
   `--ink-soft`, `--surface`, `--surface-2`, `--border`, `--accent` (blue),
@@ -75,13 +75,49 @@ adding it.
 - Page-specific CSS goes in a `<style>` block in that page's head. One file per
   page, markup and styles together.
 
+### Design rules (tokens live in `shared.css`)
+
+- **Spacing:** 4px base unit. Scale `--s1` to `--s10`: 4, 8, 12, 16, 24, 32, 48, 64, 96,
+  128px. Use the scale, not odd values. The gap between major sections is
+  `--section-gap`: 96px, or 64px at 640px and below.
+- **Radius:** `--r-control` is 4px for buttons, inputs, tags and chips. `--r-card` is 8px
+  for figures, panels and cards. `--radius` equals `--r-control`. No pills and nothing
+  above 8px (the hero collage cards and circles are the exceptions).
+- **Rules, not boxes:** structure comes from lines. `--rule` is a 1px `--border` hairline
+  that divides rows, columns and list items. `--rule-ink` is a 1px `--ink` line that opens
+  each major section: `border-top: var(--rule-ink); padding-top: var(--s6)`. The header has
+  a hairline under it and the footer one above it. No section numbers.
+- **Shadows:** none, except the hero collage cards on the dark hero. Hover never moves
+  anything; it only changes a color, border or fill.
+- **Type:** h1 is clamp(32px, 5.4vw, 52px), line height 1.04, tracking `--track-display`
+  (-0.02em). h2 is clamp(28px, 3.4vw, 38px), line height 1.12, tracking `--track-h2`
+  (-0.015em). h3 is 18px bold. Body is 16px with line height 1.6. Labels (eyebrows, field
+  and row labels) are 12px, weight 600, uppercase, tracking `--track-label` (0.08em).
+  Nothing is below 12px.
+- **Buttons:** 48px tall, 15px text, weight 600, 4px radius. Primary is accent blue (estate
+  green on the tracker form). Ghost is a 1px ink border that fills with ink on hover.
+- **Nav button:** every page with a site nav ends the nav with `a.nav-cta`, an outlined
+  "Book a call" button linking to the Calendly page. It is hidden at 640px and below so the
+  nav never wraps. The game pages and the audit have no site nav and no nav button.
+- **Step markers:** numbered steps use a 24px square marker (`--r-control`, accent fill,
+  white 13px bold numeral) on a 1px hairline, horizontal on desktop and vertical on phones.
+  List bullets are 5 to 6px squares with a 1px radius.
+- **Dark band:** at most one full-width ink band per page (home: "Built on database and
+  cloud engineering"), with 1px white hairlines at 14% opacity between rows.
+- **Closing call to action:** a ruled block with an ink line on top, the heading on the
+  left and the button on the right. No tinted band.
+- **Color:** accent blue only for the primary button, links, focus rings and step markers.
+  Aim for one accent moment per screen.
+- **Motion:** 150ms changes of color, background and border. No transforms on hover.
+
 The four `campaigns/` pages are the exception. They do not load `shared.css`;
 they carry their own copy of the tokens in a `:root` block, already matched to
-the site. They also load JetBrains Mono, which is accepted there. If a token changes in `shared.css`, change it in those four too.
+the site, including the spacing, radius, rule and type tokens above. The three game
+pages get the radius rules from a short block at the end of their style. They also load JetBrains Mono, which is accepted there. If a token changes in `shared.css`, change it in those four too.
 
 ## Rules that apply sitewide
 
-**The nav and footer are duplicated across all eight pages.** There is no
+**The nav and footer are duplicated across every page.** There is no
 include mechanism. Changing a nav or footer link means editing all eight, and
 the `campaigns/` pages use slightly different markup to the rest. After any
 such change, check every page, not just the one that prompted it.

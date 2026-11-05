@@ -28,7 +28,7 @@
   .head .eyebrow + h1{margin-top:0}
   .cta-row{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:30px}
 
-  .sec{margin-top:clamp(56px,7vw,88px)}
+  .sec{margin-top:var(--section-gap);border-top:var(--rule-ink);padding-top:var(--s6)}
   .sec h2{font-size:clamp(22px,3vw,28px);max-width:24ch}
   .sec > p{color:var(--ink-mid);margin-top:14px;max-width:64ch}
   .sec .textlink{display:inline-block;margin-top:12px}
@@ -38,16 +38,19 @@
   .inc{list-style:none;margin-top:16px;max-width:64ch}
   .inc li{padding:10px 0 10px 18px;position:relative;border-bottom:1px solid var(--border);color:var(--ink-mid)}
   .inc li:first-child{border-top:1px solid var(--border)}
-  .inc li::before{content:'';position:absolute;left:0;top:19px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .inc li::before{content:'';position:absolute;left:0;top:19px;width:6px;height:6px;border-radius:1px;background:var(--accent)}
 
-  .steps{list-style:none;counter-reset:t;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px;margin-top:30px}
-  .steps li{counter-increment:t;border-top:2px solid var(--border);padding-top:18px;font-size:15px;color:var(--ink-mid)}
-  .steps li::before{content:counter(t);display:block;font-family:'Young Serif',Georgia,serif;font-size:40px;line-height:1;color:var(--accent);margin-bottom:12px}
+  .steps{list-style:none;counter-reset:t;position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--s5);margin-top:var(--s6)}
+  .steps::before{content:'';position:absolute;left:0;right:0;top:11px;height:1px;background:var(--border)}
+  .steps li{counter-increment:t;position:relative;padding-top:var(--s6);font-size:15px;color:var(--ink-mid)}
+  .steps li::before{content:counter(t);position:absolute;top:0;left:0;width:24px;height:24px;border-radius:var(--r-control);background:var(--accent);color:#fff;font:700 13px/24px 'Albert Sans',sans-serif;text-align:center;box-shadow:0 0 0 6px var(--surface)}
   .steps b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
-  @media(max-width:860px){.steps{grid-template-columns:minmax(0,1fr);gap:0;border-left:2px solid var(--border);margin-left:6px}
-    .steps li{border-top:0;padding:0 0 26px 22px}}
+  @media(max-width:860px){.steps{grid-template-columns:minmax(0,1fr);gap:0;border-left:var(--rule);margin-left:11px}
+    .steps::before{display:none}
+    .steps li{padding:0 0 var(--s6) var(--s6)}
+    .steps li::before{left:-12px}}
 
-  .price-box{margin-top:18px;padding:22px 24px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2);max-width:64ch}
+  .price-box{margin-top:18px;padding:22px 24px;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface-2);max-width:64ch}
   .price-box .n{font-size:22px;font-weight:700;color:var(--ink)}
   .price-box .t{color:var(--ink-mid);margin-top:2px}
   .terms{margin-top:14px;color:var(--ink-mid);max-width:64ch}
@@ -149,6 +152,7 @@
       <a href="/software">Software</a>
       <a href="/campaigns">Campaigns</a>
       <a href="/audit">Free audit</a>
+      <a class="nav-cta" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
     </nav>
   </div>
 

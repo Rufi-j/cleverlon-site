@@ -24,12 +24,13 @@
   /* Screenshot slots. Every <figure class="shot"> below is hidden until you
      have the image: delete the hidden attribute and the layout around it
      switches to its two column version on its own. */
-  .shot{margin:0;border-radius:var(--radius);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
+  .shot{margin:0;border-radius:var(--r-card);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
   .shot[hidden]{display:none}
   .shot img{display:block;width:100%;height:auto}
   .shot figcaption{padding:9px 14px;border-top:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--ink-soft)}
 
-  .section{padding-top:clamp(72px,9vw,112px)}
+  .section{padding-top:var(--section-gap)}
+  .section > .wrap::before{content:'';display:block;height:1px;background:var(--ink);margin-bottom:var(--s6)}
   .section > .wrap > h2{max-width:22ch}
 
   /* 1. hero: split */
@@ -40,6 +41,9 @@
   .hero::after{content:'';position:absolute;top:-120px;right:-80px;width:420px;height:420px;border-radius:50%;border:1px solid rgba(255,255,255,.05);pointer-events:none}
   /* the hero is split in two so the nav sits in a header and the rest in main; they share the dark background */
   .hero-top{padding-bottom:0;overflow:visible;overflow-x:clip;z-index:2}
+  .hero-top .topbar{border-bottom-color:rgba(255,255,255,.12)}
+  .hero .topnav .nav-cta{border-color:rgba(255,255,255,.4);color:#fff;opacity:1}
+  .hero .topnav .nav-cta:hover{background:#fff;color:var(--ink)}
   .hero-body{padding-top:0}
   .hero-body::after{display:none}
   .hero-split{margin-top:clamp(40px,6vw,64px);position:relative;z-index:1}
@@ -94,14 +98,14 @@
   /* 3. services: grid */
   .svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px;margin-top:44px}
   @media(max-width:980px){.svc-grid{grid-template-columns:minmax(0,1fr);gap:56px}}
-  .svc{display:flex;flex-direction:column;border-top:2px solid var(--ink);padding-top:22px}
+  .svc{display:flex;flex-direction:column;border-top:var(--rule);padding-top:var(--s5)}
   .svc .shot{margin-bottom:22px}
-  .svc h3{font-size:15px;color:var(--ink-soft);font-weight:600}
-  .svc .outcome{font-family:'Young Serif',Georgia,serif;font-size:24px;line-height:1.25;margin:8px 0 22px}
-  .svc .eg{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .svc h3{font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase}
+  .svc .outcome{font-family:'Young Serif',Georgia,serif;font-size:24px;line-height:1.25;letter-spacing:-.01em;margin:8px 0 22px}
+  .svc .eg{font-size:12px;font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
   .svc ul{list-style:none;margin:0 0 22px;font-size:15px;color:var(--ink-mid)}
   .svc li{padding:7px 0 7px 16px;position:relative}
-  .svc li::before{content:'';position:absolute;left:0;top:16px;width:5px;height:5px;border-radius:50%;background:var(--ink-ghost)}
+  .svc li::before{content:'';position:absolute;left:0;top:16px;width:5px;height:5px;border-radius:1px;background:var(--ink-ghost)}
   .svc .textlink{margin-top:auto;align-self:flex-start}
   .svc .fine{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
 
@@ -124,47 +128,53 @@
   @media(max-width:860px){.case-item:has(.shot:not([hidden])){grid-template-columns:minmax(0,1fr);gap:28px}.case-item:nth-child(even) .shot{order:0}}
   .case-item h3{font-size:21px;margin-bottom:16px;max-width:30ch}
   .case-item dl > div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;padding:8px 0}
-  .case-item dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+  .case-item dt{font-size:12px;font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
   .case-item dd{font-size:15.5px;color:var(--ink-mid)}
   @media(max-width:520px){.case-item dl > div{grid-template-columns:minmax(0,1fr)}}
 
   /* 6. how we work: numbered timeline */
-  .timeline{list-style:none;counter-reset:t;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 28px;margin-top:44px}
-  .timeline li{counter-increment:t;border-top:2px solid var(--border);padding-top:18px;font-size:15px;color:var(--ink-mid)}
-  .timeline li::before{content:counter(t);display:block;font-family:'Young Serif',Georgia,serif;font-size:40px;line-height:1;color:var(--accent);margin-bottom:12px}
+  .timeline{list-style:none;counter-reset:t;position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 var(--s5);margin-top:var(--s7)}
+  .timeline::before{content:'';position:absolute;left:0;right:0;top:11px;height:1px;background:var(--border)}
+  .timeline li{counter-increment:t;position:relative;padding-top:var(--s6);font-size:15px;color:var(--ink-mid)}
+  .timeline li::before{content:counter(t);position:absolute;top:0;left:0;width:24px;height:24px;border-radius:var(--r-control);background:var(--accent);color:#fff;font:700 13px/24px 'Albert Sans',sans-serif;text-align:center;box-shadow:0 0 0 6px var(--surface)}
   .timeline b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
   @media(max-width:860px){
-    .timeline{grid-template-columns:minmax(0,1fr);gap:0;border-left:2px solid var(--border);margin-left:6px}
-    .timeline li{border-top:0;padding:0 0 30px 26px;position:relative}
-    .timeline li::before{font-size:30px;margin-bottom:6px}
+    .timeline{grid-template-columns:minmax(0,1fr);gap:0;border-left:var(--rule);margin-left:11px}
+    .timeline::before{display:none}
+    .timeline li{padding:0 0 var(--s6) var(--s6)}
+    .timeline li::before{left:-12px}
   }
 
   /* 7. why: pale full width band, split */
-  .why{background:var(--surface-2);margin-top:clamp(72px,9vw,112px);padding:clamp(56px,7vw,88px) 0}
+  .why{background:var(--ink);color:#fff;margin-top:var(--section-gap);padding:var(--section-gap) 0}
+  .why h2{color:#fff}
   .why-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px;align-items:start}
   @media(max-width:860px){.why-split{grid-template-columns:minmax(0,1fr);gap:20px}}
-  .why p{color:var(--ink-mid);font-size:16.5px;max-width:58ch}
-  .why ul{list-style:none;margin-top:22px}
-  .why li{padding:10px 0 10px 20px;border-left:2px solid var(--border);color:var(--ink-mid);font-size:15.5px}
-  .why li + li{margin-top:4px}
+  .why p{color:rgba(255,255,255,.72);font-size:16.5px;max-width:58ch}
+  .why ul{list-style:none;margin-top:var(--s5);border-bottom:1px solid rgba(255,255,255,.14)}
+  .why li{padding:var(--s4) 0;border-top:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.82);font-size:15.5px}
 
   /* 8. FAQ */
   .faq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px;align-items:start}
   @media(max-width:860px){.faq{grid-template-columns:minmax(0,1fr);gap:24px}}
   details.q{border-top:1px solid var(--border)}
   details.q:last-child{border-bottom:1px solid var(--border)}
-  details.q summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-weight:700;font-size:17px;position:relative}
+  details.q summary{list-style:none;cursor:pointer;padding:var(--s5) 44px var(--s5) 0;font-weight:700;font-size:17px;position:relative}
   details.q summary::-webkit-details-marker{display:none}
-  details.q summary::after{content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:400;color:var(--ink-soft)}
+  details.q summary::after{content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:26px;font-weight:300;color:var(--ink-soft)}
   details.q[open] summary::after{content:'\2212'}
   details.q summary:hover{color:var(--accent)}
   details.q p{padding:0 40px 22px 0;color:var(--ink-mid);font-size:16px;max-width:60ch}
 
-  .cta + .wrap .foot{margin-top:0;border-top:0}
+  .cta + .wrap .foot{margin-top:0}
 
-  /* 9. final call to action */
-  .cta{background:var(--accent-light);margin-top:clamp(72px,9vw,112px);padding:clamp(48px,6vw,72px) 0}
-  .cta h2{max-width:20ch;margin-bottom:22px}
+  /* 9. final call to action: a ruled block with the button on the right */
+  .cta{margin-top:var(--section-gap)}
+  .cta > .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s6) var(--s7);align-items:center;padding-bottom:var(--s7)}
+  .cta > .wrap::before{content:'';grid-column:1/-1;height:1px;background:var(--ink)}
+  .cta h2{max-width:20ch}
+  .cta .btn{justify-self:end}
+  @media(max-width:860px){.cta > .wrap{grid-template-columns:minmax(0,1fr)}.cta .btn{justify-self:start}}
 
   @media(max-width:640px){
     .svc ul,.timeline li,.who p,.case-item dd,.why li{font-size:16px}
@@ -312,6 +322,7 @@
         <a href="/software">Software</a>
         <a href="/campaigns">Campaigns</a>
         <a href="/audit">Free audit</a>
+        <a class="nav-cta" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
       </nav>
     </div>
   </div>

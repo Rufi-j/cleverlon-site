@@ -25,7 +25,7 @@
   .head h1{margin-top:40px;max-width:16ch}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
-  .group{margin-top:64px}
+  .group{margin-top:var(--section-gap);border-top:var(--rule-ink);padding-top:var(--s6)}
   .group h2{font-size:clamp(22px,3vw,28px);padding-bottom:14px;border-bottom:1px solid var(--border)}
 
   .svc{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:10px 40px;padding:26px 0;border-bottom:1px solid var(--border)}
@@ -37,21 +37,23 @@
   .svc summary:hover{color:var(--accent)}
   .svc ul{list-style:none;margin-top:10px}
   .svc li{padding:3px 0 3px 16px;position:relative}
-  .svc li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--ink-ghost)}
+  .svc li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:1px;background:var(--ink-ghost)}
   .svc .textlink{display:inline-block;margin-top:12px;font-size:15px}
   .price{align-self:start}
   .price .n{font-size:19px;font-weight:700;color:var(--ink)}
   .price .t{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
   @media(min-width:761px){.price{text-align:right}}
 
-  .custom{margin-top:72px;padding-top:30px;border-top:1px solid var(--border);max-width:680px}
+  .custom{margin-top:var(--section-gap);padding-top:var(--s6);border-top:var(--rule-ink)}
+  .custom > *{max-width:680px}
   .custom p{color:var(--ink-mid);margin-top:12px}
   .custom .textlink{display:inline-block;margin-top:12px}
 
   .terms{margin-top:56px;font-size:14.5px;color:var(--ink-mid);max-width:72ch}
   .terms b{color:var(--ink)}
 
-  .closer{margin-top:64px;max-width:620px}
+  .closer{margin-top:var(--section-gap);padding-top:var(--s6);border-top:var(--rule-ink)}
+  .closer > *{max-width:620px}
   .closer p{color:var(--ink-mid);margin:12px 0 22px}
 
   @media(max-width:640px){
@@ -166,6 +168,7 @@
       <a href="/software">Software</a>
       <a href="/campaigns">Campaigns</a>
       <a href="/audit">Free audit</a>
+      <a class="nav-cta" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
     </nav>
   </div>
 

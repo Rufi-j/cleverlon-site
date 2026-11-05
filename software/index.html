@@ -24,13 +24,13 @@
   .head h1{margin-top:40px;max-width:16ch}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
-  .band{padding:72px 0 0}
+  .band,.case,.build-split,.closer{margin-top:var(--section-gap);border-top:var(--rule-ink);padding-top:var(--s6)}
   .band h2{max-width:19ch}
   .band > .rows{margin-top:26px}
 
   .steps{counter-reset:s;margin-top:26px;border-top:1px solid var(--border)}
-  .step{counter-increment:s;position:relative;padding:24px 0 24px 72px;border-bottom:1px solid var(--border)}
-  .step::before{content:counter(s);position:absolute;left:0;top:14px;font-family:'Young Serif',Georgia,serif;font-size:36px;line-height:1;color:var(--ink-ghost)}
+  .step{counter-increment:s;position:relative;padding:var(--s5) 0 var(--s5) 48px;border-bottom:var(--rule)}
+  .step::before{content:counter(s);position:absolute;left:0;top:28px;width:24px;height:24px;border-radius:var(--r-control);background:var(--accent);color:#fff;font:700 13px/24px 'Albert Sans',sans-serif;text-align:center}
   .step h3{margin-bottom:6px}
   .step p{font-size:15.5px;color:var(--ink-mid);max-width:62ch}
 
@@ -39,30 +39,30 @@
   .stack p{font-size:15px;color:var(--ink-mid)}
   .stack p + p{margin-top:10px}
 
-  .case{margin-top:88px;max-width:760px}
+  .case > *{max-width:760px}
   .case h2{margin-bottom:14px;max-width:22ch}
   .case p{color:var(--ink-mid);font-size:16px;max-width:64ch}
   .case ul{list-style:none;margin:22px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 26px}
   @media(max-width:640px){.case ul{grid-template-columns:1fr}}
   .case li{font-size:14.5px;color:var(--ink-mid);padding-left:18px;position:relative}
-  .case li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--ink-ghost)}
+  .case li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:1px;background:var(--ink-ghost)}
 
-  .build-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:104px;align-items:start}
-  @media(max-width:900px){.build-split{grid-template-columns:1fr;gap:56px;margin-top:80px}}
+  .build-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+  @media(max-width:900px){.build-split{grid-template-columns:1fr;gap:56px}}
   .video{position:sticky;top:24px}
   @media(max-width:900px){.video{position:static}}
   .video h2{max-width:22ch;margin-bottom:20px}
-  .vframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
+  .vframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-card);overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
   .vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
   .intake h2{max-width:20ch}
   .intake .lede{margin-top:14px;font-size:16px}
-  .iform{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:30px 28px;margin-top:28px;}
+  .iform{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-card);padding:30px 28px;margin-top:28px;}
   @media(max-width:640px){.iform{padding:24px 18px}}
   .field{margin-bottom:16px}
   .iform label{display:block;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
   .iform input,.iform select,.iform textarea{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--border);
-    border-radius:9px;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
+    border-radius:var(--r-control);background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
   .iform textarea{min-height:120px;resize:vertical}
   .iform select{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A8398' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
@@ -75,7 +75,7 @@
   .iform .done h3{margin-bottom:8px}
   .iform .done p{font-size:15px;color:var(--ink-mid)}
 
-  .closer{margin-top:88px;max-width:560px}
+  .closer > *{max-width:560px}
   .closer p{color:var(--ink-mid);margin:12px 0 22px}
   .iform .actions{display:flex;gap:12px;flex-wrap:wrap}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -153,6 +153,7 @@
       <a href="/software" aria-current="page">Software</a>
       <a href="/campaigns">Campaigns</a>
       <a href="/audit">Free audit</a>
+      <a class="nav-cta" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
     </nav>
   </div>
 
