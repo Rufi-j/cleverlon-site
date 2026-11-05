@@ -195,7 +195,8 @@ The hidden service slots further down the home page use their own filenames
 (`home-automation-service.webp`, `home-software-service.webp`, `home-campaign-service.webp`)
 so a hero image never appears twice if a slot is unhidden. The installment tracking
 case study uses `home-case-installments.webp` (shown with demo data), the WhatsApp case study uses
-`whatsapp-agent-workflow.webp`, and the tracker page uses `campaign-game-real-estate.webp`.
+`whatsapp-agent-workflow.webp`, the lead generation case study uses `home-case-lead-generation.webp`, and the
+tracker page uses `campaign-game-real-estate.webp`.
 
 ## Form endpoints
 
