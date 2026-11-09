@@ -35,25 +35,33 @@
     "url": "https://cleverlon.com/"
   },
   "areaServed": "Worldwide",
-  "description": "We build spin wheels, scratch cards and quizzes in your brand. When someone plays, we save their name and number, mark the lead hot, warm or cold from their answer, and send a WhatsApp message with their prize. Your team calls the hot ones.",
+  "description": "We build spin wheels, scratch cards and quizzes in your brand. The player gets their prize straight away and we save their name and number. With Custom and Campaign + automation we also mark the lead hot, warm or cold and follow up on WhatsApp.",
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Two packages",
+    "name": "Three options",
     "itemListElement": [
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Launch Campaign",
-          "description": "Best for promos, product launches and seasonal sales. Live in about 2 weeks."
+          "name": "Starter",
+          "description": "Our spin wheel with your logo, colors and prizes. The player sees their prize on screen and gets it by email, with a button to claim it on WhatsApp. Leads are saved to a Google Sheet. Live in about 5 days."
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Always-On Engagement",
-          "description": "Best for loyalty, trivia leagues and businesses that want a steady flow of leads."
+          "name": "Custom",
+          "description": "A game designed around your campaign, with lead scoring and automatic WhatsApp follow-up. Live in about 2 weeks."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Campaign + automation",
+          "description": "A custom game plus lead qualification and routing and WhatsApp follow-up. A monthly fee covers hosting, monitoring and changes. Live in 2 to 3 weeks."
         }
       }
     ]
@@ -162,11 +170,21 @@ input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px soli
 .fmtlist b{color:var(--fg);font-weight:600}
 
 /* packages */
-.packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-@media(max-width:760px){.packs{grid-template-columns:1fr}}
-.pack{padding:26px 32px 26px 0;display:flex;flex-direction:column;gap:12px}
-.pack + .pack{padding-left:32px;border-left:1px solid var(--line)}
-@media(max-width:760px){.pack{padding:24px 0}.pack + .pack{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s5)}
+@media(max-width:900px){.packs{grid-template-columns:1fr}}
+.pack{position:relative;padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-card);display:flex;flex-direction:column;gap:12px}
+.pack.rec{border-color:var(--fg)}
+.chip{position:absolute;top:-13px;left:var(--s5);background:var(--fg);color:#fff;font-size:12px;font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase;line-height:1;padding:7px 10px;border-radius:var(--r-control)}
+.pack ul{flex:1;align-content:start}
+.packnotes{display:grid;gap:4px;max-width:62ch}
+.packnotes p{margin:0;color:var(--muted);font-size:15.5px}
+.prose{margin:0;max-width:62ch;color:var(--muted);font-size:17px}
+.textlink{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid transparent}
+.textlink:hover{border-bottom-color:currentColor}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s7)}
+@media(max-width:760px){.two{grid-template-columns:1fr;gap:var(--s6)}}
+.two>div{border-top:var(--rule);padding-top:var(--s4);display:flex;flex-direction:column;gap:8px}
+.two p{margin:0;color:var(--muted);font-size:16px;max-width:52ch}
 .price{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
 .price small{font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted)}
 .pack ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--fg)}
@@ -217,8 +235,8 @@ h1,h2{text-wrap:balance}
   <main>
   <div class="hero">
     <div class="hero-copy">
-      <h1>Branded games that collect leads for you.</h1>
-      <p class="lede">We build spin wheels, scratch cards and quizzes in your brand. When someone plays, we save their name and number, mark the lead hot, warm or cold from their answer, and send a WhatsApp message with their prize. Your team calls the hot ones.</p>
+      <h1>Branded games that capture leads and follow up with them.</h1>
+      <p class="lede">Someone plays a game in your brand and leaves their name and number. The player gets their prize straight away, by email or on WhatsApp, and the lead is saved for your team. You choose from eight game formats, including a spin wheel, a scratch card and a quiz.</p>
       <div class="row">
         <a class="btn" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a>
         <a class="btn ghost" href="#games">Play our games</a>
@@ -236,7 +254,8 @@ h1,h2{text-wrap:balance}
         <p class="result" id="result" aria-live="polite"></p>
         <form class="cap" id="cap" novalidate>
           <label>First name<input id="fName" autocomplete="given-name" placeholder="e.g. Tolu" required></label>
-          <label>WhatsApp number<input id="fPhone" inputmode="tel" placeholder="080..."></label>
+          <label>Email<input id="fEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <label class="full">WhatsApp number (optional)<input id="fPhone" inputmode="tel" autocomplete="tel" placeholder="080..."></label>
           <label class="full"><span id="qLabel"></span><select id="fQ"></select></label>
           <button class="btn full" id="spinBtn" type="submit">Spin to win</button>
           <p class="note full">Demo only. Nothing you enter is saved or sent.</p>
@@ -259,13 +278,20 @@ h1,h2{text-wrap:balance}
 
   <section>
     <h2>How a play becomes a lead</h2>
-    <p class="lede">Many agencies deliver the game and a spreadsheet of emails. We connect the game to your follow-up, so each player hears from you seconds after playing.</p>
+    <p class="lede">Many games end with a spreadsheet of emails. We connect the game to your follow-up, so each player hears from you seconds after playing.</p>
     <div class="pipe">
       <div class="step"><span class="n">1</span><h3>Play</h3><p>A short game in your brand, easy to share with friends.</p></div>
       <div class="step"><span class="n">2</span><h3>Capture</h3><p>Name, number and one question, asked before the prize is shown.</p></div>
       <div class="step"><span class="n">3</span><h3>Score</h3><p>The answer to that question marks the lead hot, warm or cold.</p></div>
       <div class="step"><span class="n">4</span><h3>Follow up</h3><p>The prize code and next step go out on WhatsApp in seconds. Hot leads also alert your sales team.</p></div>
     </div>
+    <p class="prose">Scoring, hot-lead alerts and automatic WhatsApp messages come with Custom and Campaign + automation. On Starter, the player gets the prize by email.</p>
+  </section>
+
+  <section>
+    <h2>What happens to the leads</h2>
+    <p class="prose">With Campaign + automation, leads from the game go into our <a class="textlink" href="/lead-qualification-routing/">lead qualification and routing</a> system. Each one is scored against your criteria and sent to the right person, so your team calls the hot ones first.</p>
+    <p class="prose">Custom and Campaign + automation follow up on WhatsApp automatically. The prize code and next step go out in seconds. If a player replies with a question, our <a class="textlink" href="/whatsapp-support-agent/">WhatsApp support agent</a> can answer routine ones at any hour and hand serious ones to a person.</p>
   </section>
 
   <section id="games">
@@ -290,22 +316,48 @@ h1,h2{text-wrap:balance}
       <li><b>Weekly trivia league</b> with a leaderboard and prizes.</li>
       <li><b>Loyalty streaks</b> with points and badges.</li>
     </ul>
+    <p class="prose">Starter is the spin wheel. Every other format is built under Custom.</p>
   </section>
 
   <section>
-    <h2>Two packages</h2>
+    <h2>Pricing</h2>
     <div class="packs">
       <div class="pack">
-        <h3>Launch Campaign</h3>
-        <div class="price">from $800 <small>one-time</small></div>
-        <ul><li>One branded game with your prizes</li><li>Landing page and lead capture</li><li>Leads delivered to your CRM or Google Sheets</li><li>Automated WhatsApp or email follow-up</li><li>Results report at the end</li></ul>
-        <div class="best">Best for promos, product launches and seasonal sales. Live in about 2 weeks.</div>
+        <h3>Starter</h3>
+        <div class="price">$500</div>
+        <ul><li>Our spin wheel, with your logo, colors and prizes</li><li>The player sees their prize on screen and gets it by email, with a button to claim it on WhatsApp</li><li>Leads saved to a Google Sheet</li></ul>
+        <div class="best">Live in about 5 days.</div>
       </div>
       <div class="pack">
-        <h3>Always-On Engagement</h3>
-        <div class="price">from $800 <small>setup + $150/month</small></div>
-        <ul><li>Everything in Launch Campaign</li><li>Lead scoring and hot-lead alerts</li><li>Monthly new questions, prizes or themes</li><li>Monthly dashboard of plays, leads and sales</li></ul>
-        <div class="best">Best for loyalty, trivia leagues and businesses that want a steady flow of leads.</div>
+        <h3>Custom</h3>
+        <div class="price">from $1,200</div>
+        <ul><li>A game designed around your campaign, in any of our eight formats</li><li>Lead scoring: hot, warm or cold</li><li>Automatic WhatsApp follow-up</li></ul>
+        <div class="best">Live in about 2 weeks.</div>
+      </div>
+      <div class="pack rec">
+        <span class="chip">Recommended</span>
+        <h3>Campaign + automation</h3>
+        <div class="price">$2,800 <small>setup + $300/month</small></div>
+        <ul><li>A custom game</li><li>Lead qualification and routing</li><li>WhatsApp follow-up</li><li>The monthly fee covers hosting, monitoring and changes</li></ul>
+        <div class="best">Live in 2 to 3 weeks.</div>
+      </div>
+    </div>
+    <div class="packnotes">
+      <p>Starter and Custom include 30 days of hosting. After that, keeping a campaign live costs $50/month.</p>
+      <p>Based in Nigeria? Ask about naira pricing on the call.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Agencies and events</h2>
+    <div class="two">
+      <div>
+        <h3>For agencies</h3>
+        <p>We build branded campaigns for agencies to run for their clients, under the agency's brand. Agency rates are available. <a class="textlink" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a> and we will go through them.</p>
+      </div>
+      <div>
+        <h3>At events</h3>
+        <p>A game can run on a tablet at your stand, or players can reach it by scanning a QR code. That suits events, launches and store openings.</p>
       </div>
     </div>
   </section>
@@ -403,6 +455,9 @@ $("cap").addEventListener("submit",e=>{
   e.preventDefault();if(spinning)return;
   const name=$("fName").value.trim();
   if(!name){$("fName").focus();$("fName").placeholder="Enter a name to spin";return}
+  const email=$("fEmail").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){$("fEmail").setAttribute("aria-invalid","true");$("fEmail").focus();$("result").textContent="Enter an email address to spin.";return}
+  $("fEmail").removeAttribute("aria-invalid");
   if(window.cleverlonTrack)cleverlonTrack("Game play",{game:"Spin wheel demo"});
   resetBts();spinning=true;$("spinBtn").disabled=true;$("result").textContent="";
   const n=brand.prizes.length,seg=Math.PI*2/n,win=Math.floor(Math.random()*n);
@@ -415,14 +470,14 @@ $("cap").addEventListener("submit",e=>{
 });
 function finish(name,win){
   const prize=brand.prizes[win],opt=brand.opts[+$("fQ").value],score=opt[1],c=code();
-  const phone=$("fPhone").value.trim()||"080 •••• ••••";
+  const phone=$("fPhone").value.trim()||"080 •••• ••••",email=$("fEmail").value.trim();
   $("result").textContent=`${name}, you won: ${prize}!`;
   const steps=document.querySelectorAll("#steps li");
   const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
   at(300,()=>steps[0].classList.add("done"));
   at(900,()=>steps[1].classList.add("done"));
   at(1500,()=>{steps[2].classList.add("done");
-    $("crm").innerHTML=`<table><thead><tr><th>Name</th><th>WhatsApp</th><th>Prize</th><th>Code</th><th>Lead</th></tr></thead><tbody><tr><td>${esc(name)}</td><td>${esc(phone)}</td><td>${prize}</td><td>${c}</td><td><span class="tag ${score}">${score}</span></td></tr></tbody></table>`;
+    $("crm").innerHTML=`<table><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Prize</th><th>Code</th><th>Lead</th></tr></thead><tbody><tr><td>${esc(name)}</td><td>${esc(email)}</td><td>${esc(phone)}</td><td>${prize}</td><td>${c}</td><td><span class="tag ${score}">${score}</span></td></tr></tbody></table>`;
     $("crm").hidden=false});
   at(2300,()=>{steps[3].classList.add("done");
     const now=new Date(),hh=now.getHours(),mm=String(now.getMinutes()).padStart(2,"0");
