@@ -128,6 +128,9 @@ form.cap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));g
 form.cap label{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:600}
 input,select{font:15px var(--body);color:#0D1117;background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:var(--r-control);padding:9px 10px;width:100%}
 .cap .full{grid-column:1/-1}
+form.cap .check{flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:13px;line-height:1.4}
+form.cap .check input{width:20px;height:20px;margin:0;flex:none;padding:0}
+form.cap .check a{color:inherit}
 .stage .btn{width:100%;justify-content:center}
 .note{font-size:12px;opacity:.8;margin:0}
 .result{font-family:var(--display);font-weight:400;font-size:20px;text-align:center;min-height:1.2em;margin:0}
@@ -257,8 +260,9 @@ h1,h2{text-wrap:balance}
           <label>Email<input id="fEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
           <label class="full">WhatsApp number (optional)<input id="fPhone" inputmode="tel" autocomplete="tel" placeholder="080..."></label>
           <label class="full"><span id="qLabel"></span><select id="fQ"></select></label>
+          <label class="full check"><input type="checkbox" id="fConsent" required><span>I agree that <span id="cBrand"></span> can contact me about this prize by email or WhatsApp. See the <a href="/privacy/" target="_blank" rel="noopener">privacy policy</a> and <a href="/terms/" target="_blank" rel="noopener">terms</a>.</span></label>
           <button class="btn full" id="spinBtn" type="submit">Spin to win</button>
-          <p class="note full">Demo only. Nothing you enter is saved or sent.</p>
+          <p class="note full" id="demoNote">Demo only. Nothing you enter is saved or sent.</p>
         </form>
       </div>
       <div class="bts">
@@ -295,9 +299,10 @@ h1,h2{text-wrap:balance}
   </section>
 
   <section id="games">
-    <h2>Try three of our own games</h2>
+    <h2>Try four of our own games</h2>
     <p class="lede">Each one shows a system we build for clients.</p>
     <div class="games">
+      <a class="game" href="/campaigns/catch-the-deals/"><span class="kind">Arcade game · 30 seconds</span><h3>Catch the Deals</h3><p>Catch the deals and dodge the sold out signs. Your score sets the prize, and claiming it shows how a promo game collects names and numbers.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/beat-the-bot/"><span class="kind">Reply race · 2 minutes</span><h3>Beat the Bot</h3><p>You and our AI agent answer the same customer messages. See who replies first. It shows how our WhatsApp support agent works.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/survive-monday/"><span class="kind">Chaos sim · 45 seconds</span><h3>Survive Monday</h3><p>Handle leads, invoices and complaints in 45 seconds. Then replay the same morning with automation switched on.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/shortlist-rush/"><span class="kind">Hiring game · 60 seconds</span><h3>Shortlist Rush</h3><p>Screen 36 CVs against the clock in 60 seconds. Then watch the AI rank the same pile and give a reason for each score.</p><span class="go">Play</span></a>
@@ -387,6 +392,12 @@ h1,h2{text-wrap:balance}
 </div>
 
 <script>
+// Claims are sent here as JSON: {name, email, phone, score, prize, brand, src, game}. Same webhook as Catch the Deals.
+// While it still holds the placeholder, the wheel runs in demo mode and sends nothing.
+const CLAIM_ENDPOINT="https://YOUR-N8N-HOST/webhook/campaign-prize-claims";
+const DEMO_MODE=CLAIM_ENDPOINT.includes("YOUR-N8N-HOST");
+const SRC=(new URLSearchParams(location.search).get("src")||"direct").slice(0,60);
+let claim=null;
 const BRANDS=[
   {id:"homes",label:"Real estate",name:"Palmrose Homes",tag:"New estate launch. Spin for a launch-week reward.",
    bg:"#123B2E",fg:"#F3EBD8",cols:["#1F6B4F","#E2B14A","#2E8C66","#F3EBD8"],txt:["#fff","#123B2E","#fff","#123B2E"],
@@ -415,7 +426,7 @@ function renderBrands(){
 function applyBrand(){
   renderBrands();
   const s=$("stage");s.style.background=brand.bg;s.style.color=brand.fg;
-  $("bName").textContent=brand.name;$("bTag").textContent=brand.tag;
+  $("bName").textContent=brand.name;$("bTag").textContent=brand.tag;$("cBrand").textContent=brand.name;
   $("qLabel").textContent=brand.q;
   $("fQ").innerHTML=brand.opts.map((o,i)=>`<option value="${i}">${o[0]}</option>`).join("");
   $("spinBtn").style.background=brand.cols[1];$("spinBtn").style.color=brand.txt[1];
@@ -458,9 +469,13 @@ $("cap").addEventListener("submit",e=>{
   const email=$("fEmail").value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){$("fEmail").setAttribute("aria-invalid","true");$("fEmail").focus();$("result").textContent="Enter an email address to spin.";return}
   $("fEmail").removeAttribute("aria-invalid");
+  const phoneIn=$("fPhone").value.trim(),digits=phoneIn.replace(/\D/g,"");
+  if(phoneIn&&(digits.length<10||digits.length>15)){$("fPhone").focus();$("result").textContent="Check your WhatsApp number, or leave it empty.";return}
+  if(!$("fConsent").checked){$("fConsent").focus();$("result").textContent="Tick the box to spin.";return}
   if(window.cleverlonTrack)cleverlonTrack("Game play",{game:"Spin wheel demo"});
   resetBts();spinning=true;$("spinBtn").disabled=true;$("result").textContent="";
   const n=brand.prizes.length,seg=Math.PI*2/n,win=Math.floor(Math.random()*n);
+  claim=DEMO_MODE?null:sendClaim({name,email,phone:phoneIn,score:null,prize:brand.prizes[win],brand:brand.name,src:SRC,game:"Spin wheel"});
   const target=-Math.PI/2-(win+0.5)*seg+(Math.random()-.5)*seg*0.6;
   const start=rot,base=start-(start%(Math.PI*2));
   let end=base+Math.PI*2*6+target;while(end<start+Math.PI*2*5)end+=Math.PI*2;
@@ -468,8 +483,24 @@ $("cap").addEventListener("submit",e=>{
   const ease=t=>1-Math.pow(1-t,4);
   (function frame(now){const t=Math.min(1,(now-t0)/dur);rot=start+(end-start)*ease(t);draw();if(t<1)requestAnimationFrame(frame);else finish(name,win)})(t0);
 });
-function finish(name,win){
-  const prize=brand.prizes[win],opt=brand.opts[+$("fQ").value],score=opt[1],c=code();
+async function sendClaim(payload){
+  try{
+    const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),12000);
+    const res=await fetch(CLAIM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:ctl.signal});
+    clearTimeout(tm);
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    let data={};try{data=await res.json()}catch(x){}
+    return {ok:true,code:data&&typeof data.code==="string"?data.code:null};
+  }catch(e){return {ok:false,payload}}
+}
+async function finish(name,win){
+  const sent=claim?await claim:null;
+  if(sent&&!sent.ok){
+    $("result").innerHTML=`${esc(name)}, you won: ${esc(brand.prizes[win])}! We couldn't save your claim. <button class="btn" type="button" id="retryClaim" style="margin-top:8px">Send it again</button>`;
+    $("retryClaim").onclick=()=>{$("retryClaim").disabled=true;claim=sendClaim(sent.payload);finish(name,win)};
+    spinning=false;return;
+  }
+  const prize=brand.prizes[win],opt=brand.opts[+$("fQ").value],score=opt[1],c=(sent&&sent.code)||code();
   const phone=$("fPhone").value.trim()||"080 •••• ••••",email=$("fEmail").value.trim();
   $("result").textContent=`${name}, you won: ${prize}!`;
   const steps=document.querySelectorAll("#steps li");
@@ -490,6 +521,7 @@ function finish(name,win){
 function esc(s){return s.replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
 window.addEventListener("resize",draw);
 document.fonts?.ready.then(draw);
+if(!DEMO_MODE)$("demoNote").hidden=true;
 applyBrand();
 </script>
 

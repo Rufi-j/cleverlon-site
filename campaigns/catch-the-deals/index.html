@@ -146,7 +146,7 @@ h1{letter-spacing:-.02em}
 </div>
 
 <script>
-// Claims are sent here as JSON: {name, email, phone, score, prize, brand, src}.
+// Claims are sent here as JSON: {name, email, phone, score, prize, brand, src, game}.
 // While it still holds the placeholder, the form runs in demo mode and sends nothing.
 const CLAIM_ENDPOINT="https://YOUR-N8N-HOST/webhook/campaign-prize-claims";
 const DEMO_MODE=CLAIM_ENDPOINT.includes("YOUR-N8N-HOST");
@@ -447,7 +447,7 @@ async function submitClaim(e){
   const digits=phone.replace(/\D/g,"");
   if(phone&&(digits.length<10||digits.length>15)){err.textContent="Check your WhatsApp number, or leave it empty.";$("fPhone").focus();return}
   if(!$("fConsent").checked){err.textContent="Tick the box so we can send you your prize.";$("fConsent").focus();return}
-  const payload={name,email,phone,score:lastScore,prize:lastPrize.label,brand:brand.name,src:SRC};
+  const payload={name,email,phone,score:lastScore,prize:lastPrize.label,brand:brand.name,src:SRC,game:"Catch the Deals"};
   let code=null;
   if(DEMO_MODE){code=makeCode()}
   else{
