@@ -14,6 +14,7 @@ campaigns/index.html    interactive campaigns, with a live spin-wheel demo
 campaigns/beat-the-bot/index.html
 campaigns/survive-monday/index.html
 campaigns/shortlist-rush/index.html
+campaigns/catch-the-deals/index.html  arcade catch game with prize tiers, claim form and local top-5 leaderboard
 tracker/index.html      free Installment Payment Tracker lead magnet (land and homes)
 audit/index.html        the diagnostic questionnaire (self-contained, see below)
 privacy/index.html      privacy policy
@@ -107,10 +108,10 @@ seems to need one, say so instead of adding it.
   Aim for one accent moment per screen.
 - **Motion:** 150ms changes of color, background and border. No transforms on hover.
 
-The four `campaigns/` pages are the exception. They do not load `shared.css`;
+The five `campaigns/` pages are the exception. They do not load `shared.css`;
 they carry their own copy of the tokens in a `:root` block, already matched to
-the site, including the spacing, radius, rule and type tokens above. The three game
-pages get the radius rules from a short block at the end of their style. They also load JetBrains Mono, which is accepted there. If a token changes in `shared.css`, change it in those four too.
+the site, including the spacing, radius, rule and type tokens above. The four game
+pages get the radius rules from a short block at the end of their style. They also load JetBrains Mono, which is accepted there. If a token changes in `shared.css`, change it in those five too.
 
 ## Rules that apply sitewide
 
@@ -200,6 +201,12 @@ tracker page uses `campaign-game-real-estate.webp`.
 
 ## Form endpoints
 
+`campaigns/catch-the-deals/index.html` has a `CLAIM_ENDPOINT` constant at the top of its script. While it holds the
+`YOUR-N8N-HOST` placeholder, the claim form runs in demo mode and sends nothing. Set it to the n8n "Campaign Prize
+Claims" webhook to go live; the page then POSTs `{name, email, phone, score, prize, brand, src}` and shows the `code`
+the webhook returns. Its leaderboard is the only localStorage use on the site (scores and dates only); the privacy
+policy says so.
+
 No placeholders are unset. Both forms post to live Apps Script web apps through
 `WEBHOOK_URL`: `tracker/index.html` and `software/index.html` (both scripts are described
 above). Do not change or empty either URL without being asked, because the form
@@ -215,7 +222,7 @@ deploy previews out of the stats. Umami keeps data for 6 months on the free plan
 Events (`window.cleverlonTrack(name, data)`, safe to call before Umami loads): "Book a call" (any Calendly link) and
 "Audit link click" (any link to /audit) are tracked by `analytics.js` itself. "Tracker form submit" and
 "Software form submit" are called after a successful send in those pages. "Game play" (with a `game` property)
-is called when each game starts: Beat the Bot, Survive Monday, Shortlist Rush and the spin wheel demo. Never
+is called when each game starts: Beat the Bot, Survive Monday, Shortlist Rush, Catch the Deals and the spin wheel demo. Never
 send what a visitor typed. Keep `privacy/index.html` accurate when
 analytics changes.
 
