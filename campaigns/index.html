@@ -140,6 +140,9 @@ form.cap .check a{color:inherit}
 .bts li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);transition:color .2s}
 .bts li .dot{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px}
 .bts li.done{color:var(--fg)}
+.next{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.next p{margin:0;font-size:15px}
+.next .row{display:flex;flex-wrap:wrap;gap:8px}
 .bts li.done .dot{background:var(--bot);border-color:var(--bot);color:#fff}
 .bts li b{font-weight:600}
 .crm{overflow-x:auto}
@@ -276,6 +279,10 @@ h1,h2{text-wrap:balance}
         </ol>
         <div class="crm" id="crm" hidden></div>
         <div class="wa" id="wa" hidden></div>
+        <div class="next" id="next" hidden>
+          <p><b>Want this for your business?</b> We set it up with your logo, colors and prizes.</p>
+          <div class="row"><a class="btn" href="https://wa.me/2348051817820?text=GAME%2C%20I%20tried%20the%20spin%20wheel%20demo" target="_blank" rel="noopener">WhatsApp us GAME</a><a class="btn ghost" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a></div>
+        </div>
       </div>
     </div>
   </div>
@@ -459,7 +466,7 @@ function resetBts(){
   timers.forEach(clearTimeout);timers=[];
   document.querySelectorAll("#steps li").forEach(li=>li.classList.remove("done"));
   document.querySelector('#steps li[data-s="4"] span:last-child').innerHTML="<b>Sales team alerted</b> for hot leads only";
-  $("crm").hidden=true;$("wa").hidden=true;
+  $("crm").hidden=true;$("wa").hidden=true;$("next").hidden=true;
 }
 function code(){return brand.name.split(" ").map(w=>w[0]).join("")+"-"+Math.floor(1000+Math.random()*9000)}
 $("cap").addEventListener("submit",e=>{
@@ -516,6 +523,7 @@ async function finish(name,win){
     $("wa").hidden=false});
   at(3000,()=>{const li=steps[4];li.classList.add("done");
     li.querySelector("span:last-child").innerHTML=score==="Hot"?`<b>Sales team alerted:</b> ${esc(name)} is a hot lead`:`<b>No alert needed:</b> ${score.toLowerCase()} lead added to a nurture sequence`;
+    $("next").hidden=false;
     spinning=false;$("spinBtn").disabled=false;$("spinBtn").textContent="Spin again"});
 }
 function esc(s){return s.replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}

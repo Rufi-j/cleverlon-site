@@ -50,9 +50,9 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);lin
 .pill b{font-family:var(--mono);font-size:16px}
 .mute{margin-left:auto;font:600 13px var(--body);background:var(--bg);color:var(--fg);border:1px solid var(--line);padding:6px 12px;cursor:pointer;min-height:36px}
 .game{display:flex;flex-direction:column;gap:10px;scroll-margin-top:8px}
-.stage{position:relative;width:100%;aspect-ratio:3/4;max-height:calc(100svh - 76px);margin:0 auto;overflow:hidden;background:#123B2E;touch-action:none;user-select:none;-webkit-user-select:none}
-.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:none}
-.overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:16px;z-index:5;overflow:auto;color:var(--sfg,#fff);background:color-mix(in srgb,var(--sbg,#123B2E) 88%,transparent)}
+.stage{position:relative;width:100%;aspect-ratio:3/4;max-height:calc(100svh - 76px);margin:0 auto;overflow:hidden;background:#123B2E;user-select:none;-webkit-user-select:none}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:none;touch-action:none}
+.overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:16px;z-index:5;overflow:auto;touch-action:pan-y;overscroll-behavior:contain;color:var(--sfg,#fff);background:color-mix(in srgb,var(--sbg,#123B2E) 88%,transparent)}
 .panel{width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px;margin:auto 0}
 .panel h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,6vw,32px);line-height:1.1;margin:0;text-wrap:balance}
 .panel p{margin:0;opacity:.88}
@@ -86,6 +86,9 @@ form.claim a,.panel a:not(.btn){color:inherit}
 .err{color:#fff;background:var(--bad);padding:6px 10px;font-size:13px}
 .err:empty{display:none}
 .note{font-size:12px;opacity:.75}
+.next{border-top:1px solid color-mix(in srgb,var(--sfg,#fff) 25%,transparent);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.next p{margin:0}
+.nextline{font-size:14px;margin:0}
 .code{font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:.06em;padding:12px;text-align:center;background:var(--sfg,#fff);color:var(--sbg,#123B2E)}
 .shake{animation:shake .25s linear}
 @keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
@@ -392,6 +395,7 @@ function endGame(){
     <div class="prize pop" role="status"><span>You won</span><b>${lastPrize.label}</b><span>${lastPrize.line}</span></div>
     <div class="row"><button class="btn" id="claimBtn" type="button">Claim my prize</button><button class="btn ghost" id="againBtn" type="button">Play again</button></div>
     <button class="btn wa" id="shareBtn" type="button">Challenge a friend on WhatsApp</button>
+    ${DEMO_MODE?`<p class="nextline">Want this for your business? <a href="https://wa.me/2348051817820?text=GAME%2C%20I%20played%20Catch%20the%20Deals" target="_blank" rel="noopener">WhatsApp us GAME</a></p>`:""}
     ${boardHTML(board,entry)}
   </div>`;
   $("claimBtn").onclick=showClaim;$("againBtn").onclick=startGame;$("shareBtn").onclick=share;
@@ -427,6 +431,7 @@ function endScreenAgain(){
     <div class="prize"><span>You won</span><b>${lastPrize.label}</b><span>${lastPrize.line}</span></div>
     <div class="row"><button class="btn" id="claimBtn" type="button">Claim my prize</button><button class="btn ghost" id="againBtn" type="button">Play again</button></div>
     <button class="btn wa" id="shareBtn" type="button">Challenge a friend on WhatsApp</button>
+    ${DEMO_MODE?`<p class="nextline">Want this for your business? <a href="https://wa.me/2348051817820?text=GAME%2C%20I%20played%20Catch%20the%20Deals" target="_blank" rel="noopener">WhatsApp us GAME</a></p>`:""}
     ${boardHTML(loadBoard(),null)}
   </div>`;
   $("claimBtn").onclick=showClaim;$("againBtn").onclick=startGame;$("shareBtn").onclick=share;
@@ -472,8 +477,9 @@ function showCode(code,name){
     <h2>${esc(name)}, here's your code</h2>
     <div class="code" aria-label="Prize code">${code}</div>
     <p><b>${lastPrize.label}</b> at ${esc(brand.name)}. ${lastPrize.line} Show this code to claim it.</p>
-    ${DEMO_MODE?`<p class="note">This is a demo code. In a live campaign it also goes to your email or WhatsApp, and the business sees your claim in their sheet.</p>`:`<p class="note">We've also sent it to you.</p>`}
+    ${DEMO_MODE?`<p class="note">Demo code. In a live campaign it also goes to the player, and the claim lands in the business's sheet.</p>`:`<p class="note">We've also sent it to you.</p>`}
     <div class="row"><button class="btn wa" id="shareBtn" type="button">Challenge a friend</button><button class="btn ghost" id="againBtn" type="button">Play again</button></div>
+    ${DEMO_MODE?`<div class="next"><p><b>Want this game for your business?</b> We swap in your logo, colors, products and prizes.</p><div class="row"><a class="btn" href="https://wa.me/2348051817820?text=GAME%2C%20I%20played%20Catch%20the%20Deals" target="_blank" rel="noopener">WhatsApp us GAME</a><a class="btn ghost" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a></div></div>`:""}
   </div>`;
   $("shareBtn").onclick=share;$("againBtn").onclick=startGame;
 }
