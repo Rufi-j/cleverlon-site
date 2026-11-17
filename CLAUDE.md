@@ -205,7 +205,7 @@ tracker page uses `campaign-game-real-estate.webp`.
 constant at the top of their script. While it holds the `YOUR-N8N-HOST` placeholder, the claim form runs in demo mode
 and sends nothing. Set both to the n8n "Campaign Prize Claims" webhook to go live; the pages then POST
 `{name, email, phone, score, prize, brand, src, game}` (the wheel sends `score: null`) and show the `code` the webhook
-returns. Its leaderboard is the only localStorage use on the site (scores and dates only); the privacy
+returns. Its leaderboard (scores and dates only) and the USD / NGN choice on /campaigns/ (key `cleverlon-currency`) are the only localStorage uses on the site; the privacy
 policy says so.
 
 No placeholders are unset. Both forms post to live Apps Script web apps through

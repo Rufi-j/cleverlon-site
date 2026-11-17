@@ -182,6 +182,14 @@ form.cap .check a{color:inherit}
 .pack.rec{border-color:var(--fg)}
 .chip{position:absolute;top:-13px;left:var(--s5);background:var(--fg);color:#fff;font-size:12px;font-weight:600;letter-spacing:var(--track-label);text-transform:uppercase;line-height:1;padding:7px 10px;border-radius:var(--r-control)}
 .pack ul{flex:1;align-content:start}
+.curbar{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap}
+.cur{display:inline-flex}
+.cur button{font:600 14px var(--body);min-height:44px;padding:0 var(--s4);border:1px solid var(--fg);background:transparent;color:var(--fg);cursor:pointer}
+.cur button:first-child{border-radius:var(--r-control) 0 0 var(--r-control)}
+.cur button:last-child{border-radius:0 var(--r-control) var(--r-control) 0;margin-left:-1px}
+.cur button:hover{background:var(--surface)}
+.cur button[aria-pressed="true"],.cur button[aria-pressed="true"]:hover{background:var(--fg);color:#fff}
+.curnote{margin:0;color:var(--muted);font-size:15.5px}
 .packnotes{display:grid;gap:4px;max-width:62ch}
 .packnotes p{margin:0;color:var(--muted);font-size:15.5px}
 .prose{margin:0;max-width:62ch;color:var(--muted);font-size:17px}
@@ -192,7 +200,7 @@ form.cap .check a{color:inherit}
 .two>div{border-top:var(--rule);padding-top:var(--s4);display:flex;flex-direction:column;gap:8px}
 .two p{margin:0;color:var(--muted);font-size:16px;max-width:52ch}
 .price{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
-.price small{font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted)}
+.price small{display:block;margin-top:var(--s2);font-family:var(--body);font-weight:500;font-size:14px;line-height:1.4;color:var(--muted)}
 .pack ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--fg)}
 .pack .best{font-size:14px;color:var(--muted)}
 
@@ -333,32 +341,53 @@ h1,h2{text-wrap:balance}
 
   <section>
     <h2>Pricing</h2>
+    <div class="curbar">
+      <div class="cur" id="cur" role="group" aria-label="Currency" hidden>
+        <button type="button" data-cur="usd" aria-pressed="true">USD</button><button type="button" data-cur="ngn" aria-pressed="false">NGN</button>
+      </div>
+      <p class="curnote" id="curnote" role="status">Prices in US dollars.</p>
+    </div>
     <div class="packs">
       <div class="pack">
         <h3>Starter</h3>
-        <div class="price">$500</div>
+        <div class="price"><span class="amt" data-usd="$200" data-ngn="₦150,000">$200</span></div>
         <ul><li>Our spin wheel, with your logo, colors and prizes</li><li>The player sees their prize on screen and gets it by email, with a button to claim it on WhatsApp</li><li>Leads saved to a Google Sheet</li></ul>
         <div class="best">Live in about 5 days.</div>
       </div>
       <div class="pack">
         <h3>Custom</h3>
-        <div class="price">from $1,200</div>
+        <div class="price"><span class="amt" data-usd="from $500" data-ngn="from ₦400,000">from $500</span></div>
         <ul><li>A game designed around your campaign, in any of our eight formats</li><li>Lead scoring: hot, warm or cold</li><li>Automatic WhatsApp follow-up</li></ul>
         <div class="best">Live in about 2 weeks.</div>
       </div>
       <div class="pack rec">
         <span class="chip">Recommended</span>
         <h3>Campaign + automation</h3>
-        <div class="price">$2,800 <small>setup + $300/month</small></div>
+        <div class="price"><span class="amt" data-usd="$1,200" data-ngn="₦950,000">$1,200</span> <small>setup + <span class="amt" data-usd="$200" data-ngn="₦100,000">$200</span>/month</small></div>
         <ul><li>A custom game</li><li>Lead qualification and routing</li><li>WhatsApp follow-up</li><li>The monthly fee covers hosting, monitoring and changes</li></ul>
         <div class="best">Live in 2 to 3 weeks.</div>
       </div>
     </div>
     <div class="packnotes">
-      <p>Starter and Custom include 30 days of hosting. After that, keeping a campaign live costs $50/month.</p>
-      <p>Based in Nigeria? Ask about naira pricing on the call.</p>
+      <p>Starter and Custom include 30 days of hosting. After that, keeping a campaign live costs <span class="amt" data-usd="$20" data-ngn="₦15,000">$20</span>/month.</p>
     </div>
   </section>
+  <script>
+  /* USD / NGN switch. Without JavaScript the page shows USD and the switch stays hidden. */
+  (function(){
+    var bar=document.getElementById("cur"),note=document.getElementById("curnote");if(!bar||!note)return;
+    var KEY="cleverlon-currency",cur="usd";
+    try{var s=localStorage.getItem(KEY);if(s==="ngn"||s==="usd")cur=s}catch(e){}
+    function show(c,say){
+      cur=c;
+      document.querySelectorAll(".amt").forEach(function(el){el.textContent=el.getAttribute("data-"+c)});
+      bar.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-cur")===c?"true":"false")});
+      note.textContent=c==="ngn"?"Prices in naira.":"Prices in US dollars.";
+    }
+    bar.hidden=false;show(cur);
+    bar.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var c=b.getAttribute("data-cur");if(c===cur)return;show(c);try{localStorage.setItem(KEY,c)}catch(err){}});
+  })();
+  </script>
 
   <section>
     <h2>Agencies and events</h2>
