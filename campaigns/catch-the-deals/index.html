@@ -490,6 +490,8 @@ function share(){
 }
 function esc(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
 
+// every new screen in the overlay starts at the top, whatever the last one was scrolled to
+new MutationObserver(()=>{ov.scrollTop=0}).observe(ov,{childList:true});
 window.addEventListener("resize",resize);
 document.fonts?.ready.then(draw);
 applyBrand();resize();
