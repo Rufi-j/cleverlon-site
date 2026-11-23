@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>12 Days of Detty December | Cleverlon</title>
+<meta name="description" content="A December calendar game in your brand. A new door opens each day with a deal, a quiz or a quick game, and every prize is claimed with a name and number.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="12 Days of Detty December | Cleverlon">
+<meta property="og:description" content="A December calendar game in your brand. A new door opens each day with a deal, a quiz or a quick game, and every prize is claimed with a name and number.">
+<meta property="og:image" content="https://cleverlon.com/og-image.png">
+<meta property="og:url" content="https://cleverlon.com/campaigns/advent/">
+<link rel="canonical" href="https://cleverlon.com/campaigns/advent/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="12 Days of Detty December | Cleverlon">
+<meta name="twitter:description" content="A December calendar game in your brand. A new door opens each day with a deal, a quiz or a quick game, and every prize is claimed with a name and number.">
+<meta name="twitter:image" content="https://cleverlon.com/og-image.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preload" href="/fonts/albert-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/young-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts.css">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script src="/analytics.js" defer></script>
+</head>
+<body>
+<style>
+/* Layout: one column. Brand switcher and preview switch, then the calendar stage (brand name, 12 doors) with an overlay for each door (deal, quiz or tap game, then the claim form and code). A short note for businesses sits under it. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6FA; --fg:#0D1117; --muted:#5F677A; --line:#E2E5EF;
+  --accent:#1246E6; --bad:#A32020;
+  --display:"Young Serif",Georgia,serif;
+  --body:"Albert Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:flex;flex-direction:column;gap:16px}
+.brand{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+main{display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0}
+.intro{margin:0;color:var(--muted)}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.brands{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.brand-btn{font:600 13px var(--body);border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:6px 12px;cursor:pointer}
+.brand-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.preview{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)}
+.preview input{width:20px;height:20px;margin:0}
+.stage{position:relative;padding:18px;color:var(--sfg,#fff);background:var(--sbg,#7A1E12);overflow:hidden;min-height:520px}
+.stage .bname{font-family:var(--display);font-size:24px;line-height:1.1}
+.stage .tag{margin:4px 0 14px;opacity:.85;font-size:14px}
+.doors{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:480px){.doors{grid-template-columns:repeat(3,1fr)}}
+.door{aspect-ratio:1;border:2px solid color-mix(in srgb,var(--sfg,#fff) 35%,transparent);background:color-mix(in srgb,var(--sfg,#fff) 10%,transparent);color:inherit;font:400 30px var(--display);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;text-align:center}
+.door small{font:600 11px var(--mono);letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.door.today{background:var(--gold,#FFC23D);border-color:var(--gold,#FFC23D);color:var(--goldfg,#5A1409)}
+.door.locked{cursor:not-allowed;opacity:.55}
+.door.done{background:var(--sfg,#fff);color:var(--sbg,#7A1E12);border-color:var(--sfg,#fff)}
+.door.done small{opacity:1}
+.door:not(.locked):not(.done):hover{border-color:var(--sfg,#fff)}
+.overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:16px;z-index:5;overflow:auto;background:color-mix(in srgb,var(--sbg,#7A1E12) 94%,transparent);color:var(--sfg,#fff);overscroll-behavior:contain}
+.panel{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px;margin:auto 0}
+.panel h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,6vw,30px);line-height:1.1;margin:0;text-wrap:balance}
+.panel p{margin:0;opacity:.9}
+.kind{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.prize{padding:14px;border:1px solid color-mix(in srgb,var(--sfg,#fff) 30%,transparent);display:flex;flex-direction:column;gap:2px}
+.prize b{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1}
+.prize.pop{animation:pop .45s ease-out}
+@keyframes pop{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.05);opacity:1}100%{transform:none}}
+.opts{display:grid;gap:8px}
+.opt{font:600 16px var(--body);text-align:left;padding:12px 14px;border:1px solid color-mix(in srgb,var(--sfg,#fff) 45%,transparent);background:transparent;color:inherit;cursor:pointer}
+.opt.right{background:#1F8A4C;border-color:#1F8A4C;color:#fff}
+.opt.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+.tapzone{display:flex;flex-direction:column;align-items:center;gap:10px}
+.gift{width:150px;height:150px;font-size:76px;line-height:1;border:0;background:color-mix(in srgb,var(--sfg,#fff) 14%,transparent);color:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.gift:active{background:color-mix(in srgb,var(--sfg,#fff) 26%,transparent)}
+.taps{font:700 30px var(--mono);font-variant-numeric:tabular-nums}
+.bar{width:100%;height:8px;background:color-mix(in srgb,var(--sfg,#fff) 20%,transparent)}
+.bar i{display:block;height:100%;width:100%;background:var(--sfg,#fff)}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:600 15px var(--body);border:0;padding:12px 18px;background:var(--gold,#FFC23D);color:var(--goldfg,#5A1409);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn.ghost{background:transparent;color:inherit;border:1px solid color-mix(in srgb,var(--sfg,#fff) 45%,transparent)}
+.btn.wa{background:#1F8A4C;color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+form.claim{display:grid;gap:10px}
+form.claim label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;letter-spacing:.04em}
+form.claim input[type=text],form.claim input[type=email],form.claim input[type=tel]{font:400 16px var(--body);padding:10px 12px;border:1px solid var(--line);background:#fff;color:var(--fg);width:100%}
+form.claim .check{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:13px;letter-spacing:0;line-height:1.4}
+form.claim .check input{width:20px;height:20px;margin:0;flex:none}
+form.claim a,.panel a:not(.btn){color:inherit}
+.err{color:#fff;background:var(--bad);padding:6px 10px;font-size:13px}
+.err:empty{display:none}
+.note{font-size:12px;opacity:.75}
+.code{font-family:var(--mono);font-weight:700;font-size:28px;letter-spacing:.06em;padding:12px;text-align:center;background:var(--sfg,#fff);color:var(--sbg,#7A1E12)}
+.next{border-top:1px solid color-mix(in srgb,var(--sfg,#fff) 25%,transparent);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+section.biz{border-top:1px solid var(--fg);padding-top:24px;display:flex;flex-direction:column;gap:10px;margin-top:16px}
+section.biz h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4vw,30px);line-height:1.12;margin:0}
+section.biz p{margin:0}
+section.biz a{color:var(--accent)}
+.foot{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.prize.pop{animation:none}}
+
+/* keyboard focus, hover and pressed states */
+a,button,summary{transition:color .15s,background .15s,border-color .15s,opacity .15s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.stage :focus-visible{outline-color:currentColor}
+h1,h2{text-wrap:balance}
+@media(max-width:640px){
+  body{font-size:16px}
+  .brand a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+  .label,.note{font-size:12px}
+  .brand-btn{min-height:44px;padding:6px 14px}
+}
+.foot a{color:inherit}
+
+/* design tokens, matched to shared.css */
+:root{--r-control:4px;--r-card:8px}
+.btn,input,.brand-btn,.code,.err,.opt,.door{border-radius:var(--r-control)}
+.btn{min-height:44px}
+.stage,.overlay,.prize,.gift{border-radius:var(--r-card)}
+h1{letter-spacing:-.02em}
+</style>
+
+<div class="wrap">
+  <header class="brand"><a href="/" style="text-decoration:none">Home</a> · <a href="/campaigns" style="text-decoration:none">&larr; Cleverlon campaigns</a> · a 12-day December calendar</header>
+  <main>
+  <h1>12 Days of Detty December</h1>
+  <p class="intro">A new door opens every day from December 13 to 24. Behind each one is a deal, a one-question quiz or a 5-second game, and every prize is claimed with a name and number.</p>
+  <div class="brands" id="brands"><span class="label">Sample brand</span></div>
+  <label class="preview"><input type="checkbox" id="preview" checked> Preview all 12 days (in a live calendar, one door opens each day)</label>
+
+  <div class="stage" id="stage">
+    <div class="bname" id="bName"></div>
+    <p class="tag" id="bTag"></p>
+    <div class="doors" id="doors"></div>
+    <div class="overlay" id="ov" hidden></div>
+  </div>
+
+  <section class="biz">
+    <h2>Run this calendar for your business</h2>
+    <p>We fill the 12 doors with your own deals, quiz questions and prizes, in your logo and colors. Customers come back each day to open the next door, and every claim lands in your sheet with the prize and a unique code.</p>
+    <p><a href="/campaigns#games">See all our games and packages</a></p>
+  </section>
+  </main>
+  <footer class="foot">A demo by Cleverlon. The sample brands are fictional and the prizes are not real.<br><a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="/terms/">Terms</a><br>&copy; 2026 Cleverlon. All rights reserved.</footer>
+</div>
+
+<script>
+// Claims are sent here as JSON: {name, email, phone, score, prize, brand, src, game, day}. Same webhook as the other games.
+// While it still holds the placeholder, the form runs in demo mode and sends nothing.
+const CLAIM_ENDPOINT="https://YOUR-N8N-HOST/webhook/campaign-prize-claims";
+const DEMO_MODE=CLAIM_ENDPOINT.includes("YOUR-N8N-HOST");
+const FIRST_DAY=new Date(2026,11,13); // door 1 opens December 13, door 12 on December 24
+const TAP_GOAL=10,TAP_SECONDS=5;
+const WA_NUMBER="2348051817820";
+
+// Each door: [kind, prize, extra]. kind is deal, quiz or tap. For a quiz, extra is [question, options, index of the right one].
+const BRANDS=[
+  {id:"food",label:"Restaurant",name:"Bukka Bliss",tag:"Open a door every day for a December treat.",
+   bg:"#7A1E12",fg:"#FFF3E3",gold:"#FFC23D",goldfg:"#5A1409",gift:"🍲",consolation:"5% off your next order",
+   doors:[
+    ["deal","10% off any rice dish"],
+    ["quiz","Free small chops",["Which dish do Bukka Bliss customers order most?",["Jollof rice","Pounded yam","Fried rice"],0]],
+    ["tap","A free drink"],
+    ["deal","Free delivery on orders over ₦10,000"],
+    ["quiz","A free plantain side",["What goes best with jollof rice?",["Fried plantain","Ice cream","Cornflakes"],0]],
+    ["tap","Buy 1 get 1 jollof"],
+    ["deal","15% off family packs"],
+    ["quiz","A free bowl of pepper soup",["What does small chops usually include?",["Puff-puff and samosa","Bread and tea","Rice and beans"],0]],
+    ["tap","A free dessert"],
+    ["deal","A free drink with any order"],
+    ["quiz","20% off your order",["Which of these is a Nigerian soup?",["Egusi","Minestrone","Gazpacho"],0]],
+    ["tap","A free party tray for 6"]]},
+  {id:"fashion",label:"Fashion store",name:"Adire Lane",tag:"12 days of December deals on new arrivals.",
+   bg:"#2A1840",fg:"#FCEFF5",gold:"#F4C04E",goldfg:"#3D2800",gift:"🎁",consolation:"5% off any item",
+   doors:[
+    ["deal","10% off new arrivals"],
+    ["quiz","A free tote bag",["Adire fabric is best known for which dye?",["Indigo","Gold","Neon green"],0]],
+    ["tap","15% off accessories"],
+    ["deal","Free delivery in Lagos"],
+    ["quiz","A free headwrap",["What is ankara?",["A printed cotton fabric","A shoe style","A type of hat"],0]],
+    ["tap","Buy 2 tops, get 1 free"],
+    ["deal","20% off one dress"],
+    ["quiz","Free alterations",["Adire comes from which part of Nigeria?",["The Southwest","The North","The East"],0]],
+    ["tap","A ₦5,000 voucher"],
+    ["deal","Free gift wrapping"],
+    ["quiz","25% off one item",["How should you wash adire to keep its color?",["Cold water, by hand","Hot water with bleach","Never wash it"],0]],
+    ["tap","A free styling session and 30% off"]]},
+  {id:"homes",label:"Real estate",name:"Palmrose Homes",tag:"12 days of December offers on Palmrose plots.",
+   bg:"#123B2E",fg:"#F3EBD8",gold:"#E2B14A",goldfg:"#123B2E",gift:"🏡",consolation:"A free site visit",
+   doors:[
+    ["deal","A free site inspection ride"],
+    ["quiz","A free survey plan consultation",["What does C of O stand for?",["Certificate of Occupancy","Contract of Ownership","Cost of Operation"],0]],
+    ["tap","₦50k off any plot"],
+    ["deal","A free legal review of your documents"],
+    ["quiz","Priority allocation",["What does a survey plan show?",["The exact boundaries of a plot","The house design","The price list"],0]],
+    ["tap","₦100k off any plot"],
+    ["deal","Zero processing fee"],
+    ["quiz","Free plot staking",["Which document usually comes first after you pay for a plot?",["Allocation letter","C of O","Building plan"],0]],
+    ["tap","A free family site visit"],
+    ["deal","3 extra months on your installment plan"],
+    ["quiz","₦150k off any plot",["In an estate ad, what does dry land mean?",["Land that does not flood","Land with no trees","Land sold in the dry season"],0]],
+    ["tap","₦250k off a plot"]]}
+];
+const SRC=(new URLSearchParams(location.search).get("src")||"direct").slice(0,60);
+const REDUCE=matchMedia("(prefers-reduced-motion: reduce)");
+const $=id=>document.getElementById(id);
+const stage=$("stage"),ov=$("ov");
+let brand=BRANDS[0],claimed={},current=null,tapTimer=null,started=false;
+
+function todayDoor(){ // 0 before December 13, 1 to 12 during the calendar, 13 after
+  const now=new Date(),d0=new Date(FIRST_DAY);
+  const days=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-d0)/864e5);
+  return Math.max(0,Math.min(13,days+1));
+}
+function isOpen(n){return $("preview").checked||n<=todayDoor()}
+function doorDate(n){const d=new Date(FIRST_DAY);d.setDate(d.getDate()+n-1);return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})}
+
+function renderBrands(){
+  $("brands").innerHTML=`<span class="label">Sample brand</span>`+BRANDS.map(b=>`<button class="brand-btn" type="button" data-id="${b.id}" aria-pressed="${b===brand}">${b.label}</button>`).join("");
+  document.querySelectorAll(".brand-btn").forEach(btn=>btn.onclick=()=>{brand=BRANDS.find(x=>x.id===btn.dataset.id);claimed={};closeDoor();applyBrand()});
+}
+function applyBrand(){
+  renderBrands();
+  for(const [k,v] of [["--sbg",brand.bg],["--sfg",brand.fg],["--gold",brand.gold],["--goldfg",brand.goldfg]])stage.style.setProperty(k,v);
+  $("bName").textContent=brand.name;$("bTag").textContent=brand.tag;
+  renderDoors();
+}
+function renderDoors(){
+  const t=todayDoor(),preview=$("preview").checked;
+  $("doors").innerHTML=brand.doors.map((d,i)=>{
+    const n=i+1,open=isOpen(n),done=claimed[n];
+    const cls=done?"done":!open?"locked":(!preview&&n===t)?"today":"";
+    const sub=done?"Claimed":!open?doorDate(n):(!preview&&n===t)?"Today":"";
+    return `<button class="door ${cls}" type="button" data-n="${n}" aria-label="Door ${n}${done?", claimed":!open?", opens "+doorDate(n):""}"${!open?" aria-disabled=\"true\"":""}>${n}${sub?`<small>${sub}</small>`:""}</button>`;
+  }).join("");
+  document.querySelectorAll(".door").forEach(b=>b.onclick=()=>{const n=+b.dataset.n;if(!isOpen(n)){flashLocked(b,n);return}openDoor(n)});
+}
+function flashLocked(b,n){const s=b.querySelector("small");if(s){s.textContent="Opens "+doorDate(n);setTimeout(()=>{if(s.isConnected)s.textContent=doorDate(n)},1400)}}
+$("preview").onchange=()=>{closeDoor();renderDoors()};
+
+/* ---------- a door ---------- */
+const KIND={deal:"Today's deal",quiz:"Quiz",tap:"Quick game"};
+function openDoor(n){
+  if(!started){started=true;if(window.cleverlonTrack)cleverlonTrack("Game play",{game:"Advent calendar"})}
+  const [kind,prize,extra]=brand.doors[n-1];
+  current={n,kind,prize};
+  ov.hidden=false;
+  if(claimed[n])return showCode(claimed[n].code,claimed[n].name,claimed[n].prize);
+  if(kind==="deal")return showPrize(prize,"Behind door "+n);
+  if(kind==="quiz"){
+    const [q,opts]=extra;
+    ov.innerHTML=`<div class="panel"><span class="kind">Door ${n} · ${KIND.quiz}</span><h2>${esc(q)}</h2><p>Get it right to win: <b>${esc(prize)}</b></p>
+      <div class="opts">${opts.map((o,i)=>`<button class="opt" type="button" data-i="${i}">${esc(o)}</button>`).join("")}</div>
+      <div class="row"><button class="btn ghost" type="button" id="closeBtn">Back to the calendar</button></div></div>`;
+    document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i));
+  }
+  if(kind==="tap"){
+    ov.innerHTML=`<div class="panel"><span class="kind">Door ${n} · ${KIND.tap}</span><h2>Tap the gift ${TAP_GOAL} times in ${TAP_SECONDS} seconds</h2><p>Do it to win: <b>${esc(prize)}</b></p>
+      <div class="tapzone"><button class="gift" type="button" id="gift" aria-label="Tap the gift">${brand.gift}</button><div class="taps" id="taps">0 / ${TAP_GOAL}</div><div class="bar"><i id="bar"></i></div></div>
+      <p class="note" id="tapNote">The timer starts on your first tap.</p>
+      <div class="row"><button class="btn ghost" type="button" id="closeBtn">Back to the calendar</button></div></div>`;
+    startTap();
+  }
+  $("closeBtn").onclick=closeDoor;
+}
+function answer(i){
+  const [,, [q,opts,right]]=brand.doors[current.n-1];
+  document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;const k=+b.dataset.i;if(k===right)b.classList.add("right");else if(k===i)b.classList.add("wrong")});
+  setTimeout(()=>{
+    if(i===right)showPrize(current.prize,"Right answer");
+    else showPrize(brand.consolation,`Not quite. The answer is ${opts[right]}. You still win`);
+  },REDUCE.matches?200:700);
+}
+function startTap(){
+  let taps=0,t0=0,done=false;
+  const g=$("gift");
+  const finish=win=>{
+    if(done)return;done=true;clearInterval(tapTimer);g.disabled=true;
+    if(win)setTimeout(()=>showPrize(current.prize,"You did it"),REDUCE.matches?150:400);
+    else{$("tapNote").textContent=`Out of time at ${taps} taps.`;
+      const r=document.createElement("button");r.className="btn";r.type="button";r.textContent="Try again";r.onclick=()=>openDoor(current.n);
+      $("tapNote").after(r)}
+  };
+  g.onclick=()=>{
+    if(done)return;
+    if(!t0){t0=performance.now();tapTimer=setInterval(()=>{const left=Math.max(0,TAP_SECONDS-(performance.now()-t0)/1000);$("bar").style.width=(left/TAP_SECONDS*100)+"%";if(left<=0)finish(false)},50)}
+    taps++;$("taps").textContent=`${taps} / ${TAP_GOAL}`;
+    if(!REDUCE.matches){g.animate([{transform:"scale(.92)"},{transform:"scale(1)"}],{duration:120})}
+    if(taps>=TAP_GOAL)finish(true);
+  };
+}
+function showPrize(prize,lead){
+  current.won=prize;
+  ov.innerHTML=`<div class="panel"><span class="kind">Door ${current.n} · ${KIND[current.kind]}</span>
+    <div class="prize pop" role="status"><span>${esc(lead)}</span><b>${esc(prize)}</b><span>at ${esc(brand.name)}</span></div>
+    <div class="row"><button class="btn" type="button" id="claimBtn">Claim it</button><button class="btn ghost" type="button" id="closeBtn">Back to the calendar</button></div>
+    <button class="btn wa" type="button" id="shareBtn">Share the calendar on WhatsApp</button>
+  </div>`;
+  $("claimBtn").onclick=showClaim;$("closeBtn").onclick=closeDoor;$("shareBtn").onclick=share;
+  $("claimBtn").focus({preventScroll:true});
+}
+function showClaim(){
+  ov.innerHTML=`<div class="panel"><span class="kind">Door ${current.n}</span><h2>Claim ${esc(current.won)}</h2>
+    <form class="claim" id="claimForm" novalidate>
+      <label>First name<input type="text" id="fName" autocomplete="given-name" maxlength="60" required></label>
+      <label>Email<input type="email" id="fEmail" autocomplete="email" maxlength="120" required></label>
+      <label>WhatsApp number (optional)<input type="tel" id="fPhone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="080..."></label>
+      <label class="check"><input type="checkbox" id="fConsent" required><span>I agree that ${esc(brand.name)} can contact me about this prize by email or WhatsApp. See the <a href="/privacy/" target="_blank" rel="noopener">privacy policy</a> and <a href="/terms/" target="_blank" rel="noopener">terms</a>.</span></label>
+      <p class="err" id="fErr" role="alert"></p>
+      <div class="row"><button class="btn" id="sendBtn" type="submit">Get my code</button><button class="btn ghost" id="backBtn" type="button">Back</button></div>
+      ${DEMO_MODE?`<p class="note">Demo only. Nothing you enter is saved or sent.</p>`:""}
+    </form></div>`;
+  $("backBtn").onclick=()=>showPrize(current.won,"Behind door "+current.n);
+  $("claimForm").addEventListener("submit",submitClaim);
+  $("fName").focus({preventScroll:true});
+}
+function makeCode(n){
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="";
+  const buf=new Uint32Array(4);crypto.getRandomValues(buf);for(const x of buf)s+=chars[x%chars.length];
+  return `D${n}-${s}`;
+}
+async function submitClaim(e){
+  e.preventDefault();
+  const name=$("fName").value.trim(),email=$("fEmail").value.trim(),phone=$("fPhone").value.trim(),err=$("fErr");
+  err.textContent="";
+  if(!name){err.textContent="Enter your first name.";$("fName").focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Enter a valid email address.";$("fEmail").focus();return}
+  const digits=phone.replace(/\D/g,"");
+  if(phone&&(digits.length<10||digits.length>15)){err.textContent="Check your WhatsApp number, or leave it empty.";$("fPhone").focus();return}
+  if(!$("fConsent").checked){err.textContent="Tick the box so we can send you your prize.";$("fConsent").focus();return}
+  const n=current.n,prize=current.won;
+  const payload={name,email,phone,score:null,prize,brand:brand.name,src:SRC,game:"Advent calendar",day:n};
+  let code;
+  if(DEMO_MODE)code=makeCode(n);
+  else{
+    $("sendBtn").disabled=true;$("sendBtn").textContent="Sending...";
+    try{
+      const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),12000);
+      const res=await fetch(CLAIM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:ctl.signal});
+      clearTimeout(tm);if(!res.ok)throw new Error("HTTP "+res.status);
+      let data={};try{data=await res.json()}catch(x){}
+      code=(data&&typeof data.code==="string"&&data.code)||makeCode(n);
+    }catch(x){
+      err.textContent="We couldn't send your claim. Check your connection and try again.";
+      $("sendBtn").disabled=false;$("sendBtn").textContent="Get my code";return;
+    }
+  }
+  claimed[n]={code,name,prize};renderDoors();showCode(code,name,prize);
+}
+function showCode(code,name,prize){
+  const n=current.n,nextN=n<12?n+1:null;
+  ov.innerHTML=`<div class="panel"><h2>${esc(name)}, here's your code</h2>
+    <div class="code" aria-label="Prize code">${code}</div>
+    <p><b>${esc(prize)}</b> at ${esc(brand.name)}. Show this code to claim it.${nextN?` Door ${nextN} opens ${$("preview").checked?"next":"on "+doorDate(nextN)}.`:""}</p>
+    ${DEMO_MODE?`<p class="note">Demo code. In a live calendar it also goes to the player, and the claim lands in the business's sheet.</p>`:`<p class="note">We've also sent it to you.</p>`}
+    <div class="row"><button class="btn" type="button" id="closeBtn">Back to the calendar</button><button class="btn wa" type="button" id="shareBtn">Share on WhatsApp</button></div>
+    ${DEMO_MODE?`<div class="next"><p><b>Want this calendar for your business?</b> We fill the 12 doors with your deals and prizes.</p><div class="row"><a class="btn" href="https://wa.me/${WA_NUMBER}?text=GAME%2C%20I%20tried%20the%20December%20calendar" target="_blank" rel="noopener">WhatsApp us GAME</a><a class="btn ghost" href="https://calendly.com/cleverlon/audit-review" target="_blank" rel="noopener">Book a call</a></div></div>`:""}
+  </div>`;
+  $("closeBtn").onclick=closeDoor;$("shareBtn").onclick=share;
+}
+function closeDoor(){clearInterval(tapTimer);ov.hidden=true;ov.innerHTML="";current=null}
+function share(){
+  const url=location.origin+location.pathname+"?src=share";
+  const text=`${brand.name} has a December calendar with a new prize every day. Open a door: ${url}`;
+  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank","noopener");
+}
+function esc(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+
+// every new screen in the overlay starts at the top, whatever the last one was scrolled to
+new MutationObserver(()=>{ov.scrollTop=0}).observe(ov,{childList:true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!ov.hidden)closeDoor()});
+applyBrand();
+</script>
+
+</body>
+</html>

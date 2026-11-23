@@ -162,6 +162,8 @@ form.cap .check a{color:inherit}
 
 /* games */
 .games{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+@media(min-width:640px) and (max-width:899px){.games{grid-template-columns:repeat(2,1fr)}.games .game:first-child{grid-column:1/-1}}
+@media(min-width:900px){.games{grid-template-columns:repeat(6,1fr)}.games .game{grid-column:span 2}.games .game:nth-child(-n+2){grid-column:span 3}}
 .game{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:18px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .15s,border-color .15s}
 .game:hover{border-color:var(--accent)}
 .game .kind{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -314,9 +316,10 @@ h1,h2{text-wrap:balance}
   </section>
 
   <section id="games">
-    <h2>Try four of our own games</h2>
+    <h2>Try five of our own games</h2>
     <p class="lede">Each one shows a system we build for clients.</p>
     <div class="games">
+      <a class="game" href="/campaigns/advent/"><span class="kind">December calendar · 12 days</span><h3>12 Days of Detty December</h3><p>Open a door for a deal, a quiz or a quick game. A live calendar opens one door a day, so customers come back every day.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/catch-the-deals/"><span class="kind">Arcade game · 30 seconds</span><h3>Catch the Deals</h3><p>Catch the deals and dodge the sold out signs. Your score sets the prize, and claiming it shows how a promo game collects names and numbers.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/beat-the-bot/"><span class="kind">Reply race · 2 minutes</span><h3>Beat the Bot</h3><p>You and our AI agent answer the same customer messages. See who replies first. It shows how our WhatsApp support agent works.</p><span class="go">Play</span></a>
       <a class="game" href="/campaigns/survive-monday/"><span class="kind">Chaos sim · 45 seconds</span><h3>Survive Monday</h3><p>Handle leads, invoices and complaints in 45 seconds. Then replay the same morning with automation switched on.</p><span class="go">Play</span></a>
